@@ -1,0 +1,18 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block title %}
+    <title>Авторизация</title>
+{% endblock %}
+
+{% block pageNaming %}Авторизация{% endblock %}
+{% block main %}
+    <input class="textbox" type="text" name="username" placeholder="Имя пользователя" required>
+    <input class="textbox" type="password" name="password" placeholder="Пароль" required>
+{% endblock %}
+{% block submitButtonText %}Войти{% endblock %}
+{% block footer %}
+    <a href="">Зарегистрироваться</a>
+{% endblock %}
+{% block imageUrl %}
+    {% static 'image/sign-in image.png' %}
+{% endblock %}

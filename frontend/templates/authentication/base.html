@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    {% block title %}<title>Base</title>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/authentication.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <form method="post">
+            <header>
+                <div class="user-image">
+                    <img src="{% static 'image/user.png' %}" alt="user">
+                </div>
+                <div class="naming">
+                    <h1>{% block pageNaming %}{% endblock %}</h1>
+                </div>
+            </header>
+            <main>
+                {% block main %}{% endblock %}
+            </main>
+            <footer>
+                <div class="button-box">
+                    <input class="button" type="submit" value="{% block submitButtonText %}{% endblock %}">
+                </div>
+                {% block footer %}{% endblock %}
+            </footer>
+        </form>
+    </div>
+    <div class="image">
+        <img src="{% block imageUrl %}{% endblock %}" alt="image">
+    </div>
+</div>
+</body>
+</html>

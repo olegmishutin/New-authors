@@ -1,0 +1,26 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block title %}
+    <title>Регистрация</title>
+{% endblock %}
+
+{% block pageNaming %}Регистрация{% endblock %}
+{% block main %}
+    <input class="textbox" type="text" name="fullName" placeholder="ФИО" required>
+    <input class="textbox" type="text" name="username" placeholder="Имя пользователя" required>
+    <input class="textbox" type="email" name="email" placeholder="E-mail адрес" required>
+    <input class="textbox" type="password" name="password" placeholder="Пароль" required>
+    <input type="radio" id="userTypeUser" name="userType" value="user" checked required>
+    <input type="radio" id="userTypeAuthor" name="userType" value="author" required>
+    <div class="switch">
+        <button type="button" class="switcher switcher-on" id="switcher-1">Пользователь</button>
+        <button type="button" class="switcher" id="switcher-2">Автор</button>
+    </div>
+{% endblock %}
+{% block submitButtonText %}Зарегистрировать{% endblock %}
+{% block footer %}
+    <script src="{% static 'js/switch.js' %}"></script>
+{% endblock %}
+{% block imageUrl %}
+    {% static 'image/sign-up image.png' %}
+{% endblock %}

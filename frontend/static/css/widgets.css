@@ -1,0 +1,122 @@
+.textbox {
+    width: 100%;
+    border-radius: 10px;
+    min-height: 55px;
+    border: 3px solid white;
+    background: none;
+    padding: 16px 21px 16px 21px;
+    font-size: var(--medium-text);
+    outline: none;
+    color: var(--front-color);
+    box-sizing: border-box;
+    resize: none;
+    transition-duration: 0.3s;
+}
+
+.textbox:hover {
+    padding-left: 14px;
+}
+
+.textbox:focus {
+    padding-left: 21px;
+}
+
+.textbox::placeholder {
+    color: var(--front-color);
+}
+
+.button-box {
+    min-width: 275px;
+    display: flex;
+    justify-content: center;
+}
+
+.button-box .button {
+    width: 100%;
+    height: 55px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--interact-color);
+    color: var(--front-color);
+    font-size: var(--small-text);
+    font-weight: 700;
+    transition-duration: 0.3s;
+}
+
+.button-box .dark-button {
+    background-color: var(--intermediate-color);
+}
+
+.button-box .button:hover {
+    width: calc(100% - 20px);
+}
+
+.switch {
+    width: 310px;
+    height: 55px;
+    display: flex;
+}
+
+.switcher {
+    width: 50%;
+    font-size: var(--small-text);
+    font-weight: 700;
+    color: var(--front-color);
+    background: none;
+    border: 4px solid var(--interact-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition-duration: 0.3s;
+}
+
+.switcher:hover {
+    width: 57%;
+}
+
+.switcher:first-child {
+    border-radius: 50px 0 0 50px;
+}
+
+.switcher:last-child {
+    border-radius: 0 50px 50px 0;
+}
+
+.switcher-on {
+    background-color: var(--interact-color);
+}
+
+.user-photo-box {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.input-file-button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+}
+
+.input-file-button input[type='file'] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.horizontal-scroll-bar::-webkit-scrollbar {
+    height: 4px;
+    background: none;
+}
+
+.horizontal-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: var(--interact-color);
+    border-radius: 10px;
+}

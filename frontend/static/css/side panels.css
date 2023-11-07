@@ -1,0 +1,141 @@
+.panel {
+    max-width: 425px;
+    width: 100%;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.show-panel {
+    visibility: visible;
+}
+
+.right-panel {
+    background-color: var(--back-color);
+    border-bottom-right-radius: 15px;
+}
+
+.left-panel {
+    right: 0;
+    background-color: var(--interact-color);
+    border-bottom-left-radius: 15px;
+}
+
+.panel .search-bar {
+    width: 100%;
+    display: none;
+}
+
+.panel .navigation-textbox,
+.panel .navigation-textbox:hover {
+    padding: 0;
+    transition-duration: 0s;
+}
+
+.panel .button-box .button {
+    transition-duration: 0s;
+}
+
+.panel .button-box .button:hover {
+    width: 100%;
+}
+
+.panel .pages {
+    min-width: 200px;
+    overflow-x: unset;
+    padding: 0;
+    margin: 0;
+}
+
+.panel .pages ul {
+    gap: 35px;
+}
+
+.right-panel .pages ul {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.left-panel .pages {
+    margin-top: 38px;
+}
+
+.left-panel .pages ul {
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-panel-open-animation {
+    animation: 0.6s linear open-right-panel-animation;
+}
+
+.left-panel-open-animation {
+    animation: 0.6s linear open-left-panel-animation;
+}
+
+.right-panel-close-animation {
+    animation: 0.6s linear close-right-panel-animation;
+}
+
+.left-panel-close-animation {
+    animation: 0.6s linear close-left-panel-animation;
+}
+
+@keyframes open-right-panel-animation {
+    from {
+        left: -450px;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes open-left-panel-animation {
+    from {
+        right: -450px;
+    }
+    to {
+        right: 0;
+    }
+}
+
+@keyframes close-right-panel-animation {
+    from {
+        left: 0;
+    }
+    to {
+        left: -450px;
+    }
+}
+
+@keyframes close-left-panel-animation {
+    from {
+        right: 0;
+    }
+    to {
+        right: -450px;
+    }
+}
+
+@media (max-width: 470px) {
+    .panel .search-bar {
+        display: flex;
+    }
+
+    .right-panel .pages {
+        margin-top: 38px;
+    }
+}
+
+@media (max-width: 425px) {
+    .right-panel {
+        border-bottom-right-radius: 0;
+    }
+
+    .left-panel {
+        border-bottom-left-radius: 0;
+    }
+}

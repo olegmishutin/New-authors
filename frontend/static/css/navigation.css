@@ -1,0 +1,160 @@
+.navigation {
+    width: 100%;
+    height: 106px;
+}
+
+.top-nav-bar {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, var(--back-color) 46.33%, var(--interact-color) 100%);
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    min-width: 52px;
+}
+
+.logo img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.pages {
+    min-width: 300px;
+    margin: 0 68px 0 68px;
+    overflow-x: auto;
+    padding: 10px 0 10px 0;
+}
+
+.pages ul {
+    display: flex;
+    gap: 47px;
+}
+
+.navigation nav ul a {
+    color: var(--front-color);
+    white-space: nowrap;
+    font-size: var(--medium-text);
+}
+
+.search-bar {
+    width: 656px;
+    min-height: 55px;
+    border: 3px solid var(--front-color);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0 22px 0 22px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-button {
+    min-width: 24px;
+    min-height: 28px;
+}
+
+.search-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.navigation-textbox {
+    width: 100%;
+    height: 100%;
+    font-size: var(--medium-text);
+    color: var(--front-color);
+    outline: none;
+    transition-duration: 0.3s;
+}
+
+.navigation-textbox:hover{
+    padding-left: 8px;
+}
+
+.navigation-textbox:focus{
+    padding: 0;
+}
+
+.navigation-textbox::placeholder {
+    color: var(--front-color);
+}
+
+.user {
+    margin-left: auto;
+    padding-left: 68px;
+    min-width: 47px;
+    height: 55px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.manage-button,
+.manage-button img {
+    width: 100%;
+    height: 100%;
+}
+
+.navigation .user-photo-box {
+    width: 200px;
+    height: 200px;
+}
+
+.navigation .left-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-settings-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin: 38px 0 38px 0;
+}
+
+.user-settings-form .textbox {
+    transition-duration: 0s;
+}
+
+.user-settings-form .textbox:hover {
+    padding-left: 21px;
+}
+
+.user-settings-form .textbox:last-child {
+    height: 220px;
+}
+
+.user-settings-form .button-box {
+    min-width: 100px;
+    width: 100%;
+}
+
+
+@media (max-width: 1024px) {
+    .top-nav-bar {
+        justify-content: space-between;
+        gap: 50px;
+    }
+
+    .top-nav-bar .pages {
+        display: none;
+    }
+
+    .user {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 470px) {
+    .top-nav-bar .search-bar {
+        display: none;
+    }
+}
