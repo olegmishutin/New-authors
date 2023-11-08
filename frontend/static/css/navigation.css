@@ -93,6 +93,12 @@
     justify-content: flex-end;
 }
 
+.username{
+    color: var(--front-color);
+    font-size: var(--big-text);
+    margin-top: 13px;
+}
+
 .manage-button,
 .manage-button img {
     width: 100%;

@@ -19,7 +19,8 @@
     --mobile-very-small-text: 12px;
 }
 
-body {
+body,
+.content {
     width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
@@ -38,6 +39,15 @@ a {
 .no-backround-and-border {
     background: none;
     border: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--interact-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--intermediate-color);
 }
 
 @media (max-width: 1024px) {

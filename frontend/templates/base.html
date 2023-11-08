@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets.css' %}">
     <link rel="stylesheet" href="{% static 'css/side panels.css' %}">
+    {% block stylesheet %}{% endblock %}
 </head>
 <body>
 <div class="navigation">
@@ -62,8 +63,11 @@
         </nav>
     </div>
     <div class="panel left-panel" id="manage-panel">
-        <div class="user-photo-box">
-            <img src="{% static 'image/men.png' %}" alt="photo">
+        <div class="user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="photo">
+            </div>
+            <h2 class="username">Jum Root</h2>
         </div>
         <nav class="pages">
             <ul>
@@ -103,6 +107,9 @@
             <button class="button dark-button" id="close-user-settings-button">Закрыть</button>
         </div>
     </div>
+</div>
+<div class="content content-padding">
+    {% block content %}{% endblock %}
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
