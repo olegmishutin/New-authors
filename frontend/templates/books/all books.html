@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Все книги</title>
+{% endblock %}
+{% block allBooksHref %}
+    <a href="{% url 'menu' %}">Главная</a>
+{% endblock %}
+{% block allBooksHrefSideNav %}
+    <a href="{% url 'menu' %}">Главная</a>
+{% endblock %}

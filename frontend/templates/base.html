@@ -35,7 +35,7 @@
                 </li>
                 <li>
                     {% block allBooksHref %}
-                        <a href="">Все книги</a>
+                        <a href="{% url 'books:all-books' %}">Все книги</a>
                     {% endblock %}
                 </li>
                 <li>
@@ -85,7 +85,7 @@
                 </li>
                 <li>
                     {% block allBooksHrefSideNav %}
-                        <a href="">Все книги</a>
+                        <a href="{% url 'books:all-books' %}">Все книги</a>
                     {% endblock %}
                 </li>
                 <li>
