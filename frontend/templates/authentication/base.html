@@ -7,7 +7,9 @@
     {% block title %}<title>Base</title>{% endblock %}
     <link rel="stylesheet" href="{% static 'css/authentication.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/widgets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/textbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/button.css' %}">
+    {% block stylesheet %}{% endblock %}
 </head>
 <body>
 <div class="container">

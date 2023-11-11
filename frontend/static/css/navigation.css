@@ -72,11 +72,11 @@
     transition-duration: 0.3s;
 }
 
-.navigation-textbox:hover{
+.navigation-textbox:hover {
     padding-left: 8px;
 }
 
-.navigation-textbox:focus{
+.navigation-textbox:focus {
     padding: 0;
 }
 
@@ -93,10 +93,11 @@
     justify-content: flex-end;
 }
 
-.username{
+.navigation .username {
     color: var(--front-color);
     font-size: var(--big-text);
     margin-top: 13px;
+    max-height: 84px;
 }
 
 .manage-button,

@@ -1,0 +1,25 @@
+.button-box {
+    min-width: 275px;
+    display: flex;
+    justify-content: center;
+}
+
+.button-box .button {
+    width: 100%;
+    height: 55px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--interact-color);
+    color: var(--front-color);
+    font-size: var(--small-text);
+    font-weight: 700;
+    transition-duration: 0.3s;
+}
+
+.button-box .dark-button {
+    background-color: var(--intermediate-color);
+}
+
+.button-box .button:hover {
+    width: calc(100% - 20px);
+}

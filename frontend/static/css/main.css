@@ -14,7 +14,7 @@
     --medium-text: 20px;
     --small-text: 16px;
     --very-small-text: 14px;
-    --smallest: 10px;
+    --smallest-text: 11px;
 
     --mobile-very-small-text: 12px;
 }
@@ -31,16 +31,6 @@ a {
     text-decoration: none;
 }
 
-.content-padding {
-    padding: 0 87px 0 87px;
-    transition-duration: 0.3s;
-}
-
-.no-backround-and-border {
-    background: none;
-    border: none;
-}
-
 ::-webkit-scrollbar {
     width: 8px;
     background-color: var(--interact-color);
@@ -48,10 +38,4 @@ a {
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--intermediate-color);
-}
-
-@media (max-width: 1024px) {
-    .content-padding {
-        padding: 0 29px 0 29px;
-    }
 }

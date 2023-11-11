@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.menu, name='menu'),
     path('django-admin/', admin.site.urls),
     path('', include('authentication.urls')),
+    path('', include('categories.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

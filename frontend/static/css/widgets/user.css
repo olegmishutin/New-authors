@@ -1,0 +1,24 @@
+.user-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-photo-box {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.username {
+    text-align: center;
+    word-break: break-word;
+    overflow: hidden;
+    max-height: 46px;
+    font-size: var(--medium-text);
+}

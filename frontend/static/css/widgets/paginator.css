@@ -1,0 +1,17 @@
+.paginator-box{
+    display: flex;
+    justify-content: center;
+}
+
+.paginator{
+    display: flex;
+    align-items: center;
+    gap: 58px;
+    margin: 65px 0 22px 0;
+}
+
+.paginator span{
+    color: var(--intermediate-color);
+    font-size: var(--big-text);
+    font-weight: 800;
+}

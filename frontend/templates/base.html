@@ -7,8 +7,12 @@
     {% block title %}<title>Navigation base</title>{% endblock %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
-    <link rel="stylesheet" href="{% static 'css/widgets.css' %}">
     <link rel="stylesheet" href="{% static 'css/side panels.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/small widgets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/file input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/textbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/user.css' %}">
     {% block stylesheet %}{% endblock %}
 </head>
 <body>
@@ -19,11 +23,31 @@
         </button>
         <nav class="pages horizontal-scroll-bar">
             <ul>
-                <li><a href="">Новые</a></li>
-                <li><a href="">Популярные</a></li>
-                <li><a href="">Все книги</a></li>
-                <li><a href="">Категории</a></li>
-                <li><a href="">Авторы</a></li>
+                <li>
+                    {% block newBookHref %}
+                        <a href="">Новые</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block popularHref %}
+                        <a href="">Популярные</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block allBooksHref %}
+                        <a href="">Все книги</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block categoriesHref %}
+                        <a href="{% url 'categories:categories' %}">Категории</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block authorsHref %}
+                        <a href="">Авторы</a>
+                    {% endblock %}
+                </li>
             </ul>
         </nav>
         <form method="get" class="search-bar">
@@ -49,11 +73,31 @@
         </form>
         <nav class="pages">
             <ul>
-                <li><a href="">Новые</a></li>
-                <li><a href="">Популярные</a></li>
-                <li><a href="">Все книги</a></li>
-                <li><a href="">Категории</a></li>
-                <li><a href="">Авторы</a></li>
+                <li>
+                    {% block newBookHrefSideNav %}
+                        <a href="">Новые</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block popularHrefSideNav %}
+                        <a href="">Популярные</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block allBooksHrefSideNav %}
+                        <a href="">Все книги</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block categoriesHrefSideNav %}
+                        <a href="{% url 'categories:categories' %}">Категории</a>
+                    {% endblock %}
+                </li>
+                <li>
+                    {% block authorsHrefSideNav %}
+                        <a href="">Авторы</a>
+                    {% endblock %}
+                </li>
                 <li>
                     <div class="button-box">
                         <button class="button" id="close-right-panel-button">Закрыть</button>
