@@ -5,5 +5,6 @@
 }
 
 .categories .wraping-box {
-    gap: 47px;
+    gap: 2%;
+    row-gap: 30px;
 }
