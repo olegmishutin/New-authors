@@ -72,8 +72,14 @@ header .statistics span {
 .switcher-box {
     width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
     padding: 44px 0 44px 0;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.switcher-box .button{
+    border-radius: 50px;
 }
 
 .switcher {
@@ -82,6 +88,14 @@ header .statistics span {
 
 .switcher-on {
     color: var(--front-color);
+}
+
+.wraping-box {
+    gap: 47px;
+}
+
+.content {
+    margin-top: 50px;
 }
 
 @media (max-width: 1440px) {
@@ -95,6 +109,10 @@ header .statistics span {
         max-height: 201px;
         min-width: 201px;
         min-height: 201px;
+    }
+
+    .content {
+        margin-top: 0;
     }
 }
 
@@ -140,5 +158,9 @@ header .statistics span {
         font-size: var(--medium-text);
         max-height: 17px;
         height: 17px;
+    }
+
+    .content {
+        padding: 0 20px 0 20px;
     }
 }

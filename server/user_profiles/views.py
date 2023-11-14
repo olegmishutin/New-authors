@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
 
-def profile(request):
-    return render(request, 'profile/base.html')
+def profileComments(request):
+    return render(request, 'profile/profile comments.html')
+
+def profileBooks(request):
+    return render(request, 'profile/profile books.html')

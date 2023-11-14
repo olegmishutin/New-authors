@@ -14,6 +14,9 @@
     font-size: var(--small-text);
     font-weight: 700;
     transition-duration: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-box .dark-button {

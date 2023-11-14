@@ -25,16 +25,19 @@
 body,
 .content {
     width: 100%;
-    min-height: 100vh;
     overflow-x: hidden;
     box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
 }
 
 a {
     text-decoration: none;
 }
 
-a:hover{
+a:hover {
     cursor: pointer;
 }
 
