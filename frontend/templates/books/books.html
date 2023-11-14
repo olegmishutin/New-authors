@@ -1,0 +1,434 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Все книги{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/book.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
+{% endblock %}
+{% block allBooksHref %}
+    <a href="{% url 'menu' %}">Главная</a>
+{% endblock %}
+{% block allBooksHrefSideNav %}
+    <a href="{% url 'menu' %}">Главная</a>
+{% endblock %}
+{% block content %}
+    <div class="books">
+        <form method="get" class="filtering">
+            <div class="filters">
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="new-books">
+                    <label for="new-books">Новые</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="old-books">
+                    <label for="old-books">Старые</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="popular-books">
+                    <label for="popular-books">Популярные</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-books">
+                    <label for="start-with-hight-rating-books">Сначала с высокой оценкой</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="start-with-low-rating-books">
+                    <label for="start-with-low-rating-books">Сначала с низкой оценкой</label>
+                </div>
+            </div>
+            <div class="button-box submit-filtering-button">
+                <button class="button" type="submit">Фильтровать</button>
+            </div>
+            <div class="button-box panel-filtering-button">
+                <button class="button" type="button" id="open-filtering-panel">Фильтровать</button>
+            </div>
+            <div class="panel left-panel" id="filtering-panel">
+                <h1 class="filtering-header">Фильтрация</h1>
+                <div class="panel-filters">
+                    <div class="checkbox-box dark-checkbox-box">
+                        <input type="checkbox" class="checkbox" id="new-books-panel">
+                        <label for="new-books-panel">Новые</label>
+                    </div>
+                    <div class="checkbox-box dark-checkbox-box">
+                        <input type="checkbox" class="checkbox" id="old-books-panel">
+                        <label for="old-books-panel">Старые</label>
+                    </div>
+                    <div class="checkbox-box dark-checkbox-box">
+                        <input type="checkbox" class="checkbox" id="popular-books-panel">
+                        <label for="popular-books-panel">Популярные</label>
+                    </div>
+                    <div class="checkbox-box dark-checkbox-box">
+                        <input type="checkbox" class="checkbox" id="start-with-hight-rating-books-panel">
+                        <label for="start-with-hight-rating-books-panel">Сначала с высокой оценкой</label>
+                    </div>
+                    <div class="checkbox-box dark-checkbox-box">
+                        <input type="checkbox" class="checkbox" id="start-with-low-rating-books-panel">
+                        <label for="start-with-low-rating-books-panel">Сначала с низкой оценкой</label>
+                    </div>
+                </div>
+                <div class="button-box filter-panel-button">
+                    <button class="button dark-button" type="submit">Фильтровать</button>
+                </div>
+                <div class="button-box filter-panel-button">
+                    <button class="button dark-button" type="button" id="close-filtering-panel">Закрыть</button>
+                </div>
+            </div>
+        </form>
+        <div class="wraping-box">
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book2.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дело Саввы Морозова</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="book-box">
+                <div class="book-photo-box">
+                    <img src="{% static 'image/book.png' %}" alt="book">
+                </div>
+                <p class="book-name">Дебютная постановка том 2</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="paginator-box">
+        <div class="paginator">
+            <a class="page-selector" href="">
+                <img src="{% static 'image/previous page.png' %}" alt="previous page">
+            </a>
+            <span>1</span>
+            <a class="page-selector" href="">
+                <img src="{% static 'image/next page.png' %}" alt="next page">
+            </a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/filtering panel.js' %}"></script>
+{% endblock %}

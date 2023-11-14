@@ -30,24 +30,6 @@
     gap: 59px;
 }
 
-.menu-user-box {
-    width: 150px;
-}
-
-.menu-user-box .user-photo-box {
-    width: 150px;
-    height: 150px;
-}
-
-.menu-user-box .username {
-    color: var(--intermediate-color);
-    margin-top: 4px;
-}
-
-.menu-user-box .statistics {
-    margin-top: 7px;
-}
-
 @media (max-width: 768px) {
     .menu-content {
         margin-top: 29px;
@@ -60,18 +42,5 @@
 
     .horizontal-content-box h1 {
         font-size: var(--big-text);
-    }
-
-    .menu-user-box {
-        width: 113px;
-    }
-
-    .menu-user-box .user-photo-box {
-        width: 113px;
-        height: 113px;
-    }
-
-    .menu-user-box .username {
-        font-size: var(--very-small-text);
     }
 }

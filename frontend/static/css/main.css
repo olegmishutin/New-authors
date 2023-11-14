@@ -3,6 +3,8 @@
     margin: 0;
     list-style-type: none;
     font-family: Inter, sans-serif;
+    user-select: none;
+
     --front-color: white;
     --back-color: #2E4374;
     --intermediate-color: #4B527E;
@@ -17,6 +19,7 @@
     --smallest-text: 11px;
 
     --mobile-very-small-text: 12px;
+
 }
 
 body,
@@ -29,6 +32,10 @@ body,
 
 a {
     text-decoration: none;
+}
+
+a:hover{
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {

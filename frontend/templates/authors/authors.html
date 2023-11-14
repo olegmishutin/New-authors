@@ -1,43 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
-    <title>Все книги</title>
-{% endblock %}
+{% block title %}Авторы{% endblock %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+    <link rel="stylesheet" href="{% static 'css/authors.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
-    <link rel="stylesheet" href="{% static 'css/widgets/book.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
 {% endblock %}
-{% block allBooksHref %}
+{% block authorsHref %}
     <a href="{% url 'menu' %}">Главная</a>
 {% endblock %}
-{% block allBooksHrefSideNav %}
+{% block authorsHrefSideNav %}
     <a href="{% url 'menu' %}">Главная</a>
 {% endblock %}
 {% block content %}
-    <div class="books">
+    <div class="authors">
         <form method="get" class="filtering">
             <div class="filters">
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="new-books">
+                    <input type="checkbox" class="checkbox" id="new-authors">
                     <label for="new-books">Новые</label>
                 </div>
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="old-books">
-                    <label for="old-books">Старые</label>
-                </div>
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="popular-books">
+                    <input type="checkbox" class="checkbox" id="popular-authors">
                     <label for="popular-books">Популярные</label>
                 </div>
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-books">
+                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-authors">
                     <label for="start-with-hight-rating-books">Сначала с высокой оценкой</label>
                 </div>
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-low-rating-books">
+                    <input type="checkbox" class="checkbox" id="start-with-low-rating-authors">
                     <label for="start-with-low-rating-books">Сначала с низкой оценкой</label>
                 </div>
             </div>
@@ -51,23 +45,19 @@
                 <h1 class="filtering-header">Фильтрация</h1>
                 <div class="panel-filters">
                     <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="new-books-panel">
+                        <input type="checkbox" class="checkbox" id="new-authors-panel">
                         <label for="new-books-panel">Новые</label>
                     </div>
                     <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="old-books-panel">
-                        <label for="old-books-panel">Старые</label>
-                    </div>
-                    <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="popular-books-panel">
+                        <input type="checkbox" class="checkbox" id="popular-authors-panel">
                         <label for="popular-books-panel">Популярные</label>
                     </div>
                     <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="start-with-hight-rating-books-panel">
+                        <input type="checkbox" class="checkbox" id="start-with-hight-rating-authors-panel">
                         <label for="start-with-hight-rating-books-panel">Сначала с высокой оценкой</label>
                     </div>
                     <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="start-with-low-rating-books-panel">
+                        <input type="checkbox" class="checkbox" id="start-with-low-rating-authors-panel">
                         <label for="start-with-low-rating-books-panel">Сначала с низкой оценкой</label>
                     </div>
                 </div>
@@ -80,11 +70,11 @@
             </div>
         </form>
         <div class="wraping-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -96,11 +86,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -112,11 +102,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -128,11 +118,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -144,11 +134,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -160,11 +150,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -176,11 +166,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -192,11 +182,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -208,11 +198,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -224,11 +214,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -240,11 +230,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -256,11 +246,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -272,11 +262,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -288,11 +278,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -304,11 +294,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -320,91 +310,11 @@
                     </div>
                 </div>
             </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
+            <a href="" class="user-box menu-user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <p class="book-name">Дело Саввы Морозова</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дело Саввы Морозова</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дело Саввы Морозова</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
+                <p class="username">Jum Root</p>
                 <div class="statistics">
                     <div class="rating">
                         <img src="{% static 'image/stars.png' %}" alt="rating">

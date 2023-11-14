@@ -26,25 +26,6 @@
     max-height: 69px;
 }
 
-.book-box .statistics {
-    margin-top: 9px;
-    gap: 9px;
-}
-
-.statistics,
-.rating {
-    display: flex;
-    align-items: flex-end;
-}
-
-.rating span {
-    height: 14px;
-    align-self: flex-end;
-    margin-left: 5px;
-    color: var(--intermediate-color);
-    font-size: var(--very-small-text);
-}
-
 @media (max-width: 768px) {
     .book-box {
         min-width: 155px;
@@ -59,18 +40,5 @@
 
     .book-name {
         font-size: var(--small-text);
-    }
-
-    .statistics {
-        gap: 7px;
-    }
-
-    .rating img {
-        max-width: 18px;
-    }
-
-    .rating span {
-        height: 12px;
-        font-size: var(--mobile-very-small-text);
     }
 }

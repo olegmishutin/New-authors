@@ -106,6 +106,10 @@
     height: 100%;
 }
 
+.navigation .user-box {
+    width: unset;
+}
+
 .navigation .user-photo-box {
     width: 200px;
     height: 200px;

@@ -1,10 +1,13 @@
 .user-box {
+    width: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .user-photo-box {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -21,4 +24,25 @@
     overflow: hidden;
     max-height: 46px;
     font-size: var(--medium-text);
+    color: var(--intermediate-color);
+    margin-top: 4px;
+}
+
+.user-box .statistics {
+    margin-top: 7px;
+}
+
+@media (max-width: 768px) {
+    .user-box {
+        width: 113px;
+    }
+
+    .user-photo-box {
+        width: 113px;
+        height: 113px;
+    }
+
+    .username {
+        font-size: var(--very-small-text);
+    }
 }
