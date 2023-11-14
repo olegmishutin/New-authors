@@ -10,6 +10,8 @@
 }
 
 .rating span {
+    max-width: 54px;
+    overflow: hidden;
     height: 14px;
     align-self: flex-end;
     margin-left: 5px;
@@ -27,6 +29,7 @@
     }
 
     .rating span {
+        max-width: 33px;
         height: 12px;
         font-size: var(--mobile-very-small-text);
     }

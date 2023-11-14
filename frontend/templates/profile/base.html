@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/switcher.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+<header>
+    <div class="user-box">
+        <div class="user-photo-box">
+            <img src="{% static 'image/men.png' %}" alt="photo">
+        </div>
+        <div class="description">
+            <h1 class="username">Мишутин Олег Святославович</h1>
+            <div class="short-description">
+                <p>Самый лучший в мире гитарист. Играю на гитаре. Играю в слипнот. Пишу книги про любовь и ножи. Меня
+                    Олег зовут. На улице реин, в душе пэин, на илице снег май нейм из Алег</p>
+            </div>
+        </div>
+    </div>
+    <div class="statistics">
+        <div class="rating">
+            <img src="{% static 'image/big stars.png' %}" alt="rating">
+            <span>4.5</span>
+        </div>
+        <div class="rating">
+            <img src="{% static 'image/big comment.png' %}" alt="comment">
+            <span>100</span>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="switcher-box">
+        <div class="switch">
+            <a class="switcher switcher-on">Комментарии</a>
+            <a class="switcher">Книги</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

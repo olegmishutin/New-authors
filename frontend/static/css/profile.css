@@ -1,0 +1,144 @@
+header {
+    min-width: 100%;
+    width: 100%;
+    height: 253px;
+    max-width: 253px;
+    background: linear-gradient(269deg, var(--back-color) 32.88%, var(--interact-color) 100%);
+    display: flex;
+    padding: 26px 115px 26px 115px;
+    box-sizing: border-box;
+    gap: 50px;
+}
+
+header .user-box {
+    width: unset;
+    flex-direction: row;
+    align-items: unset;
+    gap: 40px;
+}
+
+header .user-photo-box {
+    max-width: 354px;
+    max-height: 354px;
+    min-width: 354px;
+    min-height: 354px;
+}
+
+header .username {
+    text-align: left;
+    color: var(--front-color);
+    font-size: var(--biggest-text);
+    font-weight: 700;
+}
+
+header .user-box .description {
+    max-width: 450px;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 30px;
+    color: var(--front-color);
+}
+
+header .user-box .description p {
+    font-size: var(--very-small-text);
+    word-break: break-word;
+    max-height: 115px;
+    overflow: hidden;
+}
+
+header .statistics {
+    width: 40%;
+    flex-direction: column;
+    align-self: flex-end;
+    row-gap: 30px;
+}
+
+header .statistics .rating {
+    align-self: flex-start;
+}
+
+header .statistics span {
+    max-width: unset;
+    height: 33px;
+    color: var(--front-color);
+    font-size: var(--big-text);
+    font-weight: 600;
+    margin-left: 12px;
+    word-break: break-word;
+}
+
+.switcher-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 44px 0 44px 0;
+}
+
+.switcher {
+    color: var(--intermediate-color);
+}
+
+.switcher-on {
+    color: var(--front-color);
+}
+
+@media (max-width: 1440px) {
+    header {
+        padding: 26px 50px 26px 50px;
+        justify-content: center;
+    }
+
+    header .user-photo-box {
+        max-width: 201px;
+        max-height: 201px;
+        min-width: 201px;
+        min-height: 201px;
+    }
+}
+
+@media (max-width: 1024px) {
+    header {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header .user-box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header .username {
+        text-align: center;
+        max-height: 80px;
+        font-size: var(--big-text);
+    }
+
+    header .user-box .description p {
+        text-align: center;
+        max-height: unset;
+    }
+
+    header .statistics {
+        width: 100%;
+        align-self: unset;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    header .statistics .rating {
+        align-self: flex-end;
+    }
+
+    header .statistics .rating img {
+        max-width: 40px;
+    }
+
+    header .statistics span {
+        font-size: var(--medium-text);
+        max-height: 17px;
+        height: 17px;
+    }
+}
