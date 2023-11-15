@@ -7,6 +7,7 @@
     visibility: hidden;
     padding: 40px;
     box-sizing: border-box;
+    z-index: 3;
 }
 
 .show-panel {

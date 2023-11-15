@@ -10,12 +10,27 @@
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
+    transition-duration: 0.3s;
 }
 
 .user-photo-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.user-box:hover .user-photo-box {
+    transform: rotateY(12deg);
+    box-shadow: 5px 5px 8px var(--interact-color);
+}
+
+.no-hover .user-photo-box {
+    transition-duration: 0s;
+}
+
+.no-hover:hover .user-photo-box {
+    transform: unset;
+    box-shadow: unset;
 }
 
 .username {

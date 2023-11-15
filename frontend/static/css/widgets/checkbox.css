@@ -4,9 +4,15 @@
     border-radius: 10px;
     display: flex;
     align-items: center;
+    transition-duration: 0.3s;
+}
+
+.checkbox-box:hover {
+    box-shadow: 3px 3px 8px var(--interact-color);
 }
 
 .dark-checkbox-box {
+    transition-duration: 0s;
     background-color: var(--intermediate-color);
 }
 
