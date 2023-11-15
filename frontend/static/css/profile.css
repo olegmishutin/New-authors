@@ -78,7 +78,7 @@ header .statistics span {
     flex-direction: column;
 }
 
-.switcher-box .button{
+.switcher-box .button {
     border-radius: 50px;
 }
 
@@ -92,10 +92,25 @@ header .statistics span {
 
 .wraping-box {
     gap: 47px;
+    row-gap: 45px;
 }
 
-.content {
-    margin-top: 50px;
+.author-book-box {
+    display: flex;
+    max-width: 789px;
+    padding: 31px;
+    box-sizing: border-box;
+    border: 4px solid var(--intermediate-color);
+    border-radius: 20px;
+    align-items: center;
+    gap: 29px;
+}
+
+.author-book-box .description p {
+    font-size: var(--medium-text);
+    color: var(--intermediate-color);
+    white-space: pre-line;
+    word-break: break-word;
 }
 
 @media (max-width: 1440px) {
@@ -162,5 +177,26 @@ header .statistics span {
 
     .content {
         padding: 0 20px 0 20px;
+    }
+
+    .wraping-box {
+        row-gap: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .author-book-box{
+        border: none;
+        padding: 0;
+    }
+
+    .author-book-box .description{
+        display: none;
+    }
+}
+
+@media (max-width: 425px) {
+    .wraping-box{
+        gap: 20px;
     }
 }

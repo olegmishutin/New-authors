@@ -9,7 +9,7 @@
     gap: 32px;
 }
 
-.comment-box .book-info{
+.comment-box .book-info {
     max-width: 170px;
 }
 
@@ -29,15 +29,15 @@
     color: var(--intermediate-color);
 }
 
-.comment-box .statistics .rating span{
+.comment-box .statistics .rating span {
     max-width: 39px;
 }
 
-.comment-box .trash-button{
+.comment-box .trash-button {
     height: 25px;
 }
 
-.comment-box .trash-button img{
+.comment-box .trash-button img {
     height: 100%;
 }
 
@@ -50,6 +50,10 @@
     .comment-box .book-info,
     .comment-box .comment-text {
         text-align: center;
+    }
+
+    .comment-box .comment-text {
+        font-size: var(--small-text);
     }
 
     .comment-box hr {
@@ -65,7 +69,7 @@
         max-width: unset;
     }
 
-    .comment-box .statistics .rating span{
+    .comment-box .statistics .rating span {
         font-size: var(--very-small-text);
         height: 14px;
         max-width: 194px;

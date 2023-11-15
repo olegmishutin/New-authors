@@ -2,6 +2,85 @@
 {% load static %}
 {% block title %}Книги автора{% endblock %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/widgets/comment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/book.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/small widgets.css' %}">
 {% endblock %}
 {% block swithcer2State %}switcher-on{% endblock %}
+{% block content %}
+    <div class="wraping-box">
+        <div class="author-book-box">
+            <div class="book-box">
+                <a href="" class="book-box">
+                    <div class="book-photo-box">
+                        <img src="{% static 'image/book.png' %}" alt="book">
+                    </div>
+                    <p class="book-name">Дебютная постановка том 2</p>
+                    <div class="statistics">
+                        <div class="rating">
+                            <img src="{% static 'image/stars.png' %}" alt="rating">
+                            <span>4.5</span>
+                        </div>
+                        <div class="rating">
+                            <img src="{% static 'image/comment.png' %}" alt="comment">
+                            <span>100</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="book-management">
+                    <a><img src="{% static 'image/trash.png' %}" alt="delete"></a>
+                    <a><img src="{% static 'image/edit icon.png' %}" alt="delete"></a>
+                </div>
+            </div>
+            <div class="description">
+                <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и туда сюда
+                    короче.
+
+                    Здесь типо идет очень много текста, тк это краткое описание книги, так шо вот, да. Наслаждаемся
+                    огроменным текстом.
+
+                    Он все никак не заканчивается. Бла бла бла, мастер и маргарита полное говно. Все что могу сказать на
+                    очен очень долгий последок.
+
+                    Бла бла бла бла бла бла блалалалалалалалалаллалалалалаллал очень интересное описание
+                    аааааааааааааааааааа памагитеееееееееееееееееее пж пж пж пж</p>
+            </div>
+        </div>
+        <div class="author-book-box">
+            <div class="book-box">
+                <a href="" class="book-box">
+                    <div class="book-photo-box">
+                        <img src="{% static 'image/book.png' %}" alt="book">
+                    </div>
+                    <p class="book-name">Дебютная постановка том 2</p>
+                    <div class="statistics">
+                        <div class="rating">
+                            <img src="{% static 'image/stars.png' %}" alt="rating">
+                            <span>4.5</span>
+                        </div>
+                        <div class="rating">
+                            <img src="{% static 'image/comment.png' %}" alt="comment">
+                            <span>100</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="book-management">
+                    <a><img src="{% static 'image/trash.png' %}" alt="delete"></a>
+                    <a><img src="{% static 'image/edit icon.png' %}" alt="delete"></a>
+                </div>
+            </div>
+            <div class="description">
+                <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и туда сюда
+                    короче.
+
+                    Здесь типо идет очень много текста, тк это краткое описание книги, так шо вот, да. Наслаждаемся
+                    огроменным текстом.
+
+                    Он все никак не заканчивается. Бла бла бла, мастер и маргарита полное говно. Все что могу сказать на
+                    очен очень долгий последок.
+
+                    Бла бла бла бла бла бла блалалалалалалалалаллалалалалаллал очень интересное описание
+                    аааааааааааааааааааа памагитеееееееееееееееееее пж пж пж пж</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

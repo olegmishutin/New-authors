@@ -26,6 +26,17 @@
     max-height: 69px;
 }
 
+.book-management {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.book-management img:first-child {
+    height: 31px;
+}
+
 @media (max-width: 768px) {
     .book-box {
         min-width: 155px;
