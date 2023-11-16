@@ -10,12 +10,14 @@
 }
 
 .comment-box .book-info {
-    max-width: 170px;
+    max-width: 180px;
+    min-width: 180px;
 }
 
 .comment-box .book-info a {
     font-size: var(--medium-text);
     color: var(--intermediate-color);
+    font-weight: 600;
 }
 
 .comment-box hr {

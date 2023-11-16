@@ -25,7 +25,6 @@
 .checkbox + label {
     display: inline-flex;
     align-items: center;
-    user-select: none;
     color: var(--front-color);
     font-size: var(--medium-text);
 }

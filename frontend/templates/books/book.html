@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Книга</title>
+    <link rel="icon" href="{% static 'image/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/small widgets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/textbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/radio button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/comment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+</head>
+<body>
+<header class="content-padding">
+    <div class="book-info">
+        <div class="book-image">
+            <img src="{% static 'image/book2.png' %}" alt="book">
+        </div>
+        <div class="info">
+            <h1>Дебютная постановка Том 2</h1>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/pages.png' %}" alt="pages">
+                    <span>100</span>
+                </div>
+            </div>
+            <div class="button-box">
+                <a href="" class="button">Скачать книгу</a>
+            </div>
+        </div>
+    </div>
+    <a href="" class="user-box">
+        <h2 class="username">Мишутин Олег Святославович</h2>
+        <div class="user-photo-box">
+            <img src="{% static 'image/men.png' %}" alt="photo">
+        </div>
+    </a>
+</header>
+<main class="content-padding">
+    <div class="book-description">
+        <p>«Мёртвые души» – легендарная книга, одно из главных произведений Николая Васильевича Гоголя, входящее в
+            золотой фонд мировой литературы и список наиболее важных книг в истории человечества по версии Норвежского
+            книжного клуба и Института Нобеля.
+
+            Аферист скупал мёртвые души, чтобы заложить их государству и разбогатеть, но его афера раскрылась и ему
+            пришлось скрыться. Затем он снова взялся за старое, опять был разоблачён и остался ни с чем.
+
+            Произведение Гоголя «Мёртвые души» было написано во второй половине 19 века. Первый том был издан в 1842
+            году, второй том практически полностью уничтожен автором. А третий том так и не был написан.</p>
+    </div>
+    <div class="reviews">
+        <div class="review">
+            <h1>Ваша рецензия на книгу</h1>
+            <form method="post">
+                <textarea class="textbox"></textarea>
+                <div class="review-rating">
+                    <div class="radio-button-box">
+                        <input type="radio" class="radio-button" name="review-rating" id="1">
+                        <label for="1">1</label>
+                    </div>
+                    <div class="radio-button-box">
+                        <input type="radio" class="radio-button" name="review-rating" id="2">
+                        <label for="2">2</label>
+                    </div>
+                    <div class="radio-button-box">
+                        <input type="radio" class="radio-button" name="review-rating" id="3">
+                        <label for="3">3</label>
+                    </div>
+                    <div class="radio-button-box">
+                        <input type="radio" class="radio-button" name="review-rating" id="4">
+                        <label for="4">4</label>
+                    </div>
+                    <div class="radio-button-box">
+                        <input type="radio" class="radio-button" name="review-rating" id="5">
+                        <label for="5">5</label>
+                    </div>
+                    <div class="button-box">
+                        <input type="submit" class="button user-review-submit-button" value="Отправить">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="review">
+            <h1>Рецензии на книгу</h1>
+            <form class="filters">
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="new-books">
+                    <label for="new-books">Новые</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="old-books">
+                    <label for="old-books">Старые</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="popular-books">
+                    <label for="popular-books">Популярные</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-books">
+                    <label for="start-with-hight-rating-books">Сначала с высокой оценкой</label>
+                </div>
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox" id="start-with-low-rating-books">
+                    <label for="start-with-low-rating-books">Сначала с низкой оценкой</label>
+                </div>
+                <div class="button-box">
+                    <input type="submit" class="button comment-filter-button" value="Фильтровать">
+                </div>
+            </form>
+            <div class="wraping-box">
+                <div class="comment-box">
+                    <div class="book-info">
+                        <a href="">Андрей Иванов Сергеевич</a>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>4.5</span>
+                            </div>
+                            <div class="data">
+                                <span>12.03.2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="comment-text">
+                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
+                            туда
+                            сюда короче.</p>
+                    </div>
+                </div>
+                <div class="comment-box">
+                    <div class="book-info">
+                        <a href="">Андрей Иванов Сергеевич</a>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>4.5</span>
+                            </div>
+                            <div class="data">
+                                <span>12.03.2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="comment-text">
+                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
+                            туда
+                            сюда короче.</p>
+                    </div>
+                </div>
+                <div class="comment-box">
+                    <div class="book-info">
+                        <a href="">Андрей Иванов Сергеевич</a>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>4.5</span>
+                            </div>
+                            <div class="data">
+                                <span>12.03.2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="comment-text">
+                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
+                            туда
+                            сюда короче.</p>
+                    </div>
+                </div>
+                <div class="comment-box">
+                    <div class="book-info">
+                        <a href="">Андрей Иванов Сергеевич</a>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>4.5</span>
+                            </div>
+                            <div class="data">
+                                <span>12.03.2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="comment-text">
+                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
+                            туда
+                            сюда короче.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="paginator-box">
+    <div class="paginator">
+        <a class="page-selector" href="">
+            <img src="{% static 'image/previous page.png' %}" alt="previous page">
+        </a>
+        <span>1</span>
+        <a class="page-selector" href="">
+            <img src="{% static 'image/next page.png' %}" alt="next page">
+        </a>
+    </div>
+</div>
+</body>
+</html>

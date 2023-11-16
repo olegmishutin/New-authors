@@ -39,7 +39,8 @@ a {
 
 a:hover,
 button:hover,
-input[type='checkbox'] + label {
+input[type='checkbox'] + label,
+input[type='submit']{
     cursor: pointer;
 }
 

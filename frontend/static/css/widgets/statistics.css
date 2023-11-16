@@ -4,12 +4,14 @@
 }
 
 .statistics,
-.rating {
+.rating,
+.data {
     display: flex;
     align-items: flex-end;
 }
 
-.rating span {
+.rating span,
+.data span {
     max-width: 54px;
     overflow: hidden;
     height: 14px;
@@ -19,6 +21,10 @@
     font-size: var(--very-small-text);
 }
 
+.data span{
+    max-width: unset;
+}
+
 @media (max-width: 768px) {
     .statistics {
         gap: 7px;
@@ -26,6 +32,7 @@
 
     .rating img {
         max-width: 18px;
+        max-height: 18px;
     }
 
     .rating span {
