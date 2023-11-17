@@ -1,3 +1,13 @@
+.button-box {
+    max-width: 275px;
+    justify-content: flex-start;
+}
+
+.content-padding{
+    padding-top: 42px;
+    padding-bottom: 42px;
+}
+
 header {
     width: 100%;
     height: 360px;
@@ -5,8 +15,6 @@ header {
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    padding-top: 42px !important;
-    padding-bottom: 42px !important;
 }
 
 header .book-info {
@@ -48,11 +56,6 @@ header .book-info .statistics .rating span {
     color: var(--front-color);
 }
 
-header .book-info .info .button-box {
-    width: 275px;
-    justify-content: flex-start;
-}
-
 header .user-box {
     width: unset;
     flex-direction: row;
@@ -89,23 +92,27 @@ main {
     font-size: var(--medium-text);
 }
 
-.review{
+.review {
     margin-top: 43px;
 }
 
-.review h1{
+.review h1 {
     margin-bottom: 29px;
     color: var(--intermediate-color);
     font-size: var(--biggest-text);
 }
 
-.textbox{
+.textbox {
     border: 3px solid var(--intermediate-color);
     color: var(--intermediate-color);
     height: 228px;
 }
 
-.review-rating{
+.textbox::placeholder {
+    color: var(--intermediate-color);
+}
+
+.review-rating {
     display: flex;
     flex-wrap: wrap;
     gap: 11px;
@@ -113,21 +120,21 @@ main {
     align-items: center;
 }
 
-.filters{
+.filters {
     justify-content: flex-start;
 }
 
-.wraping-box{
+.wraping-box {
     margin-top: 39px;
     justify-content: flex-start;
 }
 
-.user-review-submit-button{
-    height: 48px !important;
+.user-review-submit-button {
+    height: 48px;
 }
 
-.comment-filter-button{
-    height: 40px !important;
+.comment-filter-button {
+    height: 40px;
 }
 
 @media (max-width: 1440px) {
@@ -152,7 +159,7 @@ main {
         display: none;
     }
 
-    .book-description{
+    .book-description {
         margin-left: 0;
     }
 }
@@ -208,7 +215,7 @@ main {
         text-align: center;
     }
 
-    .review h1{
+    .review h1 {
         font-size: var(--big-text);
     }
 }
@@ -218,7 +225,7 @@ main {
         font-size: var(--medium-text);
     }
 
-    .book-description p{
+    .book-description p {
         font-size: var(--small-text);
     }
 }
