@@ -32,7 +32,6 @@
     color: var(--intermediate-color);
     font-size: var(--medium-text);
     margin-top: 7px;
-    word-break: break-word;
     overflow: hidden;
     max-height: 69px;
 }
@@ -65,7 +64,6 @@
     font-size: var(--medium-text);
     color: var(--intermediate-color);
     white-space: pre-line;
-    word-break: break-word;
 }
 
 @media (max-width: 768px) {

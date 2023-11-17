@@ -4,14 +4,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 0 78px 0;
+    margin-bottom: 78px;
     gap: 20px;
 }
 
 .filtering-header{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    text-align: center;
     color: var(--front-color);
     font-size: var(--big-text);
     font-weight: 700;

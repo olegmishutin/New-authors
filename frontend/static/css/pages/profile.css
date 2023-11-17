@@ -45,7 +45,6 @@ header .user-box .description {
 
 header .user-box .description p {
     font-size: var(--very-small-text);
-    word-break: break-word;
     max-height: 115px;
     overflow: hidden;
 }
@@ -68,7 +67,6 @@ header .statistics span {
     font-size: var(--big-text);
     font-weight: 600;
     margin-left: 12px;
-    word-break: break-word;
 }
 
 .switcher-box {

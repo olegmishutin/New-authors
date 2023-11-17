@@ -67,7 +67,6 @@
     color: var(--important-color);
     font-size: var(--medium-text);
     font-weight: 800;
-    word-break: break-word;
     overflow: hidden;
     text-align: left;
 }

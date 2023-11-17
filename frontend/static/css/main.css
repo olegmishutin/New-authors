@@ -19,6 +19,7 @@
     --smallest-text: 11px;
 
     --mobile-very-small-text: 12px;
+    word-break: break-word;
 }
 
 body {

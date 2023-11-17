@@ -40,7 +40,6 @@
 
 .username {
     text-align: center;
-    word-break: break-word;
     overflow: hidden;
     max-height: 46px;
     font-size: var(--medium-text);
