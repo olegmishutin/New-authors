@@ -6,6 +6,10 @@
     gap: 13px;
 }
 
+.input-file-button:hover {
+    cursor: pointer;
+}
+
 .input-file-button input[type='file'] {
     position: absolute;
     z-index: -1;

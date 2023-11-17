@@ -7,3 +7,7 @@ def books(request):
 
 def book(request):
     return render(request, 'books/book.html')
+
+
+def bookPublication(request):
+    return render(request, 'books/book publication.html')

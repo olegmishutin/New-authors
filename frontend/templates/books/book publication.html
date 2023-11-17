@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Публикация книги{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/pages/sending layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/cover input.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <div class="page-header-image">
+            <img src="{% static 'image/book pick.png' %}" alt="book">
+        </div>
+        <h1>Публикация вашей книги</h1>
+    </div>
+    <form class="page-content">
+        <div class="cover-input">
+            <label class="input-file-button cover-file-input">
+                <input type="file" name="book cover">
+                <img src="{% static 'image/cover.png' %}" alt="cover input">
+            </label>
+            <p>Обложка</p>
+            <img class="cover-image" src="" alt="">
+        </div>
+    </form>
+{% endblock %}
