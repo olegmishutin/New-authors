@@ -7,9 +7,8 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" href="{% static 'image/logo.png' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
-    <link rel="stylesheet" href="{% static 'css/side panels.css' %}">
-    <link rel="stylesheet" href="{% static 'css/widgets/small widgets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/navigation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/side panels.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/button.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/file input.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/textbox.css' %}">
@@ -145,7 +144,7 @@
             <input class="textbox" type="text" name="username" placeholder="Имя пользователя" required>
             <textarea class="textbox" name="" placeholder="Краткое описание" required></textarea>
             <div class="button-box">
-                <input type="submit" class="button dark-button" value="Изменить профиль"></input>
+                <input type="submit" class="button dark-button" value="Изменить профиль">
             </div>
         </form>
         <div class="button-box">

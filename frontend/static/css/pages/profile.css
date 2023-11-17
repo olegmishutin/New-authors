@@ -92,11 +92,6 @@ header .statistics span {
     color: var(--front-color);
 }
 
-.wraping-box {
-    gap: 47px;
-    row-gap: 45px;
-}
-
 @media (max-width: 1440px) {
     header {
         padding: 26px 50px 26px 50px;
@@ -157,19 +152,5 @@ header .statistics span {
         font-size: var(--medium-text);
         max-height: 17px;
         height: 17px;
-    }
-
-    .content {
-        padding: 0 20px 0 20px;
-    }
-
-    .wraping-box {
-        row-gap: 35px;
-    }
-}
-
-@media (max-width: 425px) {
-    .wraping-box{
-        gap: 20px;
     }
 }

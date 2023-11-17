@@ -1,5 +1,10 @@
+.wraping-box {
+    gap: 1%;
+    row-gap: 39px;
+}
+
 .comment-box {
-    width: 880px;
+    width: 49.5%;
     display: flex;
     border-radius: 20px;
     border: 4px solid var(--intermediate-color);
@@ -41,6 +46,12 @@
 
 .comment-box .trash-button img {
     height: 100%;
+}
+
+@media (max-width: 1440px) {
+    .comment-box{
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {

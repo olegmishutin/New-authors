@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}Категории{% endblock %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/categories.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/category.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
 {% endblock %}
@@ -13,196 +12,194 @@
     <a href="{% url 'menu' %}">Главная</a>
 {% endblock %}
 {% block content %}
-    <div class="categories">
-        <div class="wraping-box">
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+    <div class="wraping-box">
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
                 </div>
-            </a>
-            <a class="category-box" href="">
-                <div class="category-icon-box">
-                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
                 </div>
-                <div class="category-description">
-                    <div class="category-name">
-                        <h5>Комедия Анекдоты</h5>
-                    </div>
-                    <div class="short-description">
-                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                    </div>
-                    <div class="books-number">
-                        <img src="{% static 'image/books number.png' %}" alt="books number">
-                        <span>1337</span>
-                    </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
                 </div>
-            </a>
-        </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
+                </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
+                </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
+                </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
+                </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
+                </div>
+            </div>
+        </a>
+        <a class="category-box" href="">
+            <div class="category-icon-box">
+                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
+            </div>
+            <div class="category-description">
+                <div class="category-name">
+                    <h5>Комедия Анекдоты</h5>
+                </div>
+                <div class="short-description">
+                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                </div>
+                <div class="books-number">
+                    <img src="{% static 'image/books number.png' %}" alt="books number">
+                    <span>1337</span>
+                </div>
+            </div>
+        </a>
     </div>
     <div class="paginator-box">
         <div class="paginator">

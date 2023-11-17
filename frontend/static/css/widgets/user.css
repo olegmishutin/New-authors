@@ -1,3 +1,8 @@
+.wraping-box {
+    gap: 3%;
+    row-gap: 60px;
+}
+
 .user-box {
     width: 150px;
     display: flex;
@@ -48,6 +53,10 @@
 }
 
 @media (max-width: 768px) {
+    .wraping-box {
+        gap: 20px;
+    }
+
     .user-box {
         width: 113px;
     }

@@ -118,14 +118,8 @@ main {
 }
 
 .wraping-box{
-    width: 100%;
     margin-top: 39px;
-    justify-content: space-between;
-    row-gap: 39px;
-}
-
-.comment-box{
-    width: 850px;
+    justify-content: flex-start;
 }
 
 .user-review-submit-button{

@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}Авторы{% endblock %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/authors.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
@@ -15,318 +14,316 @@
     <a href="{% url 'menu' %}">Главная</a>
 {% endblock %}
 {% block content %}
-    <div class="authors">
-        <form method="get" class="filtering">
-            <div class="filters">
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="new-authors">
-                    <label for="new-authors">Новые</label>
-                </div>
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="popular-authors">
-                    <label for="popular-authors">Популярные</label>
-                </div>
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-authors">
-                    <label for="start-with-hight-rating-authors">Сначала с высокой оценкой</label>
-                </div>
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-low-rating-authors">
-                    <label for="start-with-low-rating-authors">Сначала с низкой оценкой</label>
-                </div>
+    <form method="get" class="filtering">
+        <div class="filters">
+            <div class="checkbox-box">
+                <input type="checkbox" class="checkbox" id="new-authors">
+                <label for="new-authors">Новые</label>
             </div>
-            <div class="button-box submit-filtering-button">
-                <button class="button" type="submit">Фильтровать</button>
+            <div class="checkbox-box">
+                <input type="checkbox" class="checkbox" id="popular-authors">
+                <label for="popular-authors">Популярные</label>
             </div>
-            <div class="button-box panel-filtering-button">
-                <button class="button" type="button" id="open-filtering-panel">Фильтровать</button>
+            <div class="checkbox-box">
+                <input type="checkbox" class="checkbox" id="start-with-hight-rating-authors">
+                <label for="start-with-hight-rating-authors">Сначала с высокой оценкой</label>
             </div>
-            <div class="panel left-panel" id="filtering-panel">
-                <h1 class="filtering-header">Фильтрация</h1>
-                <div class="panel-filters">
-                    <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="new-authors-panel">
-                        <label for="new-authors-panel">Новые</label>
-                    </div>
-                    <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="popular-authors-panel">
-                        <label for="popular-authors-panel">Популярные</label>
-                    </div>
-                    <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="start-with-hight-rating-authors-panel">
-                        <label for="start-with-hight-rating-authors-panel">Сначала с высокой оценкой</label>
-                    </div>
-                    <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox" id="start-with-low-rating-authors-panel">
-                        <label for="start-with-low-rating-authors-panel">Сначала с низкой оценкой</label>
-                    </div>
-                </div>
-                <div class="button-box filter-panel-button">
-                    <button class="button dark-button" type="submit">Фильтровать</button>
-                </div>
-                <div class="button-box filter-panel-button">
-                    <button class="button dark-button" type="button" id="close-filtering-panel">Закрыть</button>
-                </div>
+            <div class="checkbox-box">
+                <input type="checkbox" class="checkbox" id="start-with-low-rating-authors">
+                <label for="start-with-low-rating-authors">Сначала с низкой оценкой</label>
             </div>
-        </form>
-        <div class="wraping-box">
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="user-box menu-user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
         </div>
+        <div class="button-box submit-filtering-button">
+            <button class="button" type="submit">Фильтровать</button>
+        </div>
+        <div class="button-box panel-filtering-button">
+            <button class="button" type="button" id="open-filtering-panel">Фильтровать</button>
+        </div>
+        <div class="panel left-panel" id="filtering-panel">
+            <h1 class="filtering-header">Фильтрация</h1>
+            <div class="panel-filters">
+                <div class="checkbox-box dark-checkbox-box">
+                    <input type="checkbox" class="checkbox" id="new-authors-panel">
+                    <label for="new-authors-panel">Новые</label>
+                </div>
+                <div class="checkbox-box dark-checkbox-box">
+                    <input type="checkbox" class="checkbox" id="popular-authors-panel">
+                    <label for="popular-authors-panel">Популярные</label>
+                </div>
+                <div class="checkbox-box dark-checkbox-box">
+                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-authors-panel">
+                    <label for="start-with-hight-rating-authors-panel">Сначала с высокой оценкой</label>
+                </div>
+                <div class="checkbox-box dark-checkbox-box">
+                    <input type="checkbox" class="checkbox" id="start-with-low-rating-authors-panel">
+                    <label for="start-with-low-rating-authors-panel">Сначала с низкой оценкой</label>
+                </div>
+            </div>
+            <div class="button-box filter-panel-button">
+                <button class="button dark-button" type="submit">Фильтровать</button>
+            </div>
+            <div class="button-box filter-panel-button">
+                <button class="button dark-button" type="button" id="close-filtering-panel">Закрыть</button>
+            </div>
+        </div>
+    </form>
+    <div class="wraping-box">
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
+        <a href="" class="user-box menu-user-box">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <p class="username">Jum Root</p>
+            <div class="statistics">
+                <div class="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <span>4.5</span>
+                </div>
+                <div class="rating">
+                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <span>100</span>
+                </div>
+            </div>
+        </a>
     </div>
     <div class="paginator-box">
         <div class="paginator">

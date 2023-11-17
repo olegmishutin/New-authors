@@ -1,3 +1,8 @@
+.wraping-box {
+    gap: 2.5%;
+    row-gap: 35px;
+}
+
 .book-box {
     min-width: 200px;
     width: 200px;
@@ -86,5 +91,42 @@
 
     .author-book-box .description {
         display: none;
+    }
+}
+
+@media (max-width: 550px) {
+    .wraping-box {
+        gap: 4%;
+        row-gap: 35px;
+    }
+}
+
+@media (max-width: 380px) {
+    .wraping-box .book-box {
+        min-width: 200px;
+        width: 200px;
+    }
+
+    .wraping-box .book-photo-box {
+        height: 317px;
+        min-height: 317px;
+        max-height: 317px;
+    }
+
+    .wraping-box .book-name {
+        font-size: var(--medium-text);
+    }
+
+    .wraping-box .statistics {
+        gap: 9px;
+    }
+
+    .wraping-box .rating img {
+        max-width: unset;
+    }
+
+    .wraping-box .rating span {
+        height: 14px;
+        font-size: var(--very-small-text);
     }
 }
