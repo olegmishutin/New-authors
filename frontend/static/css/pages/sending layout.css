@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 45px;
 }
 
 .page-header {
@@ -10,7 +11,75 @@
     gap: 23px;
 }
 
-.page-header h1{
+.page-header h1 {
     color: var(--intermediate-color);
     font-size: var(--biggest-text);
+}
+
+.page-content {
+    display: flex;
+    gap: 68px;
+    margin-top: 41px;
+}
+
+.info-input {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-input textarea {
+    height: 285px;
+}
+
+.page-content .user-box {
+    width: 354px;
+    gap: 20px;
+}
+
+.page-content .user-photo-box {
+    width: 354px;
+    height: 354px;
+}
+
+.page-content .username {
+    font-size: var(--biggest-text);
+}
+
+.page-content .short-description p {
+    color: var(--intermediate-color);
+}
+
+@media (max-width: 850px) {
+    .page-header h1 {
+        font-size: var(--big-text);
+        text-align: center;
+    }
+
+    .page-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info-input {
+        max-width: unset;
+    }
+}
+
+@media (max-width: 425px) {
+    .page-content .user-box {
+        width: 250px;
+        gap: 20px;
+    }
+
+    .page-content .user-photo-box {
+        width: 250px;
+        height: 250px;
+    }
+
+    .page-content .username {
+        font-size: var(--big-text);
+        -webkit-line-clamp: unset;
+    }
 }

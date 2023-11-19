@@ -63,12 +63,14 @@
 
 .category-description .books-number span {
     max-width: 80%;
-    max-height: 23px;
     color: var(--important-color);
     font-size: var(--medium-text);
     font-weight: 800;
     overflow: hidden;
     text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 @media (max-width: 1440px) {

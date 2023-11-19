@@ -16,6 +16,8 @@
     {% block stylesheet %}{% endblock %}
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <div class="navigation">
     <div class="top-nav-bar content-padding">
         <button class="logo no-backround-and-border" id="show-navigate-panel-button">
@@ -157,8 +159,6 @@
 <div class="content content-padding">
     {% block content %}{% endblock %}
 </div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="{% static 'js/navigation.js' %}"></script>
 </body>
 </html>

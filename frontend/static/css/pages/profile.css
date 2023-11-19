@@ -29,7 +29,6 @@ header .username {
     color: var(--front-color);
     font-size: var(--biggest-text);
     font-weight: 700;
-    max-height: 55px;
     margin-top: 0;
 }
 
@@ -44,9 +43,8 @@ header .user-box .description {
 }
 
 header .user-box .description p {
-    font-size: var(--very-small-text);
-    max-height: 115px;
-    overflow: hidden;
+    text-align: left;
+    -webkit-line-clamp: 3;
 }
 
 header .statistics {
@@ -122,13 +120,12 @@ header .statistics span {
 
     header .username {
         text-align: center;
-        max-height: 80px;
         font-size: var(--big-text);
+        -webkit-line-clamp: unset;
     }
 
     header .user-box .description p {
         text-align: center;
-        max-height: unset;
     }
 
     header .statistics {
@@ -149,6 +146,5 @@ header .statistics span {
     header .statistics span {
         font-size: var(--medium-text);
         max-height: 17px;
-        height: 17px;
     }
 }

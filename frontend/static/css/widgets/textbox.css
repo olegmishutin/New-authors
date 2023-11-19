@@ -1,7 +1,7 @@
 .textbox {
     width: 100%;
     border-radius: 10px;
-    min-height: 55px;
+    height: 55px;
     border: 3px solid white;
     background: none;
     padding: 16px 21px 16px 21px;
@@ -11,6 +11,11 @@
     box-sizing: border-box;
     resize: none;
     transition-duration: 0.3s;
+}
+
+.dark-textbox {
+    border-color: var(--intermediate-color);
+    color: var(--intermediate-color);
 }
 
 .textbox:hover {
@@ -23,4 +28,8 @@
 
 .textbox::placeholder {
     color: var(--front-color);
+}
+
+.dark-textbox::placeholder{
+    color: var(--intermediate-color);
 }

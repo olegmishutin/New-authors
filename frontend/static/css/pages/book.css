@@ -43,7 +43,9 @@
 .header .book-info .info h1 {
     color: var(--front-color);
     font-size: var(--big-text);
-    max-height: 130px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
@@ -60,7 +62,6 @@
 .header .user-box .username {
     color: var(--front-color);
     max-width: 300px;
-    max-height: 165px;
     margin-top: 0;
     text-align: right;
 }
@@ -98,13 +99,7 @@ main {
 }
 
 .textbox {
-    border: 3px solid var(--intermediate-color);
-    color: var(--intermediate-color);
     height: 228px;
-}
-
-.textbox::placeholder {
-    color: var(--intermediate-color);
 }
 
 .review-rating {
@@ -185,6 +180,7 @@ main {
 
     .header .book-info .info h1 {
         text-align: center;
+        -webkit-line-clamp: unset;
     }
 
     .header .book-image {
@@ -201,7 +197,6 @@ main {
         display: block;
         font-size: var(--big-text);
         max-width: unset;
-        max-height: unset;
         text-align: center;
     }
 
