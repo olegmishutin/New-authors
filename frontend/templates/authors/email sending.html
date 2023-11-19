@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Публикация книги{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/pages/sending layout.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <div class="page-header-image">
+            <img src="{% static 'image/author.png' %}" alt="book">
+        </div>
+        <h1>Отправка E-mail автору</h1>
+    </div>
+    <form class="page-content">
+        <div class="user-box no-hover">
+            <div class="user-photo-box">
+                <img src="{% static 'image/men.png' %}" alt="author">
+            </div>
+            <h1 class="username">Мишутин Олег Святославович</h1>
+            <div class="short-description">
+                <p>Самый лучший в мире гитарист. Играю на гитаре. Играю в слипнот. Пишу книги про любовь
+                    и ножи. Меня Олег зовут. На улице реин, в душе пэин, на илице снег май нейм из Алег</p>
+            </div>
+        </div>
+        <div class="info-input">
+            <input type="email" class="textbox dark-textbox" placeholder="E-mail адрес автора">
+            <textarea class="textbox dark-textbox" placeholder="Сообщение для автора"></textarea>
+            <div class="in-line-file-input">
+                <div class="button-box file-input-box">
+                    <label class="input-file-button button">
+                        <input type="file" name="photo">
+                        <img src="{% static 'image/file.svg' %}" alt="file">
+                        <span>Файл</span>
+                    </label>
+                </div>
+                <div class="button-box">
+                    <input type="submit" class="button" value="Опубликовать">
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
