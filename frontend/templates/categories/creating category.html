@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Новая категория{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/widgets/cover input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/sending layout.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <div class="page-header-image">
+            <img src="{% static 'image/categories icon.png' %}" alt="book">
+        </div>
+        <h1>Новая категория</h1>
+    </div>
+    <form class="page-content">
+        <div class="cover-input">
+            <label class="input-file-button cover-file-input">
+                <input type="file" name="book cover" id="cover-image-input">
+                <img src="{% static 'image/cover.png' %}" alt="cover input">
+            </label>
+            <p>Обложка</p>
+            <img class="cover-image" src="" alt="" id="cover-image">
+        </div>
+        <div class="info-input">
+            <input type="text" class="textbox dark-textbox" placeholder="Название категории">
+            <textarea class="textbox dark-textbox" placeholder="Краткое описание категории"></textarea>
+            <div class="button-box">
+                <input type="submit" class="button" value="Создать категорию">
+            </div>
+        </div>
+    </form>
+{% endblock %}
