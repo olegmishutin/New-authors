@@ -38,17 +38,8 @@
     -webkit-box-orient: vertical;
 }
 
-.book-management,
-.button-box {
-    margin-top: 15px;
-}
-
-.book-box .button-box {
-    height: 45px;
-    min-width: unset;
-}
-
 .book-management {
+    margin-top: 15px;
     display: flex;
     gap: 10px;
     align-items: flex-end;

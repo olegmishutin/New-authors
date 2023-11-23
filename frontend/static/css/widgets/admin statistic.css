@@ -1,23 +1,23 @@
-.admin-statistic-box{
+.admin-statistic-box {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 42px;
 }
 
-.admin-statistic{
+.admin-statistic {
     display: flex;
     align-items: center;
     gap: 24px;
 }
 
-.admin-statistic .info h1{
+.admin-statistic .info h1 {
     font-size: var(--biggest-text);
     color: var(--intermediate-color);
     font-weight: 800;
 }
 
-.admin-statistic .info span{
+.admin-statistic .info span {
     max-width: 300px;
     font-size: var(--medium-text);
     color: var(--important-color);
@@ -28,14 +28,27 @@
     -webkit-box-orient: vertical;
 }
 
+.management-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.management-buttons .button-box {
+    min-width: unset;
+    height: 37px;
+}
+
 @media (max-width: 560px) {
-    .admin-statistic .info h1{
+    .admin-statistic .info h1 {
         font-size: var(--big-text);
     }
 }
 
 @media (max-width: 450px) {
-    .admin-statistic .info h1{
+    .admin-statistic .info h1 {
         font-size: var(--medium-text);
     }
 }

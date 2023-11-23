@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/admin statistic.css' %}">
 {% endblock %}
 {% block authorsHref %}
     <a href="{% url 'menu' %}">Главная</a>
@@ -14,6 +15,19 @@
     <a href="{% url 'menu' %}">Главная</a>
 {% endblock %}
 {% block content %}
+    {% if isAdmin %}
+        <div class="admin-statistic-box">
+            <div class="admin-statistic">
+                <div class="admin-statistic-image">
+                    <img src="{% static 'image/author.png' %}" alt="authors number image">
+                </div>
+                <div class="info">
+                    <h1>Количество авторов:</h1>
+                    <span>1337</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <form method="get" class="filtering">
         <div class="filters">
             <div class="checkbox-box">
@@ -68,262 +82,454 @@
         </div>
     </form>
     <div class="wraping-box">
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="" class="user-box menu-user-box">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="author">
-            </div>
-            <p class="username">Jum Root</p>
-            <div class="statistics">
-                <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
                 </div>
-                <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
+                </div>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
+                </div>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
+                </div>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
+                </div>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="user-box">
+            <a href="" class="user-box">
+                <div class="user-photo-box">
+                    <img src="{% static 'image/men.png' %}" alt="author">
+                </div>
+                <p class="username">Jum Root</p>
+                <div class="statistics">
+                    <div class="rating">
+                        <img src="{% static 'image/stars.png' %}" alt="rating">
+                        <span>4.5</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'image/comment.png' %}" alt="comment">
+                        <span>100</span>
+                    </div>
+                </div>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">E-mail</a>
+                    </div>
+                    <div class="button-box">
+                        <a class="button" href="">Удалить</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
     <div class="paginator-box">
         <div class="paginator">
