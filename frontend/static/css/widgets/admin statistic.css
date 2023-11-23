@@ -1,0 +1,41 @@
+.admin-statistic-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 42px;
+}
+
+.admin-statistic{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.admin-statistic .info h1{
+    font-size: var(--biggest-text);
+    color: var(--intermediate-color);
+    font-weight: 800;
+}
+
+.admin-statistic .info span{
+    max-width: 300px;
+    font-size: var(--medium-text);
+    color: var(--important-color);
+    font-weight: 800;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+@media (max-width: 560px) {
+    .admin-statistic .info h1{
+        font-size: var(--big-text);
+    }
+}
+
+@media (max-width: 450px) {
+    .admin-statistic .info h1{
+        font-size: var(--medium-text);
+    }
+}

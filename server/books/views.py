@@ -2,7 +2,11 @@ from django.shortcuts import render
 
 
 def books(request):
-    return render(request, 'books/books.html')
+    return render(request, 'books/books.html', {'isAdmin': False})
+
+
+def booksAdmin(request):
+    return render(request, 'books/books.html', {'isAdmin': True})
 
 
 def book(request):
