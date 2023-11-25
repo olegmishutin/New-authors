@@ -73,7 +73,7 @@
             <input class="navigation-textbox no-backround-and-border" id="panel-search-bar" type="text"
                    placeholder="Поиск" required>
         </form>
-        <nav class="pages">
+        <nav class="pages user-side-nav">
             <ul>
                 <li>
                     {% block newBookHrefSideNav %}
@@ -100,13 +100,42 @@
                         <a href="">Авторы</a>
                     {% endblock %}
                 </li>
-                <li>
-                    <div class="button-box">
-                        <button class="button" id="close-right-panel-button">Закрыть</button>
-                    </div>
-                </li>
             </ul>
         </nav>
+        {% if user.is_staff %}
+            <div class="admin-nav">
+                <div class="admin-header">
+                    <h1>Админка</h1>
+                </div>
+                <nav class="pages">
+                    <ul>
+                        <li>
+                            {% block adminBooks %}
+                                <a href="{% url 'books:books-admin' %}">Книги</a>
+                            {% endblock %}
+                        </li>
+                        <li>
+                            {% block adminCategories %}
+                                <a href="{% url 'categories:categories-admin' %}">Категории</a>
+                            {% endblock %}
+                        </li>
+                        <li>
+                            {% block adminUsers %}
+                                <a href="{% url 'profiles:users-admin' %}">Пользователи</a>
+                            {% endblock %}
+                        </li>
+                        <li>
+                            {% block adminAuthors %}
+                                <a href="{% url 'authors:authors-admin' %}">Авторы</a>
+                            {% endblock %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+        <div class="button-box">
+            <button class="button" id="close-right-panel-button">Закрыть</button>
+        </div>
     </div>
     <div class="panel left-panel" id="manage-panel">
         <div class="user-box no-hover">
@@ -120,7 +149,6 @@
                 <li><a href="{% url 'books:book-publication' %}">Опублиовать книгу</a></li>
                 <li><a href="{% url 'profiles:profile-comments' %}">Мой профиль</a></li>
                 <li><a id="open-user-settings-button">Изменить профиль</a></li>
-                <li><a href="">Админка</a></li>
                 <li><a href="">Выйти из аккаунта</a></li>
                 <li>
                     <div class="button-box">

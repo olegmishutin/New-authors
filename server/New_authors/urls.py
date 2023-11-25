@@ -22,10 +22,10 @@ from . import views
 
 urlpatterns = [
     path('', views.menu, name='menu'),
-    path('django-admin/', admin.site.urls),
     path('', include('authentication.urls')),
     path('', include('categories.urls')),
     path('', include('books.urls')),
     path('', include('authors.urls')),
-    path('', include('user_profiles.urls'))
+    path('', include('user_profiles.urls')),
+    path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

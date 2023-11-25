@@ -9,10 +9,25 @@
     <link rel="stylesheet" href="{% static 'css/widgets/admin statistic.css' %}">
 {% endblock %}
 {% block authorsHref %}
-    <a href="{% url 'menu' %}">Главная</a>
+    {% if isAdmin %}
+        <a href="{% url 'authors:authors' %}">Авторы</a>
+    {% else %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% endif %}
 {% endblock %}
 {% block authorsHrefSideNav %}
-    <a href="{% url 'menu' %}">Главная</a>
+    {% if isAdmin %}
+        <a href="{% url 'authors:authors' %}">Авторы</a>
+    {% else %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% endif %}
+{% endblock %}
+{% block adminAuthors %}
+    {% if isAdmin %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% else %}
+        <a href="{% url 'authors:authors' %}">Авторы</a>
+    {% endif %}
 {% endblock %}
 {% block content %}
     {% if isAdmin %}

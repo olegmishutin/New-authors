@@ -55,6 +55,14 @@
     gap: 35px;
 }
 
+.right-panel .user-side-nav {
+    display: none;
+}
+
+.right-panel .pages{
+    margin-bottom: 47px;
+}
+
 .right-panel .pages ul {
     flex-wrap: wrap;
     justify-content: center;
@@ -83,6 +91,14 @@
 
 .left-panel-close-animation {
     animation: 0.6s linear close-left-panel-animation;
+}
+
+.admin-header h1{
+    color: var(--front-color);
+    font-size: var(--big-text);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 29px;
 }
 
 @keyframes open-right-panel-animation {
@@ -118,6 +134,12 @@
     }
     to {
         right: -450px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .right-panel .user-side-nav {
+        display: flex;
     }
 }
 

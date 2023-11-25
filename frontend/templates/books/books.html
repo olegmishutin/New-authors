@@ -10,10 +10,25 @@
     <link rel="stylesheet" href="{% static 'css/widgets/admin statistic.css' %}">
 {% endblock %}
 {% block allBooksHref %}
-    <a href="{% url 'menu' %}">Главная</a>
+    {% if isAdmin %}
+        <a href="{% url 'books:books' %}">Все книги</a>
+    {% else %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% endif %}
 {% endblock %}
 {% block allBooksHrefSideNav %}
-    <a href="{% url 'menu' %}">Главная</a>
+    {% if isAdmin %}
+        <a href="{% url 'books:books' %}">Все книги</a>
+    {% else %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% endif %}
+{% endblock %}
+{% block adminBooks %}
+    {% if isAdmin %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% else %}
+        <a href="{% url 'books:books-admin' %}">Книги</a>
+    {% endif %}
 {% endblock %}
 {% block content %}
     {% if isAdmin %}

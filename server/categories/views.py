@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 
 def categories(request):
@@ -6,7 +7,9 @@ def categories(request):
 
 
 def categoriesAdmin(request):
-    return render(request, 'categories/categories.html', {'isAdmin': True})
+    if request.user.is_superuser:
+        return render(request, 'categories/categories.html', {'isAdmin': True})
+    return HttpResponse(status=403)
 
 
 def creatingCategory(request):

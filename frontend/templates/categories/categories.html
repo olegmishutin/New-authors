@@ -7,10 +7,25 @@
     <link rel="stylesheet" href="{% static 'css/widgets/admin statistic.css' %}">
 {% endblock %}
 {% block categoriesHref %}
-    <a href="{% url 'menu' %}">Главная</a>
+    {% if isAdmin %}
+        <a href="{% url 'categories:categories' %}">Категории</a>
+    {% else %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% endif %}
 {% endblock %}
 {% block categoriesHrefSideNav %}
-    <a href="{% url 'menu' %}">Главная</a>
+    {% if isAdmin %}
+        <a href="{% url 'categories:categories' %}">Категории</a>
+    {% else %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% endif %}
+{% endblock %}
+{% block adminCategories %}
+    {% if isAdmin %}
+        <a href="{% url 'menu' %}">Главная</a>
+    {% else %}
+        <a href="{% url 'categories:categories-admin' %}">Категории</a>
+    {% endif %}
 {% endblock %}
 {% block content %}
     {% if isAdmin %}

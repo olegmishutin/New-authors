@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 
 def authors(request):
@@ -6,7 +7,9 @@ def authors(request):
 
 
 def authorsAdmin(request):
-    return render(request, 'authors/authors.html', {'isAdmin': True})
+    if request.user.is_superuser:
+        return render(request, 'authors/authors.html', {'isAdmin': True})
+    return HttpResponse(status=403)
 
 
 def sendingEmail(request):
