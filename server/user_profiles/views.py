@@ -6,3 +6,7 @@ def profileComments(request):
 
 def profileBooks(request):
     return render(request, 'profile/profile books.html')
+
+
+def usersAdmin(request):
+    return render(request, 'profile/users admin.html')
