@@ -5,9 +5,17 @@ document.getElementById('open-user-settings-button').onclick = openUserSettingsP
 const navigatePanel = document.getElementById('navigate-panel')
 const managePanel = document.getElementById('manage-panel')
 const userSettingsPanel = document.getElementById('user-settings')
+let navigatePanelIsOpen = false
 
 function openNavigatePanel() {
-    navigatePanel.className = 'panel show-panel right-panel right-panel-open-animation'
+    if (navigatePanel.getAttribute('data') === 'adaptive' && window.innerWidth <= 1024) {
+        navigatePanel.className = 'panel show-panel right-panel right-panel-open-animation'
+        navigatePanelIsOpen = true
+    }
+    if (navigatePanel.getAttribute('data') === 'no-adaptive') {
+        navigatePanel.className = 'panel show-panel right-panel right-panel-open-animation'
+        navigatePanelIsOpen = true
+    }
 }
 
 function openManagePanel() {
@@ -27,11 +35,14 @@ document.getElementById('close-left-panel-button').onclick = function () {
     })
 }
 
-document.getElementById('close-right-panel-button').onclick = function () {
+document.getElementById('close-right-panel-button').onclick = closeNavigatePanel
+
+function closeNavigatePanel() {
     navigatePanel.className = 'panel show-panel right-panel right-panel-close-animation'
 
     navigatePanel.addEventListener('animationend', function listener(e) {
         navigatePanel.className = 'panel right-panel'
+        navigatePanelIsOpen = false
         navigatePanel.removeEventListener(e.type, listener)
     })
 }
@@ -55,3 +66,9 @@ searchBar.addEventListener('input', function (e) {
 panelSearchBar.addEventListener('input', function (e) {
     searchBar.value = panelSearchBar.value
 })
+
+$(window).on('resize', function () {
+    if (navigatePanelIsOpen && navigatePanel.getAttribute('data') === 'adaptive' && window.innerWidth > 1024) {
+        closeNavigatePanel()
+    }
+});

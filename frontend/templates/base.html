@@ -65,7 +65,8 @@
             </button>
         </div>
     </div>
-    <div class="panel right-panel" id="navigate-panel">
+    <div class="panel right-panel" id="navigate-panel" {% if not user.is_superuser %} data="adaptive" {% else %}
+         data="no-adaptive" {% endif %}>
         <form method="get" class="search-bar">
             <button class="search-button no-backround-and-border">
                 <img src="{% static 'image/loup.png' %}" alt="loup">
