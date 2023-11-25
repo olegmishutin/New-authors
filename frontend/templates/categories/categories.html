@@ -4,6 +4,7 @@
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/widgets/category.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/admin statistic.css' %}">
 {% endblock %}
 {% block categoriesHref %}
     <a href="{% url 'menu' %}">Главная</a>
@@ -12,194 +13,284 @@
     <a href="{% url 'menu' %}">Главная</a>
 {% endblock %}
 {% block content %}
+    {% if isAdmin %}
+        <div class="admin-statistic-box">
+            <div class="admin-statistic">
+                <div class="admin-statistic-image">
+                    <img src="{% static 'image/categories icon.png' %}" alt="authors number image">
+                </div>
+                <div class="info">
+                    <h1>Количество категорий:</h1>
+                    <span>1337</span>
+                </div>
+            </div>
+            <div class="button-box">
+                <a class="button" href="{% url 'categories:creating-category' %}">Cоздать категорию</a>
+            </div>
+        </div>
+    {% endif %}
     <div class="wraping-box">
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
+            {% endif %}
+        </div>
+        <div class="category">
+            <a class="category-box" href="">
+                <div class="category-icon-box">
+                    <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
                 </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                <div class="category-description">
+                    <div class="category-name">
+                        <h5>Комедия Анекдоты</h5>
+                    </div>
+                    <div class="short-description">
+                        <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
+                    </div>
+                    <div class="books-number">
+                        <img src="{% static 'image/books number.png' %}" alt="books number">
+                        <span>1337</span>
+                    </div>
                 </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
+            </a>
+            {% if isAdmin %}
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button">Удалить</button>
+                    </div>
+                    <div class="button-box">
+                        <button class="button">Изменить</button>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
-                </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
-                </div>
-            </div>
-        </a>
-        <a class="category-box" href="">
-            <div class="category-icon-box">
-                <img src="{% static 'image/category icon 1.png' %}" alt="category icon">
-            </div>
-            <div class="category-description">
-                <div class="category-name">
-                    <h5>Комедия Анекдоты</h5>
-                </div>
-                <div class="short-description">
-                    <p>Комедия — это художественное произведение с юмористическим сюжетом.</p>
-                </div>
-                <div class="books-number">
-                    <img src="{% static 'image/books number.png' %}" alt="books number">
-                    <span>1337</span>
-                </div>
-            </div>
-        </a>
+            {% endif %}
+        </div>
     </div>
     <div class="paginator-box">
         <div class="paginator">

@@ -3,6 +3,9 @@
     display: flex;
     justify-content: center;
     margin-bottom: 42px;
+    align-items: center;
+    gap: 5%;
+    row-gap: 49px;
 }
 
 .admin-statistic {
@@ -39,6 +42,12 @@
 .management-buttons .button-box {
     min-width: unset;
     height: 37px;
+}
+
+@media (max-width: 768px) {
+    .admin-statistic-box{
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 560px) {
