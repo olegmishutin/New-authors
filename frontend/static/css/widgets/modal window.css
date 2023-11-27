@@ -1,15 +1,13 @@
 .modal-window-box {
     position: fixed;
     width: 100%;
-    min-height: 100vh;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.27);
+    background-color: rgba(0, 0, 0, 0.4);
     top: 0;
     left: 0;
     display: none;
     justify-content: center;
     align-items: center;
-    transition-duration: 0.3s;
     box-sizing: border-box;
     z-index: 3;
 }
@@ -41,15 +39,15 @@
     display: flex;
 }
 
-.open-window-animation {
-    animation: 0.3s linear open-modal-window-animation;
+.open-modal-window-box-animation {
+    animation: 0.3s linear open-animation;
 }
 
-.close-window-animation {
-    animation: 0.3s linear close-modal-window-animation;
+.close-modal-window-box-animation {
+    animation: 0.3s linear close-animation;
 }
 
-@keyframes open-modal-window-animation {
+@keyframes open-animation {
     from {
         opacity: 0;
     }
@@ -58,7 +56,7 @@
     }
 }
 
-@keyframes close-modal-window-animation {
+@keyframes close-animation {
     from {
         opacity: 1;
     }
