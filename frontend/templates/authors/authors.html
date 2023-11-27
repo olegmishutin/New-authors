@@ -26,7 +26,7 @@
     {% if isAdmin %}
         <a href="{% url 'menu' %}">Главная</a>
     {% else %}
-        <a href="{% url 'authors:authors' %}">Авторы</a>
+        <a href="{% url 'authors:authors-admin' %}">Авторы</a>
     {% endif %}
 {% endblock %}
 {% block content %}

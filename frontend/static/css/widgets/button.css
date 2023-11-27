@@ -27,3 +27,16 @@
 .button-box .button:hover {
     width: calc(100% - 20px);
 }
+
+.management-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.management-buttons .button-box {
+    min-width: unset;
+    height: 37px;
+}

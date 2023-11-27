@@ -31,21 +31,8 @@
     -webkit-box-orient: vertical;
 }
 
-.management-buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.management-buttons .button-box {
-    min-width: unset;
-    height: 37px;
-}
-
 @media (max-width: 768px) {
-    .admin-statistic-box{
+    .admin-statistic-box {
         flex-direction: column;
     }
 }

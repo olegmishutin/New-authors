@@ -38,17 +38,6 @@
     -webkit-box-orient: vertical;
 }
 
-.book-management {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-}
-
-.book-management img {
-    height: 31px;
-}
-
 .author-book-box {
     display: flex;
     max-width: 789px;
@@ -62,7 +51,7 @@
 
 .author-book-box .description p {
     display: -webkit-box;
-    -webkit-line-clamp: 19;
+    -webkit-line-clamp: 20;
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size: var(--medium-text);

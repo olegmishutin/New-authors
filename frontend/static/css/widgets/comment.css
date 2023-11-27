@@ -40,14 +40,6 @@
     max-width: 39px;
 }
 
-.comment-box .trash-button {
-    height: 25px;
-}
-
-.comment-box .trash-button img {
-    height: 100%;
-}
-
 @media (max-width: 1440px) {
     .comment-box{
         width: 100%;
