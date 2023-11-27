@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="{% static 'css/widgets/category.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/admin statistic.css' %}">
+    {% if isAdmin %}
+        <link rel="stylesheet" href="{% static 'css/widgets/modal window.css' %}">
+    {% endif %}
 {% endblock %}
 {% block categoriesHref %}
     {% if isAdmin %}
@@ -66,10 +69,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -95,10 +98,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -124,10 +127,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -153,10 +156,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -182,10 +185,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -211,10 +214,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -240,10 +243,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -269,10 +272,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -298,10 +301,10 @@
             {% if isAdmin %}
                 <div class="management-buttons">
                     <div class="button-box">
-                        <button class="button">Удалить</button>
+                        <button class="button call-modal-window">Удалить</button>
                     </div>
                     <div class="button-box">
-                        <button class="button">Изменить</button>
+                        <a class="button" href="">Изменить</a>
                     </div>
                 </div>
             {% endif %}
@@ -318,4 +321,20 @@
             </a>
         </div>
     </div>
+    {% if isAdmin %}
+        <div class="modal-window-box content-padding" id="modal-window-box">
+            <div class="modal-window" id="model-window">
+                <p>Вы уверены, что хотите удалить комментарий?</p>
+                <div class="modal-window-buttons">
+                    <div class="button-box">
+                        <a class="button" href="">Да</a>
+                    </div>
+                    <div class="button-box" id="close-model-window">
+                        <button class="button">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/modal window.js' %}"></script>
+    {% endif %}
 {% endblock %}
