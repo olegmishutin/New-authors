@@ -13,4 +13,6 @@ def categoriesAdmin(request):
 
 
 def creatingCategory(request):
-    return render(request, 'categories/creating category.html')
+    if request.user.is_superuser:
+        return render(request, 'categories/creating category.html')
+    return HttpResponse(status=403)

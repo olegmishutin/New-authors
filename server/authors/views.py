@@ -13,4 +13,6 @@ def authorsAdmin(request):
 
 
 def sendingEmail(request):
-    return render(request, 'authors/email sending.html')
+    if request.user.is_superuser:
+        return render(request, 'authors/email sending.html')
+    return HttpResponse(status=403)
