@@ -59,12 +59,10 @@ def signIn(request):
         postData = dict(request.POST)
         currentTemplate = 'authentication/sign-in.html'
 
-        for key, value in postData.items():
-            postData[key] = value = ' '.join(value[0].split())
-            if not value:
-                return errorRender(request, currentTemplate, f'{key}Error', 'Это поле не может быть пустым!')
+        if not postData.get('username')[0] or not postData.get('password')[0]:
+            return errorRender(request, currentTemplate, f'usernameError', 'Поля не могут быть пустыми!')
 
-        user = authenticate(username=postData.get('username'), password=postData.get('password'))
+        user = authenticate(username=postData.get('username')[0], password=postData.get('password')[0])
         if user is not None:
             Profile.objects.get_or_create(user=user, defaults={'full_name': user.username, 'is_author': False})
             login(request, user)
