@@ -6,7 +6,7 @@ body {
 
 .container {
     width: 100%;
-    height: 950px;
+    height: 1000px;
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: 715px auto;
@@ -47,6 +47,17 @@ main {
     align-items: center;
     flex-direction: column;
     gap: 30px;
+}
+
+.input-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-box span{
+    color: var(--front-color);
 }
 
 input[type='radio'] {

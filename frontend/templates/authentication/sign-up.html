@@ -5,13 +5,28 @@
     <link rel="stylesheet" href="{% static 'css/widgets/switcher.css' %}">
 {% endblock %}
 {% block pageNaming %}Регистрация{% endblock %}
+{% block formActionUrl %}
+    {% url 'authentication:sign-up' %}
+{% endblock %}
 {% block main %}
-    <input class="textbox" type="text" name="fullName" placeholder="ФИО" required>
-    <input class="textbox" type="text" name="username" placeholder="Имя пользователя" required>
-    <input class="textbox" type="email" name="email" placeholder="E-mail адрес" required>
-    <input class="textbox" type="password" name="password" placeholder="Пароль" required>
-    <input type="radio" id="userTypeUser" name="userType" value="user" checked required>
-    <input type="radio" id="userTypeAuthor" name="userType" value="author" required>
+    <div class="input-box">
+        <span>{{ fullNameError }}</span>
+        <input class="textbox" type="text" name="fullName" placeholder="ФИО" value="{{ fullNameValue }}">
+    </div>
+    <div class="input-box">
+        <span>{{ usernameError }}</span>
+        <input class="textbox" type="text" name="username" placeholder="Имя пользователя" value="{{ usernameValue }}">
+    </div>
+    <div class="input-box">
+        <span>{{ emailError }}</span>
+        <input class="textbox" type="email" name="email" placeholder="E-mail адрес" value="{{ emailValue }}">
+    </div>
+    <div class="input-box">
+        <span>{{ passwordError }}</span>
+        <input class="textbox" type="password" name="password" placeholder="Пароль" value="{{ passwordValue }}">
+    </div>
+    <input type="radio" id="userTypeUser" name="userType" value="user" checked>
+    <input type="radio" id="userTypeAuthor" name="userType" value="author">
     <div class="switch">
         <button type="button" class="switcher switcher-on" id="switcher-1">Пользователь</button>
         <button type="button" class="switcher" id="switcher-2">Автор</button>

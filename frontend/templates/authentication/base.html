@@ -15,7 +15,8 @@
 <body>
 <div class="container">
     <div class="content">
-        <form method="post">
+        <form method="post" action="{% block formActionUrl %}{% endblock %}">
+            {% csrf_token %}
             <header>
                 <div class="user-image">
                     <img src="{% static 'image/user.png' %}" alt="user">

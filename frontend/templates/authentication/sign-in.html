@@ -8,7 +8,7 @@
 {% endblock %}
 {% block submitButtonText %}Войти{% endblock %}
 {% block footer %}
-    <a href="">Зарегистрироваться</a>
+    <a href="{% url 'authentication:sign-up' %}">Зарегистрироваться</a>
 {% endblock %}
 {% block imageUrl %}
     {% static 'image/sign-in image.png' %}
