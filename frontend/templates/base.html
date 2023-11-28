@@ -140,17 +140,30 @@
     </div>
     <div class="panel left-panel" id="manage-panel">
         <div class="user-box no-hover">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="photo">
-            </div>
-            <h2 class="username">Jum Root</h2>
+            {% if user.is_authenticated %}
+                <div class="user-photo-box">
+                    {% if user.profile.photo %}
+                        <img src="{% static 'image/men.png' %}" alt="photo">
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <h2 class="username">{{ user.profile.full_name }}</h2>
+            {% endif %}
         </div>
         <nav class="pages">
             <ul>
-                <li><a href="{% url 'books:book-publication' %}">Опублиовать книгу</a></li>
-                <li><a href="{% url 'profiles:profile-comments' %}">Мой профиль</a></li>
-                <li><a id="open-user-settings-button">Изменить профиль</a></li>
-                <li><a href="">Выйти из аккаунта</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.profile.is_author %}
+                        <li><a href="{% url 'books:book-publication' %}">Опублиовать книгу</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'profiles:profile-comments' %}">Мой профиль</a></li>
+                    <li><a id="open-user-settings-button">Изменить профиль</a></li>
+                    <li><a href="{% url 'authentication:logout' %}">Выйти из аккаунта</a></li>
+                {% else %}
+                    <li><a href="{% url 'authentication:sign-in' %}">Вход</a></li>
+                    <li><a href="{% url 'authentication:sign-up' %}">Регистрация</a></li>
+                {% endif %}
                 <li>
                     <div class="button-box">
                         <button class="button dark-button" id="close-left-panel-button">Закрыть</button>

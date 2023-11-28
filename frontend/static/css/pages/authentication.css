@@ -56,8 +56,9 @@ main {
     gap: 5px;
 }
 
-.input-box span{
+.input-box span {
     color: var(--front-color);
+    text-align: center;
 }
 
 input[type='radio'] {
@@ -127,5 +128,9 @@ footer a {
 @media (max-width: 500px) {
     .content {
         padding: 40px 30px 40px 30px;
+    }
+
+    h1 {
+        font-size: var(--big-text);
     }
 }

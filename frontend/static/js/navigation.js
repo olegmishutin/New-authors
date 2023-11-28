@@ -1,6 +1,10 @@
 document.getElementById('show-navigate-panel-button').onclick = openNavigatePanel
 document.getElementById('show-manage-panel-button').onclick = openManagePanel
-document.getElementById('open-user-settings-button').onclick = openUserSettingsPanel
+
+try {
+    document.getElementById('open-user-settings-button').onclick = openUserSettingsPanel
+} catch (error) {
+}
 
 const navigatePanel = document.getElementById('navigate-panel')
 const managePanel = document.getElementById('manage-panel')

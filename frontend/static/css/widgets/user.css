@@ -16,6 +16,7 @@
     border-radius: 50%;
     overflow: hidden;
     transition-duration: 0.3s;
+    background-color: var(--front-color);
 }
 
 .user-photo-box img {

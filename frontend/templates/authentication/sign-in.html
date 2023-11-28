@@ -2,9 +2,15 @@
 {% load static %}
 {% block title %}Авторизация{% endblock %}
 {% block pageNaming %}Авторизация{% endblock %}
+{% block formActionUrl %}
+    {% url 'authentication:sign-in' %}
+{% endblock %}
 {% block main %}
-    <input class="textbox" type="text" name="username" placeholder="Имя пользователя" required>
-    <input class="textbox" type="password" name="password" placeholder="Пароль" required>
+    <div class="input-box">
+        <span>{{ usernameError }}</span>
+        <input class="textbox" type="text" name="username" placeholder="Имя пользователя" value="{{ usernameValue }}">
+    </div>
+    <input class="textbox" type="password" name="password" placeholder="Пароль" value="{{ passwordValue }}">
 {% endblock %}
 {% block submitButtonText %}Войти{% endblock %}
 {% block footer %}
