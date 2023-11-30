@@ -12,18 +12,22 @@
         </div>
         <h1>Новая категория</h1>
     </div>
-    <form class="page-content">
+    <form method="post" action="{% url 'categories:creating-category' %}" enctype="multipart/form-data"
+          class="page-content">
+        {% csrf_token %}
         <div class="cover-input">
             <label class="input-file-button cover-file-input">
-                <input type="file" name="book cover" id="cover-image-input">
+                <input type="file" name="categoryIcon" accept="image/*" id="cover-image-input" required>
                 <img src="{% static 'image/cover.png' %}" alt="cover input">
             </label>
             <p>Обложка</p>
-            <img class="cover-image" src="" alt="" id="cover-image">
+            <img class="cover-image" src="{{ categoryIconValue }}" alt="" id="cover-image">
         </div>
         <div class="info-input">
-            <input type="text" class="textbox dark-textbox" placeholder="Название категории">
-            <textarea class="textbox dark-textbox" placeholder="Краткое описание категории"></textarea>
+            <input type="text" name="categoryName" class="textbox dark-textbox" placeholder="Название категории"
+                   value="{{ categoryNameValue }}" required>
+            <textarea name="categoryShortDescription" class="textbox dark-textbox"
+                      placeholder="Краткое описание категории" required>{{ categoryShortDescriptionValue }}</textarea>
             <div class="button-box">
                 <input type="submit" class="button" value="Создать категорию">
             </div>

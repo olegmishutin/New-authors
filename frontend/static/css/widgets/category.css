@@ -28,16 +28,17 @@
     box-shadow: 5px 5px 8px var(--interact-color);
 }
 
-.category-icon-box {
+.category-icon-box{
+    display: flex;
+    align-items: center;
+}
+
+.category-icon-box img {
     min-width: 142px;
     min-height: 142px;
     max-width: 142px;
     max-height: 142px;
-}
-
-.category-icon-box img {
-    width: 100%;
-    height: 100%;
+    object-fit: cover;
     border-radius: 20px;
 }
 
