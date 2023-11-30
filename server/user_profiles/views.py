@@ -12,15 +12,15 @@ def changeProfileInfo(request):
             profile = Profile.objects.get(user__id=request.user.id)
 
             photo = request.FILES.get('photo')
-            fullName = request.POST.get('fullName')
+            fullName = ' '.join(request.POST.get('fullName').split())
             shortDescription = request.POST.get('shortDescription')
 
             profile.photo = setNewInfo(profile.photo, photo)
-            profile.full_name = setNewInfo(profile.full_name, ' '.join(fullName.split()))
+            profile.full_name = setNewInfo(profile.full_name, fullName)
             profile.short_description = shortDescription
 
             profile.save(update_fields=['full_name', 'photo', 'short_description'])
-    return redirect('menu')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def profileComments(request):
