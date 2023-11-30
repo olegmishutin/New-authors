@@ -143,7 +143,7 @@
             {% if user.is_authenticated %}
                 <div class="user-photo-box">
                     {% if user.profile.photo %}
-                        <img src="{% static 'image/men.png' %}" alt="photo">
+                        <img src="{{ user.profile.photo.url }}" alt="photo">
                     {% endif %}
                 </div>
             {% endif %}
@@ -174,11 +174,17 @@
     </div>
     <div class="panel left-panel" id="user-settings">
         <div class="no-hover">
-            <div class="user-photo-box">
-                <img src="{% static 'image/men.png' %}" alt="photo">
-            </div>
+            {% if user.is_authenticated %}
+                <div class="user-photo-box">
+                    {% if user.profile.photo %}
+                        <img src="{{ user.profile.photo.url }}" alt="photo">
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
-        <form method="post" class="user-settings-form">
+        <form method="post" action="{% url 'profiles:change-profile-info' %}" enctype="multipart/form-data"
+              class="user-settings-form">
+            {% csrf_token %}
             <div class="button-box">
                 <label class="input-file-button button dark-button">
                     <input type="file" name="photo">
@@ -186,9 +192,9 @@
                     <span>Ваше фото</span>
                 </label>
             </div>
-            <input class="textbox" type="text" name="fullName" placeholder="ФИО" required>
-            <input class="textbox" type="text" name="username" placeholder="Имя пользователя" required>
-            <textarea class="textbox" name="" placeholder="Краткое описание" required></textarea>
+            <input class="textbox" type="text" name="fullName" placeholder="ФИО" value="{{ user.profile.full_name }}">
+            <textarea class="textbox" name="shortDescription"
+                      placeholder="Краткое описание">{{ user.profile.short_description }}</textarea>
             <div class="button-box">
                 <input type="submit" class="button dark-button" value="Изменить профиль">
             </div>
