@@ -17,4 +17,6 @@ def book(request):
 
 
 def bookPublication(request):
-    return render(request, 'books/book publication.html')
+    if request.user.is_author:
+        return render(request, 'books/book publication.html')
+    return HttpResponse(status=403)

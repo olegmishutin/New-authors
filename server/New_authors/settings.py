@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'authors',
     'books',
     'categories',
-    'user_profiles',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

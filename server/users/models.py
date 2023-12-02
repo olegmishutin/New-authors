@@ -1,18 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class User(AbstractUser):
+    first_name = None
+    last_name = None
+
     full_name = models.CharField(max_length=250)
     is_author = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='profiles_photo', null=True, blank=True)
     short_description = models.CharField(max_length=450)
 
     class Meta:
-        db_table = 'Profile'
-        verbose_name = 'Профиль'
-        verbose_name_plural = 'Профили'
+        db_table = 'User'
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
-    def __str__(self):
+    def get_full_name(self):
         return self.full_name

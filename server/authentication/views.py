@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from email_validator import validate_email, EmailNotValidError
-from user_profiles.models import Profile
+from users.models import User
 
 
 def errorRender(request, template, errorType, message):
@@ -41,12 +40,10 @@ def signUp(request):
 
         try:
             user = User.objects.create_user(username=postData.get('username'), email=postData.get('email'),
-                                            password=postData.get('password'))
+                                            password=postData.get('password'), full_name=postData.get('fullName'),
+                                            is_author=True if postData.get('userType') == 'author' else False)
         except IntegrityError:
             return errorRender(request, currentTemplate, 'usernameError', 'Такое имя пользователя уже занято!')
-
-        is_author = True if postData.get('userType') == 'author' else False
-        Profile.objects.create(user=user, full_name=postData.get('fullName'), is_author=is_author)
         return redirect('authentication:sign-in')
 
     if request.user.is_anonymous:
@@ -64,7 +61,9 @@ def signIn(request):
 
         user = authenticate(username=postData.get('username')[0], password=postData.get('password')[0])
         if user is not None:
-            Profile.objects.get_or_create(user=user, defaults={'full_name': user.username, 'is_author': False})
+            if not user.full_name:
+                user.full_name = user.username
+                user.save(update_fields=['full_name'])
             login(request, user)
             return redirect('menu')
         return errorRender(request, currentTemplate, 'usernameError', 'Пользователь с таким именем и паролем не найден')

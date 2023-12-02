@@ -46,8 +46,8 @@
             <a href="{% url 'menu' %}" class="button">Домой</a>
         </div>
         <div class="switch">
-            <a href="{% url 'profiles:profile-comments' %}" class="switcher {% block swithcer1State %}{% endblock %}">Комментарии</a>
-            <a href="{% url 'profiles:profile-books' %}"
+            <a href="{% url 'users:user-comments' %}" class="switcher {% block swithcer1State %}{% endblock %}">Комментарии</a>
+            <a href="{% url 'users:user-books' %}"
                class="switcher {% block swithcer2State %}{% endblock %}">Книги</a>
         </div>
     </div>

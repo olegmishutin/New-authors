@@ -122,7 +122,7 @@
                         </li>
                         <li>
                             {% block adminUsers %}
-                                <a href="{% url 'profiles:users-admin' %}">Пользователи</a>
+                                <a href="{% url 'users:users-admin' %}">Пользователи</a>
                             {% endblock %}
                         </li>
                         <li>
@@ -142,22 +142,22 @@
         <div class="user-box no-hover">
             {% if user.is_authenticated %}
                 <div class="user-photo-box">
-                    {% if user.profile.photo %}
-                        <img src="{{ user.profile.photo.url }}" alt="photo">
+                    {% if user.photo %}
+                        <img src="{{ user.photo.url }}" alt="photo">
                     {% endif %}
                 </div>
             {% endif %}
             {% if user.is_authenticated %}
-                <h2 class="username">{{ user.profile.full_name }}</h2>
+                <h2 class="username">{{ user.full_name }}</h2>
             {% endif %}
         </div>
         <nav class="pages">
             <ul>
                 {% if user.is_authenticated %}
-                    {% if user.profile.is_author %}
+                    {% if user.is_author %}
                         <li><a href="{% url 'books:book-publication' %}">Опублиовать книгу</a></li>
                     {% endif %}
-                    <li><a href="{% url 'profiles:profile-comments' %}">Мой профиль</a></li>
+                    <li><a href="{% url 'users:user-comments' %}">Мой профиль</a></li>
                     <li><a id="open-user-settings-button">Изменить профиль</a></li>
                     <li><a href="{% url 'authentication:logout' %}">Выйти из аккаунта</a></li>
                 {% else %}
@@ -176,13 +176,13 @@
         <div class="no-hover">
             {% if user.is_authenticated %}
                 <div class="user-photo-box">
-                    {% if user.profile.photo %}
-                        <img src="{{ user.profile.photo.url }}" alt="photo">
+                    {% if user.photo %}
+                        <img src="{{ user.photo.url }}" alt="photo">
                     {% endif %}
                 </div>
             {% endif %}
         </div>
-        <form method="post" action="{% url 'profiles:change-profile-info' %}" enctype="multipart/form-data"
+        <form method="post" action="{% url 'users:change-user-info' %}" enctype="multipart/form-data"
               class="user-settings-form">
             {% csrf_token %}
             <div class="button-box">
@@ -192,9 +192,9 @@
                     <span>Ваше фото</span>
                 </label>
             </div>
-            <input class="textbox" type="text" name="fullName" placeholder="ФИО" value="{{ user.profile.full_name }}">
+            <input class="textbox" type="text" name="fullName" placeholder="ФИО" value="{{ user.full_name }}">
             <textarea class="textbox" name="shortDescription"
-                      placeholder="Краткое описание">{{ user.profile.short_description }}</textarea>
+                      placeholder="Краткое описание">{{ user.short_description }}</textarea>
             <div class="button-box">
                 <input type="submit" class="button dark-button" value="Изменить профиль">
             </div>
