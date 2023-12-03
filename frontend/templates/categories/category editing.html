@@ -29,7 +29,7 @@
             <p id="cover-status">
                 {% if categoryIconValue.url %}{{ categoryIconValue.name }}{% else %}Иконка{% endif %}</p>
             <img class="cover-image {% if categoryIconValue.url %}show-cover-image{% endif %}"
-                 src="{{ categoryIconValue.url }}" alt="" id="cover-image">
+                 src="{{ categoryIconValue.url }}" alt="cover" id="cover-image">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">

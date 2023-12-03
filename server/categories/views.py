@@ -43,7 +43,7 @@ def getCategoryInfoOrErrorRender(request, anotherContent):
         content = {'categoryNameValue': categoryName, 'categoryShortDescriptionValue': categoryShortDescription}
         content.update(anotherContent)
 
-        errorRender = render(request, 'categories/edit category.html', content)
+        errorRender = render(request, 'categories/category editing.html', content)
     return info, errorRender
 
 
@@ -57,7 +57,7 @@ def creatingCategory(request):
             Category.objects.create(icon=info.get('categoryIcon'), name=info.get('categoryName'),
                                     short_description=info.get('categoryShortDescription'))
             return redirect('categories:categories-admin')
-        return render(request, 'categories/edit category.html', {'type': 'create'})
+        return render(request, 'categories/category editing.html', {'type': 'create'})
     return HttpResponse(status=403)
 
 
@@ -82,7 +82,7 @@ def editCategory(request, pk):
             category.save(update_fields=['icon', 'name', 'short_description'])
 
             return redirect('categories:categories-admin')
-        return render(request, 'categories/edit category.html',
+        return render(request, 'categories/category editing.html',
                       {'categoryId': pk, 'categoryIconValue': category.icon, 'categoryNameValue': category.name,
                        'categoryShortDescriptionValue': category.short_description, 'type': 'edit'})
     return HttpResponse(status=403)

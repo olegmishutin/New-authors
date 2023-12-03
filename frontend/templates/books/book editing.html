@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Публикация книги{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/widgets/cover input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
+    <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/sending layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/book publication.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <div class="page-header-image">
+            <img src="{% static 'image/book pick.png' %}" alt="book">
+        </div>
+        <h1>Публикация вашей книги</h1>
+    </div>
+    <form method="post" action="{% url 'books:book-publication' %}" enctype="multipart/form-data" class="page-content">
+        {% csrf_token %}
+        <div class="cover-input">
+            <label class="input-file-button cover-file-input">
+                <input type="file" name="bookCover" accept="image/*" id="cover-image-input" required>
+                <img src="{% static 'image/cover.png' %}" alt="cover input">
+            </label>
+            <p id="cover-status">Обложка</p>
+            <img class="cover-image" src="" alt="" id="cover-image">
+            <script src="{% static 'js/cover input.js' %}"></script>
+        </div>
+        <div class="info-input">
+            <input type="text" class="textbox dark-textbox" name="bookName" placeholder="Название вашей книги"
+                   value="{{ bookNameValue }}" required>
+            <textarea class="textbox dark-textbox" name="bookDesciption" placeholder="Описание вашей книги"
+                      required>{{ bookDescriptionValue }}</textarea>
+            <div class="in-line-file-input">
+                <input type="number" class="textbox dark-textbox" name="bookPagesNumber"
+                       placeholder="Количество страниц книги" min="1" value="{{ bookPagesNumberValue }}" required>
+                <div class="button-box file-input-box">
+                    <label class="input-file-button button">
+                        <input type="file" name="bookFile" accept="application/pdf" required>
+                        <img src="{% static 'image/file.svg' %}" alt="file">
+                        <span>Файл книги</span>
+                    </label>
+                </div>
+            </div>
+            <div class="filters">
+                {% for category in categories %}
+                    <div class="checkbox-box">
+                        <input type="checkbox" class="checkbox" name="checkbox-{{ category.id }}"
+                               id="{{ category.id }}">
+                        <label for="{{ category.id }}">{{ category.name }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="button-box">
+                <input type="submit" class="button" value="Опубликовать">
+            </div>
+        </div>
+        <div class="user-box no-hover">
+            {% if user.photo %}
+                <div class="user-photo-box">
+                    <img src="{{ user.photo.url }}" alt="author">
+                </div>
+            {% endif %}
+            <h1 class="username">{{ user.full_name }}</h1>
+            <div class="short-description">
+                <p>{{ user.short_description }}</p>
+            </div>
+        </div>
+    </form>
+{% endblock %}
