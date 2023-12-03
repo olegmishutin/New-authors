@@ -95,6 +95,12 @@
     }
 }
 
+@media (max-width: 450px) {
+    .page-header h1 {
+        font-size: var(--medium-text);
+    }
+}
+
 @media (max-width: 425px) {
     .page-content .user-box {
         width: 250px;

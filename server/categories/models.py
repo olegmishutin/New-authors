@@ -1,3 +1,4 @@
+import os
 from django.db import models
 
 
@@ -11,6 +12,10 @@ class Category(models.Model):
         db_table = 'Category'
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+    def delete(self, using=None, keep_parents=False):
+        os.remove(self.icon.path)
+        return super(Category, self).delete()
 
     def __str__(self):
         return self.name

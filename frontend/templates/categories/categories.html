@@ -70,10 +70,12 @@
                 {% if isAdmin %}
                     <div class="management-buttons">
                         <div class="button-box">
-                            <button class="button call-modal-window">Удалить</button>
+                            <a class="button" href="{% url 'categories:edit-category' category.id %}">Изменить</a>
                         </div>
                         <div class="button-box">
-                            <a class="button" href="{% url 'categories:edit-category' category.id %}">Изменить</a>
+                            <button class="button call-modal-window"
+                                    data="{% url 'categories:delete-category' category.id %}">Удалить
+                            </button>
                         </div>
                     </div>
                 {% endif %}
@@ -97,17 +99,18 @@
     </div>
     {% if isAdmin %}
         <div class="modal-window-box content-padding" id="modal-window-box">
-            <div class="modal-window" id="model-window">
+            <form method="post" class="modal-window" id="modal-window-form">
+                {% csrf_token %}
                 <p>Вы уверены, что хотите удалить комментарий?</p>
                 <div class="modal-window-buttons">
                     <div class="button-box">
-                        <a class="button" href="">Да</a>
+                        <input type="submit" class="button" value="Да">
                     </div>
                     <div class="button-box" id="close-model-window">
-                        <button class="button">Отмена</button>
+                        <button type="button" class="button">Отмена</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <script src="{% static 'js/modal window.js' %}"></script>
     {% endif %}

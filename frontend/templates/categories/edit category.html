@@ -26,9 +26,11 @@
                        {% if type == 'create' %}required{% endif %}>
                 <img src="{% static 'image/cover.png' %}" alt="cover input">
             </label>
-            <p>Иконка</p>
+            <p id="cover-status">
+                {% if categoryIconValue.url %}{{ categoryIconValue.name }}{% else %}Иконка{% endif %}</p>
             <img class="cover-image {% if categoryIconValue.url %}show-cover-image{% endif %}"
                  src="{{ categoryIconValue.url }}" alt="" id="cover-image">
+            <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
             <input type="text" name="categoryName" class="textbox dark-textbox" placeholder="Название категории"

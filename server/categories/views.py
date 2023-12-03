@@ -1,5 +1,6 @@
 import os
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 from .models import Category
@@ -85,3 +86,16 @@ def editCategory(request, pk):
                       {'categoryId': pk, 'categoryIconValue': category.icon, 'categoryNameValue': category.name,
                        'categoryShortDescriptionValue': category.short_description, 'type': 'edit'})
     return HttpResponse(status=403)
+
+
+class DeleteCategory(generic.DeleteView):
+    model = Category
+    success_url = reverse_lazy('categories:categories-admin')
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super().post(request)
+        return HttpResponse(status=403)
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(status=403)
