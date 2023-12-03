@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
@@ -29,19 +30,58 @@ class CategoriesAdmin(Categories):
         return self.context
 
 
+def getCategoryInfoOrErrorRender(request, anotherContent):
+    categoryName = ' '.join(request.POST.get('categoryName').split())
+    categoryShortDescription = ' '.join(request.POST.get('categoryShortDescription').split())
+
+    errorRender = None
+    info = {'categoryIcon': request.FILES.get('categoryIcon'), 'categoryName': categoryName,
+            'categoryShortDescription': categoryShortDescription}
+
+    if not categoryName or not categoryShortDescription:
+        content = {'categoryNameValue': categoryName, 'categoryShortDescriptionValue': categoryShortDescription}
+        content.update(anotherContent)
+
+        errorRender = render(request, 'categories/edit category.html', content)
+    return info, errorRender
+
+
 def creatingCategory(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            categoryIcon = request.FILES.get('categoryIcon')
-            categoryName = ' '.join(request.POST.get('categoryName').split())
-            categoryShortDescription = ' '.join(request.POST.get('categoryShortDescription').split())
+            info, errorRender = getCategoryInfoOrErrorRender(request, {'type': 'create'})
+            if errorRender:
+                return errorRender
 
-            if not categoryName or not categoryShortDescription:
-                return render(request, 'categories/creating category.html',
-                              {'categoryNameValue': categoryName,
-                               'categoryShortDescriptionValue': categoryShortDescription})
-
-            Category.objects.create(icon=categoryIcon, name=categoryName, short_description=categoryShortDescription)
+            Category.objects.create(icon=info.get('categoryIcon'), name=info.get('categoryName'),
+                                    short_description=info.get('categoryShortDescription'))
             return redirect('categories:categories-admin')
-        return render(request, 'categories/creating category.html')
+        return render(request, 'categories/edit category.html', {'type': 'create'})
+    return HttpResponse(status=403)
+
+
+def editCategory(request, pk):
+    if request.user.is_superuser:
+        category = Category.objects.get(pk=pk)
+
+        if request.method == 'POST':
+            content = {'categoryId': pk, 'categoryIconValue': category.icon, 'type': 'edit'}
+            info, errorRender = getCategoryInfoOrErrorRender(request, content)
+
+            if errorRender:
+                return errorRender
+
+            categoryIcon = info.get('categoryIcon')
+            if categoryIcon:
+                os.remove(category.icon.path)
+                category.icon = categoryIcon
+
+            category.name = info.get('categoryName')
+            category.short_description = info.get('categoryShortDescription')
+            category.save(update_fields=['icon', 'name', 'short_description'])
+
+            return redirect('categories:categories-admin')
+        return render(request, 'categories/edit category.html',
+                      {'categoryId': pk, 'categoryIconValue': category.icon, 'categoryNameValue': category.name,
+                       'categoryShortDescriptionValue': category.short_description, 'type': 'edit'})
     return HttpResponse(status=403)

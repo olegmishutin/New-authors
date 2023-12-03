@@ -19,6 +19,7 @@
     font-size: var(--medium-text);
     color: var(--front-color);
     font-weight: 600;
+    z-index: 2;
 }
 
 .cover-file-input {

@@ -73,7 +73,7 @@
                             <button class="button call-modal-window">Удалить</button>
                         </div>
                         <div class="button-box">
-                            <a class="button" href="">Изменить</a>
+                            <a class="button" href="{% url 'categories:edit-category' category.id %}">Изменить</a>
                         </div>
                     </div>
                 {% endif %}

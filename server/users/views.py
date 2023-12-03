@@ -20,7 +20,8 @@ def changeUserInfo(request):
             user.short_description = shortDescription
 
             user.save(update_fields=['full_name', 'photo', 'short_description'])
-    return redirect(request.META.get('HTTP_REFERER'))
+            return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('menu')
 
 
 def userComments(request):

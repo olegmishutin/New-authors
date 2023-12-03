@@ -60,10 +60,7 @@ def signIn(request):
             return errorRender(request, currentTemplate, f'usernameError', 'Поля не могут быть пустыми!')
 
         user = authenticate(username=postData.get('username')[0], password=postData.get('password')[0])
-        if user is not None:
-            if not user.full_name:
-                user.full_name = user.username
-                user.save(update_fields=['full_name'])
+        if user:
             login(request, user)
             return redirect('menu')
         return errorRender(request, currentTemplate, 'usernameError', 'Пользователь с таким именем и паролем не найден')

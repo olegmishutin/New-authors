@@ -6,10 +6,12 @@ class User(AbstractUser):
     first_name = None
     last_name = None
 
-    full_name = models.CharField(max_length=250)
-    is_author = models.BooleanField(default=False)
-    photo = models.ImageField(upload_to='profiles_photo', null=True, blank=True)
-    short_description = models.CharField(max_length=450)
+    full_name = models.CharField(max_length=250, verbose_name='Полное имя (ФИО)')
+    is_author = models.BooleanField(default=False, verbose_name='Является автором')
+    photo = models.ImageField(upload_to='profiles_photo', verbose_name='Фото', null=True, blank=True)
+    short_description = models.CharField(max_length=450, verbose_name='Краткое описание')
+
+    REQUIRED_FIELDS = ['email', 'full_name']
 
     class Meta:
         db_table = 'User'

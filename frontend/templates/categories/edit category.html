@@ -12,16 +12,23 @@
         </div>
         <h1>Новая категория</h1>
     </div>
-    <form method="post" action="{% url 'categories:creating-category' %}" enctype="multipart/form-data"
-          class="page-content">
+
+    <form method="post" enctype="multipart/form-data" class="page-content" action="
+            {% if type == 'create' %}
+                {% url 'categories:creating-category' %}
+            {% else %}
+                {% url 'categories:edit-category' categoryId %}
+            {% endif %}">
         {% csrf_token %}
         <div class="cover-input">
             <label class="input-file-button cover-file-input">
-                <input type="file" name="categoryIcon" accept="image/*" id="cover-image-input" required>
+                <input type="file" name="categoryIcon" accept="image/*" id="cover-image-input"
+                       {% if type == 'create' %}required{% endif %}>
                 <img src="{% static 'image/cover.png' %}" alt="cover input">
             </label>
-            <p>Обложка</p>
-            <img class="cover-image" src="{{ categoryIconValue }}" alt="" id="cover-image">
+            <p>Иконка</p>
+            <img class="cover-image {% if categoryIconValue.url %}show-cover-image{% endif %}"
+                 src="{{ categoryIconValue.url }}" alt="" id="cover-image">
         </div>
         <div class="info-input">
             <input type="text" name="categoryName" class="textbox dark-textbox" placeholder="Название категории"
@@ -29,7 +36,8 @@
             <textarea name="categoryShortDescription" class="textbox dark-textbox"
                       placeholder="Краткое описание категории" required>{{ categoryShortDescriptionValue }}</textarea>
             <div class="button-box">
-                <input type="submit" class="button" value="Создать категорию">
+                <input type="submit" class="button"
+                       value="{% if type == 'create' %}Создать{% else %}Изменить{% endif %} категорию">
             </div>
         </div>
     </form>

@@ -4,14 +4,14 @@ from categories.models import Category
 
 
 class Book(models.Model):
-    author_profile = models.ForeignKey(User, on_delete=models.CASCADE)
-    categories = models.ManyToManyField(Category, db_table='BookCategories')
-    name = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='books_images')
-    pages_number = models.IntegerField()
-    description = models.TextField()
-    date_added = models.DateField(auto_now=True)
-    file = models.FileField(upload_to='books_files')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    categories = models.ManyToManyField(Category, db_table='BookCategories', verbose_name='Категории')
+    name = models.CharField(max_length=250, verbose_name='Название')
+    cover = models.ImageField(upload_to='books_images', verbose_name='Обложка')
+    pages_number = models.IntegerField(verbose_name='Количесвто страниц')
+    description = models.TextField(verbose_name='Описание')
+    creation_date = models.DateField(auto_now=True, verbose_name='Дата создания')
+    file = models.FileField(upload_to='books_files', verbose_name='Файл')
 
     class Meta:
         db_table = 'Book'
