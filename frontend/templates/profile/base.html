@@ -19,37 +19,42 @@
 <header>
     <div class="user-box no-hover">
         <div class="user-photo-box">
-            <img src="{% static 'image/men.png' %}" alt="photo">
+            {% if profileUser.photo %}
+                <img src="{{ profileUser.photo.url }}" alt="photo">
+            {% endif %}
         </div>
         <div class="description">
-            <h1 class="username">Мишутин Олег Святославович</h1>
+            <h1 class="username">{{ profileUser.full_name }}</h1>
             <div class="short-description">
-                <p>Самый лучший в мире гитарист. Играю на гитаре. Играю в слипнот. Пишу книги про любовь и ножи. Меня
-                    Олег зовут. На улице реин, в душе пэин, на илице снег май нейм из Алег</p>
+                <p>{{ profileUser.short_description }}</p>
             </div>
         </div>
     </div>
-    <div class="statistics">
-        <div class="rating">
-            <img src="{% static 'image/big stars.png' %}" alt="rating">
-            <span>4.5</span>
+    {% if profileUser.is_author %}
+        <div class="statistics">
+            <div class="rating">
+                <img src="{% static 'image/big stars.png' %}" alt="rating">
+                <span>{{ profileUser.getRating }}</span>
+            </div>
+            <div class="rating">
+                <img src="{% static 'image/big comment.png' %}" alt="comment">
+                <span>{{ profileUser.getReviewsCount }}</span>
+            </div>
         </div>
-        <div class="rating">
-            <img src="{% static 'image/big comment.png' %}" alt="comment">
-            <span>100</span>
-        </div>
-    </div>
+    {% endif %}
 </header>
 <main>
     <div class="switcher-box">
         <div class="button-box">
             <a href="{% url 'menu' %}" class="button">Домой</a>
         </div>
-        <div class="switch">
-            <a href="{% url 'users:user-comments' %}" class="switcher {% block swithcer1State %}{% endblock %}">Комментарии</a>
-            <a href="{% url 'users:user-books' %}"
-               class="switcher {% block swithcer2State %}{% endblock %}">Книги</a>
-        </div>
+        {% if profileUser.is_author %}
+            <div class="switch">
+                <a href="{% url 'users:user-comments' 2 %}" class="switcher {% block swithcer1State %}{% endblock %}">Комментарии</a>
+                <a href="{% url 'users:user-books' 2 %}"
+                   class="switcher {% block swithcer2State %}{% endblock %}">Книги</a>
+            </div>
+        {% endif %}
     </div>
     <div class="content-padding">
         {% block content %}{% endblock %}
@@ -57,13 +62,17 @@
 </main>
 <div class="paginator-box">
     <div class="paginator">
-        <a class="page-selector" href="">
-            <img src="{% static 'image/previous page.png' %}" alt="previous page">
-        </a>
-        <span>1</span>
-        <a class="page-selector" href="">
-            <img src="{% static 'image/next page.png' %}" alt="next page">
-        </a>
+        {% if page_obj.has_previous %}
+            <a class="page-selector" href="?page={{ page_obj.previous_page_number }}">
+                <img src="{% static 'image/previous page.png' %}" alt="previous page">
+            </a>
+        {% endif %}
+        <span>{{ page_obj.number }}</span>
+        {% if page_obj.has_next %}
+            <a class="page-selector" href="?page={{ page_obj.next_page_number }}">
+                <img src="{% static 'image/next page.png' %}" alt="next page">
+            </a>
+        {% endif %}
     </div>
 </div>
 </body>

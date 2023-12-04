@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views import generic
+from django.core.paginator import Paginator
 from .models import User
+from books.models import Book
 
 
 def changeUserInfo(request):
@@ -24,12 +27,30 @@ def changeUserInfo(request):
     return redirect('menu')
 
 
-def userComments(request):
+class UserBooks(generic.DetailView):
+    model = User
+    template_name = 'profile/profile books.html'
+    context_object_name = 'profileUser'
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_author and request.user.id == kwargs.get('pk'):
+            return HttpResponse(status=404)
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        books = Book.getAllWithStatistics(Book, author__id=context.get('profileUser').id)
+
+        paginator = Paginator(books, 6)
+        pageNumber = self.request.GET.get("page")
+        pageObject = paginator.get_page(pageNumber)
+
+        context['page_obj'] = pageObject
+        return context
+
+
+def userComments(request, pk):
     return render(request, 'profile/profile comments.html')
-
-
-def userBooks(request):
-    return render(request, 'profile/profile books.html')
 
 
 def usersAdmin(request):

@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Публикация книги{% endblock %}
+{% block title %}
+    {% if type == 'publicate' %}
+        Публикация книги
+    {% else %}
+        Изменение книги
+    {% endif %}
+{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/widgets/cover input.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
@@ -13,17 +19,24 @@
         <div class="page-header-image">
             <img src="{% static 'image/book pick.png' %}" alt="book">
         </div>
-        <h1>Публикация вашей книги</h1>
+        <h1>{% if type == 'publicate' %}Публикация вашей книги{% else %}Изменение вашей книги{% endif %}</h1>
     </div>
-    <form method="post" action="{% url 'books:book-publication' %}" enctype="multipart/form-data" class="page-content">
+    <form method="post" enctype="multipart/form-data" class="page-content" action="
+            {% if type == 'publicate' %}
+                {% url 'books:book-publication' %}
+            {% else %}
+                {% url 'books:book-editing' bookId %}
+            {% endif %}">
         {% csrf_token %}
         <div class="cover-input">
             <label class="input-file-button cover-file-input">
-                <input type="file" name="bookCover" accept="image/*" id="cover-image-input" required>
+                <input type="file" name="bookCover" accept="image/*" id="cover-image-input"
+                       {% if type == 'publicate' %}required{% endif %}>
                 <img src="{% static 'image/cover.png' %}" alt="cover input">
             </label>
             <p id="cover-status">Обложка</p>
-            <img class="cover-image" src="" alt="" id="cover-image">
+            <img class="cover-image {% if bookCover.url %}show-cover-image{% endif %}" src="{{ bookCover.url }}"
+                 alt="book cover" id="cover-image">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
@@ -36,13 +49,21 @@
                        placeholder="Количество страниц книги" min="1" value="{{ bookPagesNumberValue }}" required>
                 <div class="button-box file-input-box">
                     <label class="input-file-button button">
-                        <input type="file" name="bookFile" accept="application/pdf" required>
+                        <input type="file" name="bookFile" accept="application/pdf"
+                               {% if type == 'publicate' %}required{% endif %}>
                         <img src="{% static 'image/file.svg' %}" alt="file">
                         <span>Файл книги</span>
                     </label>
                 </div>
             </div>
             <div class="filters">
+                {% for category in bookCategories %}
+                    <div class="checkbox-box">
+                        <input type="checkbox" class="checkbox" name="checkbox-{{ category.id }}"
+                               id="{{ category.id }}" checked>
+                        <label for="{{ category.id }}">{{ category.name }}</label>
+                    </div>
+                {% endfor %}
                 {% for category in categories %}
                     <div class="checkbox-box">
                         <input type="checkbox" class="checkbox" name="checkbox-{{ category.id }}"
@@ -52,7 +73,8 @@
                 {% endfor %}
             </div>
             <div class="button-box">
-                <input type="submit" class="button" value="Опубликовать">
+                <input type="submit" class="button"
+                       value="{% if type == 'publicate' %}Опубликовать{% else %}Изменить{% endif %}">
             </div>
         </div>
         <div class="user-box no-hover">

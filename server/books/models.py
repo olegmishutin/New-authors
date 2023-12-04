@@ -1,4 +1,6 @@
+import os
 from django.db import models
+from django.db.models import Avg, Count
 from users.models import User
 from categories.models import Category
 
@@ -10,7 +12,7 @@ class Book(models.Model):
     cover = models.ImageField(upload_to='books_images', verbose_name='Обложка')
     pages_number = models.IntegerField(verbose_name='Количесвто страниц')
     description = models.TextField(verbose_name='Описание')
-    creation_date = models.DateField(auto_now=True, verbose_name='Дата создания')
+    publication_date = models.DateField(auto_now=True, verbose_name='Дата создания')
     file = models.FileField(upload_to='books_files', verbose_name='Файл')
 
     class Meta:
@@ -18,12 +20,37 @@ class Book(models.Model):
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
 
+    def changeCover(self, newCover):
+        if newCover:
+            os.remove(self.cover.path)
+            self.cover = newCover
+
+    def changeFile(self, newFile):
+        if newFile:
+            os.remove(self.file.path)
+            self.file = newFile
+
+    def getAllWithStatistics(self, **kwargs):
+        return self.objects.filter(**kwargs).annotate(rating=Avg('review__rating', default=0),
+                                                      reviewsCount=Count('review'))
+
+    def getRating(self):
+        return self.review_set.all().aggregate(rating=Avg('rating', default=0)).get('rating')
+
+    def getReviewsCount(self):
+        return self.review_set.all().count()
+
+    def delete(self, using=None, keep_parents=False):
+        os.remove(self.cover.path)
+        os.remove(self.file.path)
+        return super(Book, self).delete()
+
     def __str__(self):
         return self.name
 
 
 class Review(models.Model):
-    profile = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     text = models.TextField()
     rating = models.FloatField()

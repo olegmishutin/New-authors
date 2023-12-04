@@ -31,7 +31,7 @@ class CategoriesAdmin(Categories):
         return self.context
 
 
-def getCategoryInfoOrErrorRender(request, anotherContent):
+def getCategoryInfo(request, anotherContent):
     categoryName = ' '.join(request.POST.get('categoryName').split())
     categoryShortDescription = ' '.join(request.POST.get('categoryShortDescription').split())
 
@@ -50,7 +50,7 @@ def getCategoryInfoOrErrorRender(request, anotherContent):
 def creatingCategory(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            info, errorRender = getCategoryInfoOrErrorRender(request, {'type': 'create'})
+            info, errorRender = getCategoryInfo(request, {'type': 'create'})
             if errorRender:
                 return errorRender
 
@@ -67,7 +67,7 @@ def editCategory(request, pk):
 
         if request.method == 'POST':
             content = {'categoryId': pk, 'categoryIconValue': category.icon, 'type': 'edit'}
-            info, errorRender = getCategoryInfoOrErrorRender(request, content)
+            info, errorRender = getCategoryInfo(request, content)
 
             if errorRender:
                 return errorRender

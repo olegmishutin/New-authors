@@ -63,7 +63,7 @@
                         </div>
                         <div class="books-number">
                             <img src="{% static 'image/books number.png' %}" alt="books number">
-                            <span>{{ category.books_number }}</span>
+                            <span>{{ category.book_set.count }}</span>
                         </div>
                     </div>
                 </a>
@@ -101,7 +101,7 @@
         <div class="modal-window-box content-padding" id="modal-window-box">
             <form method="post" class="modal-window" id="modal-window-form">
                 {% csrf_token %}
-                <p>Вы уверены, что хотите удалить комментарий?</p>
+                <p>Вы уверены, что хотите удалить категорию?</p>
                 <div class="modal-window-buttons">
                     <div class="button-box">
                         <input type="submit" class="button" value="Да">

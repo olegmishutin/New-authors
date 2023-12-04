@@ -8,183 +8,57 @@
 {% block swithcer2State %}switcher-on{% endblock %}
 {% block content %}
     <div class="wraping-box">
-        <div class="author-book-box">
-            <div class="book-box">
-                <a href="" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{% static 'image/book.png' %}" alt="book">
-                    </div>
-                    <p class="book-name">Дебютная постановка том 2</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>4.5</span>
+        {% for book in page_obj %}
+            <div class="author-book-box">
+                <div class="book-box">
+                    <a href="" class="book-box">
+                        <div class="book-photo-box">
+                            <img src="{{ book.cover.url }}" alt="book">
                         </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>100</span>
+                        <p class="book-name">{{ book.name }}</p>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>{{ book.getRating }}</span>
+                            </div>
+                            <div class="rating">
+                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <span>{{ book.getReviewsCount }}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                    <div class="button-box">
-                        <a class="button">Изменить</a>
-                    </div>
+                    </a>
+                    {% if profileUser.id == user.id %}
+                        <div class="management-buttons">
+                            <div class="button-box">
+                                <a class="button" href="{% url 'books:book-editing' book.id %}">Изменить</a>
+                            </div>
+                            <div class="button-box">
+                                <button class="button call-modal-window" data="{% url 'books:delete-book' book.id %}">
+                                    Удалить
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="description">
+                    <p>{{ book.description }}</p>
                 </div>
             </div>
-            <div class="description">
-                <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и туда сюда
-                    короче.
-
-                    Здесь типо идет очень много текста, тк это краткое описание книги, так шо вот, да. Наслаждаемся
-                    огроменным текстом.
-
-                    Он все никак не заканчивается. Бла бла бла, мастер и маргарита полное говно. Все что могу сказать на
-                    очен очень долгий последок.
-
-                    Бла бла бла бла бла бла блалалалалалалалалаллалалалалаллал очень интересное описание
-                    аааааааааааааааааааа памагитеееееееееееееееееее пж пж пж пж</p>
-            </div>
-        </div>
-        <div class="author-book-box">
-            <div class="book-box">
-                <a href="" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{% static 'image/book.png' %}" alt="book">
-                    </div>
-                    <p class="book-name">Дебютная постановка том 2</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>4.5</span>
-                        </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>100</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                    <div class="button-box">
-                        <a class="button">Изменить</a>
-                    </div>
-                </div>
-            </div>
-            <div class="description">
-                <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и туда сюда
-                    короче.
-
-                    Здесь типо идет очень много текста, тк это краткое описание книги, так шо вот, да. Наслаждаемся
-                    огроменным текстом.
-
-                    Он все никак не заканчивается. Бла бла бла, мастер и маргарита полное говно. Все что могу сказать на
-                    очен очень долгий последок.
-
-                    Бла бла бла бла бла бла блалалалалалалалалаллалалалалаллал очень интересное описание
-                    аааааааааааааааааааа памагитеееееееееееееееееее пж пж пж пж</p>
-            </div>
-        </div>
-        <div class="author-book-box">
-            <div class="book-box">
-                <a href="" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{% static 'image/book.png' %}" alt="book">
-                    </div>
-                    <p class="book-name">Дебютная постановка том 2</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>4.5</span>
-                        </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>100</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                    <div class="button-box">
-                        <a class="button">Изменить</a>
-                    </div>
-                </div>
-            </div>
-            <div class="description">
-                <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и туда сюда
-                    короче.
-
-                    Здесь типо идет очень много текста, тк это краткое описание книги, так шо вот, да. Наслаждаемся
-                    огроменным текстом.
-
-                    Он все никак не заканчивается. Бла бла бла, мастер и маргарита полное говно. Все что могу сказать на
-                    очен очень долгий последок.
-
-                    Бла бла бла бла бла бла блалалалалалалалалаллалалалалаллал очень интересное описание
-                    аааааааааааааааааааа памагитеееееееееееееееееее пж пж пж пж</p>
-            </div>
-        </div>
-        <div class="author-book-box">
-            <div class="book-box">
-                <a href="" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{% static 'image/book.png' %}" alt="book">
-                    </div>
-                    <p class="book-name">Дебютная постановка том 2</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>4.5</span>
-                        </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>100</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                    <div class="button-box">
-                        <a class="button">Изменить</a>
-                    </div>
-                </div>
-            </div>
-            <div class="description">
-                <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и туда сюда
-                    короче.
-
-                    Здесь типо идет очень много текста, тк это краткое описание книги, так шо вот, да. Наслаждаемся
-                    огроменным текстом.
-
-                    Он все никак не заканчивается. Бла бла бла, мастер и маргарита полное говно. Все что могу сказать на
-                    очен очень долгий последок.
-
-                    Бла бла бла бла бла бла блалалалалалалалалаллалалалалаллал очень интересное описание
-                    аааааааааааааааааааа памагитеееееееееееееееееее пж пж пж пж</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="modal-window-box content-padding" id="modal-window-box">
-        <div class="modal-window" id="model-window">
-            <p>Вы уверены, что хотите удалить комментарий?</p>
+        <form method="post" class="modal-window" id="modal-window-form">
+            {% csrf_token %}
+            <p>Вы уверены, что хотите удалить книгу?</p>
             <div class="modal-window-buttons">
                 <div class="button-box">
-                    <a class="button" href="">Да</a>
+                    <input type="submit" class="button" value="Да">
                 </div>
                 <div class="button-box" id="close-model-window">
-                    <button class="button">Отмена</button>
+                    <button type="button" class="button">Отмена</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <script src="{% static 'js/modal window.js' %}"></script>
 {% endblock %}

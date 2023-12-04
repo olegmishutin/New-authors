@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Новая категория{% endblock %}
+{% block title %}
+    {% if type == 'create' %}
+        Новая категория
+    {% else %}
+        Изменение категории
+    {% endif %}
+{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/widgets/cover input.css' %}">
     <link rel="stylesheet" href="{% static 'css/pages/sending layout.css' %}">
@@ -10,9 +16,8 @@
         <div class="page-header-image">
             <img src="{% static 'image/categories icon.png' %}" alt="book">
         </div>
-        <h1>Новая категория</h1>
+        <h1>{% if type == 'create' %}Новая категория{% else %}Изменение категории{% endif %}</h1>
     </div>
-
     <form method="post" enctype="multipart/form-data" class="page-content" action="
             {% if type == 'create' %}
                 {% url 'categories:creating-category' %}

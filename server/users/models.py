@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg, Count
 from django.contrib.auth.models import AbstractUser
 
 
@@ -17,6 +18,16 @@ class User(AbstractUser):
         db_table = 'User'
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+    def getAllWithStatistics(self):
+        return self.objects.filter(is_author=True).annotate(rating=Avg('book__review__rating'),
+                                                            reviewsCount=Count('book__review'))
+
+    def getRating(self):
+        return self.book_set.all().aggregate(rating=Avg('review__rating', default=0)).get('rating')
+
+    def getReviewsCount(self):
+        return self.book_set.all().aggregate(reviewsCount=Count('review')).get('reviewsCount')
 
     def get_full_name(self):
         return self.full_name
