@@ -33,7 +33,10 @@ class UserBooks(generic.DetailView):
     context_object_name = 'profileUser'
 
     def get(self, request, *args, **kwargs):
-        if not request.user.is_author and request.user.id == kwargs.get('pk'):
+        pk = kwargs.get('pk')
+        user = User.objects.get(pk=pk)
+
+        if (not request.user.is_author and request.user.id == pk) or not user.is_author:
             return HttpResponse(status=404)
         return super().get(request, *args, **kwargs)
 

@@ -22,22 +22,22 @@
 <header class="content-padding header">
     <div class="book-info">
         <div class="book-image">
-            <img src="{% static 'image/book2.png' %}" alt="book">
+            <img src="{{ book.cover.url }}" alt="book">
         </div>
         <div class="info">
-            <h1>Дебютная постановка Том 2</h1>
+            <h1>{{ book.name }}</h1>
             <div class="statistics">
                 <div class="rating">
                     <img src="{% static 'image/stars.png' %}" alt="rating">
-                    <span>4.5</span>
+                    <span>{{ book.getRating }}</span>
                 </div>
                 <div class="rating">
                     <img src="{% static 'image/comment.png' %}" alt="comment">
-                    <span>100</span>
+                    <span>{{ book.getReviewsCount }}</span>
                 </div>
                 <div class="rating">
                     <img src="{% static 'image/pages.png' %}" alt="pages">
-                    <span>100</span>
+                    <span>{{ book.pages_number }}</span>
                 </div>
             </div>
             <div class="button-box">
@@ -45,24 +45,18 @@
             </div>
         </div>
     </div>
-    <a href="" class="user-box">
-        <h2 class="username">Мишутин Олег Святославович</h2>
+    <a href="{% url 'users:user-books' book.author.id %}" class="user-box">
+        <h2 class="username">{{ book.author.full_name }}</h2>
         <div class="user-photo-box">
-            <img src="{% static 'image/men.png' %}" alt="photo">
+            {% if book.author.photo %}
+                <img src="{{ book.author.photo.url }}" alt="photo">
+            {% endif %}
         </div>
     </a>
 </header>
 <main class="content-padding">
     <div class="book-description">
-        <p>«Мёртвые души» – легендарная книга, одно из главных произведений Николая Васильевича Гоголя, входящее в
-            золотой фонд мировой литературы и список наиболее важных книг в истории человечества по версии Норвежского
-            книжного клуба и Института Нобеля.
-
-            Аферист скупал мёртвые души, чтобы заложить их государству и разбогатеть, но его афера раскрылась и ему
-            пришлось скрыться. Затем он снова взялся за старое, опять был разоблачён и остался ни с чем.
-
-            Произведение Гоголя «Мёртвые души» было написано во второй половине 19 века. Первый том был издан в 1842
-            году, второй том практически полностью уничтожен автором. А третий том так и не был написан.</p>
+        <p>{{ book.description }}</p>
     </div>
     <div class="reviews">
         <div class="review">
@@ -125,86 +119,26 @@
                 </div>
             </form>
             <div class="wraping-box">
-                <div class="comment-box">
-                    <div class="book-info">
-                        <a href="">Андрей Иванов Сергеевич</a>
-                        <div class="statistics">
-                            <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>4.5</span>
-                            </div>
-                            <div class="data">
-                                <span>12.03.2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="comment-text">
-                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
-                            туда
-                            сюда короче.</p>
-                    </div>
-                </div>
-                <div class="comment-box">
-                    <div class="book-info">
-                        <a href="">Андрей Иванов Сергеевич</a>
-                        <div class="statistics">
-                            <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>4.5</span>
-                            </div>
-                            <div class="data">
-                                <span>12.03.2022</span>
+                {% for review in reviews %}
+                    <div class="comment-box">
+                        <div class="book-info">
+                            <a href="">{{ review.user.full_name }}</a>
+                            <div class="statistics">
+                                <div class="rating">
+                                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                                    <span>{{ review.rating }}</span>
+                                </div>
+                                <div class="data">
+                                    <span>{{ review.date_added|date:'SHORT_DATE_FORMAT' }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="comment-text">
-                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
-                            туда
-                            сюда короче.</p>
-                    </div>
-                </div>
-                <div class="comment-box">
-                    <div class="book-info">
-                        <a href="">Андрей Иванов Сергеевич</a>
-                        <div class="statistics">
-                            <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>4.5</span>
-                            </div>
-                            <div class="data">
-                                <span>12.03.2022</span>
-                            </div>
+                        <hr>
+                        <div class="comment-text">
+                            <p>{{ review.text }}</p>
                         </div>
                     </div>
-                    <hr>
-                    <div class="comment-text">
-                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
-                            туда
-                            сюда короче.</p>
-                    </div>
-                </div>
-                <div class="comment-box">
-                    <div class="book-info">
-                        <a href="">Андрей Иванов Сергеевич</a>
-                        <div class="statistics">
-                            <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>4.5</span>
-                            </div>
-                            <div class="data">
-                                <span>12.03.2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="comment-text">
-                        <p>Это лучшая книга, которую я когда либо читал на свете. Всем советую. Неповотримый сюжет и
-                            туда
-                            сюда короче.</p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

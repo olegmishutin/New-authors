@@ -86,6 +86,7 @@ main {
     white-space: pre-line;
     color: var(--intermediate-color);
     font-size: var(--medium-text);
+    min-height: 205px;
 }
 
 .review {

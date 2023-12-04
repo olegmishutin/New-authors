@@ -16,8 +16,15 @@ def booksAdmin(request):
     return HttpResponse(status=403)
 
 
-def book(request):
-    return render(request, 'books/book.html')
+class BookPage(generic.DetailView):
+    model = Book
+    template_name = 'books/book.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        book = kwargs.get('object')
+        context['reviews'] = book.review_set.all()
+        return context
 
 
 def getBookInfo(request, anotherContent):

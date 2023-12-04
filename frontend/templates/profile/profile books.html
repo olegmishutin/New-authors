@@ -11,7 +11,7 @@
         {% for book in page_obj %}
             <div class="author-book-box">
                 <div class="book-box">
-                    <a href="" class="book-box">
+                    <a href="{% url 'books:book' book.id %}" class="book-box">
                         <div class="book-photo-box">
                             <img src="{{ book.cover.url }}" alt="book">
                         </div>
