@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.core.paginator import Paginator
 from .models import User
-from books.models import Book
+from books.models import Book, Review
 
 
 def changeUserInfo(request):
@@ -25,6 +25,10 @@ class UserBooks(generic.DetailView):
     template_name = 'profile/profile books.html'
     context_object_name = 'profileUser'
 
+    def createPagination(self, querySet, per_page):
+        paginator = Paginator(querySet, per_page)
+        return paginator.get_page(self.request.GET.get("page"))
+
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk')
         user = User.objects.get(pk=pk)
@@ -36,17 +40,21 @@ class UserBooks(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         books = Book.getAllWithStatistics(Book, author__id=context.get('profileUser').id)
-
-        paginator = Paginator(books, 6)
-        pageNumber = self.request.GET.get("page")
-        pageObject = paginator.get_page(pageNumber)
-
-        context['page_obj'] = pageObject
+        context['page_obj'] = self.createPagination(books, 6)
         return context
 
 
-def userComments(request, pk):
-    return render(request, 'profile/profile comments.html')
+class UserReviews(UserBooks):
+    model = User
+    template_name = 'profile/profile comments.html'
+
+    def get(self, request, *args, **kwargs):
+        return super(generic.DetailView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_obj'] = self.createPagination(Review.objects.filter(user__id=context.get('profileUser').id), 2)
+        return context
 
 
 def usersAdmin(request):

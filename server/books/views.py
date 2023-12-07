@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 from django.core.paginator import Paginator
-from .models import Book
+from .models import Book, Review
 from categories.models import Category
 
 
@@ -73,6 +73,16 @@ def addReview(request, bookId):
         book.review_set.create(user=request.user, text=reviewText, rating=reviewRating)
         return redirect(request.META.get('HTTP_REFERER') + '#user-review')
     return HttpResponse(status=404)
+
+
+class DeleteReview(generic.DeleteView):
+    model = Review
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(status=404)
+
+    def get_success_url(self):
+        return reverse_lazy('users:user-comments', kwargs={'pk': self.request.user.id})
 
 
 def getBookInfo(request, anotherContent):
@@ -164,7 +174,7 @@ class DeleteBook(generic.DeleteView):
         return HttpResponse(status=403)
 
     def get(self, request, *args, **kwargs):
-        return HttpResponse(status=403)
+        return HttpResponse(status=404)
 
     def get_success_url(self):
         return reverse_lazy('users:user-books', kwargs={'pk': self.request.user.id})
