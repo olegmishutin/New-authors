@@ -25,9 +25,7 @@
             {% if type == 'publicate' %}
                 {% url 'books:book-publication' %}
             {% else %}
-                {% if book %}
-            	    {% url 'books:book-editing' book.id %}
-                {% endif %}
+                {% url 'books:book-editing' book.id %}
             {% endif %}">
         {% csrf_token %}
         <div class="cover-input">

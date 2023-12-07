@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load tags %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -59,70 +60,72 @@
         <p>{{ book.description }}</p>
     </div>
     <div class="reviews">
-        <div class="review">
-            <h1>Ваша рецензия на книгу</h1>
-            <form method="post">
-                <textarea class="textbox dark-textbox"
-                          placeholder="Оставьте свою рецензию для автора этой книги!"></textarea>
-                <div class="review-rating">
-                    <div class="radio-button-box">
-                        <input type="radio" class="radio-button" name="review-rating" id="1">
-                        <label for="1">1</label>
+        {% if book.author.id != user.id %}
+            <div class="review" id="user-review">
+                <h1>Ваша рецензия на книгу</h1>
+                <form method="post" action="{% url 'books:add-review' book.id %}">
+                    {% csrf_token %}
+                    <textarea class="textbox dark-textbox" name="reviewText"
+                              placeholder="Оставьте свою рецензию для автора этой книги!"
+                              required>{{ reviewText }}</textarea>
+                    <div class="review-rating">
+                        <div class="radio-button-box">
+                            <input type="radio" class="radio-button" name="reviewRating" id="1" value="1" required>
+                            <label for="1">1</label>
+                        </div>
+                        <div class="radio-button-box">
+                            <input type="radio" class="radio-button" name="reviewRating" id="2" value="2" required>
+                            <label for="2">2</label>
+                        </div>
+                        <div class="radio-button-box">
+                            <input type="radio" class="radio-button" name="reviewRating" id="3" value="3" required>
+                            <label for="3">3</label>
+                        </div>
+                        <div class="radio-button-box">
+                            <input type="radio" class="radio-button" name="reviewRating" id="4" value="4" required>
+                            <label for="4">4</label>
+                        </div>
+                        <div class="radio-button-box">
+                            <input type="radio" class="radio-button" name="reviewRating" id="5" value="5" required>
+                            <label for="5">5</label>
+                        </div>
+                        <div class="button-box user-review-submit-button">
+                            <input type="submit" class="button" value="Отправить">
+                        </div>
                     </div>
-                    <div class="radio-button-box">
-                        <input type="radio" class="radio-button" name="review-rating" id="2">
-                        <label for="2">2</label>
-                    </div>
-                    <div class="radio-button-box">
-                        <input type="radio" class="radio-button" name="review-rating" id="3">
-                        <label for="3">3</label>
-                    </div>
-                    <div class="radio-button-box">
-                        <input type="radio" class="radio-button" name="review-rating" id="4">
-                        <label for="4">4</label>
-                    </div>
-                    <div class="radio-button-box">
-                        <input type="radio" class="radio-button" name="review-rating" id="5">
-                        <label for="5">5</label>
-                    </div>
-                    <div class="button-box user-review-submit-button">
-                        <input type="submit" class="button" value="Отправить">
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="review">
+                </form>
+            </div>
+        {% endif %}
+        <div class="review" id="all-reviews">
             <h1>Рецензии на книгу</h1>
-            <form class="filters">
+            <form class="showing-filters filters" method="GET" action="{% url 'books:book-filtered-reviews' book.id %}#all-reviews">
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="new-books">
-                    <label for="new-books">Новые</label>
+                    <input type="checkbox" class="checkbox" id="new-reviews" name="newReviews" {{ newReviews }}>
+                    <label for="new-reviews">Новые</label>
                 </div>
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="old-books">
-                    <label for="old-books">Старые</label>
+                    <input type="checkbox" class="checkbox" id="old-reviews" name="oldReviews" {{ oldReviews }}>
+                    <label for="old-reviews">Старые</label>
                 </div>
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="popular-books">
-                    <label for="popular-books">Популярные</label>
+                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-reviews"
+                           name="hightRatingReviews" {{ hightRatingReviews }}>
+                    <label for="start-with-hight-rating-reviews">Сначала с высокой оценкой</label>
                 </div>
                 <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-books">
-                    <label for="start-with-hight-rating-books">Сначала с высокой оценкой</label>
-                </div>
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-low-rating-books">
-                    <label for="start-with-low-rating-books">Сначала с низкой оценкой</label>
+                    <input type="checkbox" class="checkbox" id="start-with-low-rating-reviews"
+                           name="lowRatingReviews" {{ lowRatingReviews }}>
+                    <label for="start-with-low-rating-reviews">Сначала с низкой оценкой</label>
                 </div>
                 <div class="button-box comment-filter-button">
                     <input type="submit" class="button" value="Фильтровать">
                 </div>
             </form>
             <div class="wraping-box">
-                {% for review in reviews %}
+                {% for review in page_obj %}
                     <div class="comment-box">
                         <div class="book-info">
-                            <a href="">{{ review.user.full_name }}</a>
+                            <a href="{% url 'users:user-comments' review.user.id %}">{{ review.user.full_name }}</a>
                             <div class="statistics">
                                 <div class="rating">
                                     <img src="{% static 'image/stars.png' %}" alt="rating">
@@ -145,13 +148,17 @@
 </main>
 <div class="paginator-box">
     <div class="paginator">
-        <a class="page-selector" href="">
-            <img src="{% static 'image/previous page.png' %}" alt="previous page">
-        </a>
-        <span>1</span>
-        <a class="page-selector" href="">
-            <img src="{% static 'image/next page.png' %}" alt="next page">
-        </a>
+        {% if page_obj.has_previous %}
+            <a class="page-selector" href="?{% param_replace page=page_obj.previous_page_number %}#all-reviews">
+                <img src="{% static 'image/previous page.png' %}" alt="previous page">
+            </a>
+        {% endif %}
+        <span>{{ page_obj.number }}</span>
+        {% if page_obj.has_next %}
+            <a class="page-selector" href="?{% param_replace page=page_obj.next_page_number %}#all-reviews">
+                <img src="{% static 'image/next page.png' %}" alt="next page">
+            </a>
+        {% endif %}
     </div>
 </div>
 </body>

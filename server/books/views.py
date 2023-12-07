@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
+from django.core.paginator import Paginator
 from .models import Book
 from categories.models import Category
 
@@ -20,11 +21,58 @@ class BookPage(generic.DetailView):
     model = Book
     template_name = 'books/book.html'
 
+    def createPagination(self, querySet):
+        paginator = Paginator(querySet, 30)
+        return paginator.get_page(self.request.GET.get("page"))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        book = kwargs.get('object')
-        context['reviews'] = book.review_set.all()
+        context['page_obj'] = self.createPagination(kwargs.get('object').review_set.all())
         return context
+
+
+class FilteredReviewsBookPage(BookPage):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviews = kwargs.get('object').review_set.all()
+        filters = []
+
+        if self.request.GET.get('newReviews'):
+            filters.append('-date_added')
+            context['newReviews'] = 'checked'
+
+        if self.request.GET.get('oldReviews'):
+            filters.append('date_added')
+            context['oldReviews'] = 'checked'
+
+        if self.request.GET.get('hightRatingReviews'):
+            filters.append('-rating')
+            context['hightRatingReviews'] = 'checked'
+
+        if self.request.GET.get('lowRatingReviews'):
+            filters.append('rating')
+            context['lowRatingReviews'] = 'checked'
+
+        if filters:
+            reviews = reviews.order_by(*filters)
+
+        context['page_obj'] = self.createPagination(reviews)
+        return context
+
+
+def addReview(request, bookId):
+    if request.method == 'POST':
+        book = Book.objects.get(pk=bookId)
+
+        reviewText = ' '.join(request.POST.get('reviewText').split())
+        reviewRating = request.POST.get('reviewRating')
+
+        if not reviewText or not reviewRating:
+            return redirect(request.META.get('HTTP_REFERER') + '#user-review')
+
+        book.review_set.create(user=request.user, text=reviewText, rating=reviewRating)
+        return redirect(request.META.get('HTTP_REFERER') + '#user-review')
+    return HttpResponse(status=404)
 
 
 def getBookInfo(request, anotherContent):

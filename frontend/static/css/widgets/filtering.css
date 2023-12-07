@@ -8,7 +8,7 @@
     gap: 20px;
 }
 
-.filtering-header{
+.filtering-header {
     text-align: center;
     color: var(--front-color);
     font-size: var(--big-text);
@@ -38,7 +38,7 @@
     display: none;
 }
 
-.filter-panel-button{
+.filter-panel-button {
     margin-top: 20px;
 }
 
@@ -49,6 +49,10 @@
 
     .filters {
         display: none;
+    }
+
+    .showing-filters {
+        display: flex;
     }
 
     .submit-filtering-button {

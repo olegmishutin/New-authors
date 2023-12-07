@@ -37,7 +37,7 @@ class Book(models.Model):
                                                       reviewsCount=Count('review'))
 
     def getRating(self):
-        return self.review_set.all().aggregate(rating=Avg('rating', default=0)).get('rating')
+        return round(self.review_set.all().aggregate(rating=Avg('rating', default=0)).get('rating'), 2)
 
     def getReviewsCount(self):
         return self.review_set.all().count()
