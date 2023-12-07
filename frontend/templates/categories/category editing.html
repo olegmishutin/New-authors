@@ -22,7 +22,7 @@
             {% if type == 'create' %}
                 {% url 'categories:creating-category' %}
             {% else %}
-                {% url 'categories:edit-category' categoryId %}
+                {% url 'categories:edit-category' category.id %}
             {% endif %}">
         {% csrf_token %}
         <div class="cover-input">
@@ -31,17 +31,16 @@
                        {% if type == 'create' %}required{% endif %}>
                 <img src="{% static 'image/cover.png' %}" alt="cover input">
             </label>
-            <p id="cover-status">
-                {% if categoryIconValue.url %}{{ categoryIconValue.name }}{% else %}Иконка{% endif %}</p>
-            <img class="cover-image {% if categoryIconValue.url %}show-cover-image{% endif %}"
-                 src="{{ categoryIconValue.url }}" alt="cover" id="cover-image">
+            <p id="cover-status">Иконка</p>
+            <img class="cover-image {% if type == 'edit' %}show-cover-image{% endif %}"
+                 src="{{ category.icon.url }}" alt="cover" id="cover-image">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
             <input type="text" name="categoryName" class="textbox dark-textbox" placeholder="Название категории"
-                   value="{{ categoryNameValue }}" required>
+                   value="{{ category.name }}" required>
             <textarea name="categoryShortDescription" class="textbox dark-textbox"
-                      placeholder="Краткое описание категории" required>{{ categoryShortDescriptionValue }}</textarea>
+                      placeholder="Краткое описание категории" required>{{ category.short_description }}</textarea>
             <div class="button-box">
                 <input type="submit" class="button"
                        value="{% if type == 'create' %}Создать{% else %}Изменить{% endif %} категорию">

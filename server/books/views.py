@@ -28,30 +28,28 @@ class BookPage(generic.DetailView):
 
 
 def getBookInfo(request, anotherContent):
-    bookName = ' '.join(request.POST.get('bookName').split())
-    bookDescription = ' '.join(request.POST.get('bookDesciption').split())
-    bookPagesNumber = request.POST.get('bookPagesNumber')
+    book = Book(author=request.user, cover=request.FILES.get('bookCover'),
+                name=' '.join(request.POST.get('bookName').split()),
+                description=' '.join(request.POST.get('bookDesciption').split()),
+                pages_number=request.POST.get('bookPagesNumber'), file=request.FILES.get('bookFile'))
 
     errorRender = None
-    haveCategory = False
     bookCategories = []
 
-    for category in anotherContent.get('categories'):
+    for category in Category.objects.all():
         if request.POST.get(f'checkbox-{category.id}') == 'on':
-            haveCategory = True
             bookCategories.append(category)
 
-    info = {'bookCover': request.FILES.get('bookCover'), 'bookName': bookName, 'bookDescription': bookDescription,
-            'bookPagesNumber': bookPagesNumber, 'bookFile': request.FILES.get('bookFile'),
-            'bookCategories': bookCategories}
+    if not book.name or not book.description or not bookCategories:
+        oldBook = anotherContent.get('oldBook')
+        if oldBook:
+            book.id = oldBook.id
+            book.cover = oldBook.cover
 
-    if not bookName or not bookDescription or not bookCategories:
-        content = {'bookNameValue': bookName, 'bookDescriptionValue': bookDescription,
-                   'bookPagesNumberValue': bookPagesNumber}
+        content = {'book': book}
         content.update(anotherContent)
-
         errorRender = render(request, 'books/book editing.html', content)
-    return info, errorRender
+    return {'book': book, 'bookCategories': bookCategories}, errorRender
 
 
 def publicateBook(request):
@@ -60,12 +58,11 @@ def publicateBook(request):
 
         if request.method == 'POST':
             info, errorRender = getBookInfo(request, {'categories': categories, 'type': 'publicate'})
-
             if errorRender:
                 return errorRender
-            book = Book.objects.create(author=request.user, cover=info.get('bookCover'), name=info.get('bookName'),
-                                       description=info.get('bookDescription'),
-                                       pages_number=info.get('bookPagesNumber'), file=info.get('bookFile'))
+
+            book = info.get('book')
+            book.save()
 
             for bookCategory in info.get('bookCategories'):
                 book.categories.add(bookCategory)
@@ -85,8 +82,7 @@ def editBook(request, pk):
             categories.remove(bookCategory)
 
         if request.method == 'POST':
-            info, errorRender = getBookInfo(request, {'bookId': book.id, 'bookCover': book.cover,
-                                                      'categories': Category.objects.all(), 'type': 'edit'})
+            info, errorRender = getBookInfo(request, {'oldBook': book, 'categories': categories, 'type': 'edit'})
             if errorRender:
                 return errorRender
 
@@ -98,18 +94,16 @@ def editBook(request, pk):
                 if request.POST.get(f'checkbox-{category.id}') == 'on':
                     category.book_set.add(book)
 
-            book.changeCover(info.get('bookCover'))
-            book.name = info.get('bookName')
-            book.description = info.get('bookDescription')
-            book.pages_number = info.get('bookPagesNumber')
-            book.changeFile(info.get('bookFile'))
+            updatedBook = info.get('book')
+            book.setCover(updatedBook.cover)
+            book.name = updatedBook.name
+            book.description = updatedBook.description
+            book.pages_number = updatedBook.pages_number
+            book.setFile(updatedBook.file)
             book.save(update_fields=['cover', 'name', 'description', 'pages_number', 'file'])
 
             return redirect('users:user-books', request.user.id)
-        return render(request, 'books/book editing.html',
-                      {'bookId': book.id, 'bookCover': book.cover, 'bookNameValue': book.name,
-                       'bookDescriptionValue': book.description, 'bookPagesNumberValue': book.pages_number,
-                       'bookCategories': bookCategories, 'categories': categories, 'type': 'edit'})
+        return render(request, 'books/book editing.html', {'book': book, 'categories': categories, 'type': 'edit'})
     return HttpResponse(status=403)
 
 
@@ -118,9 +112,11 @@ class DeleteBook(generic.DeleteView):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_superuser or request.user.is_author:
-            self.success_url = reverse_lazy('users:user-books', kwargs={'pk': request.user.id})
             return super().post(request)
         return HttpResponse(status=403)
 
     def get(self, request, *args, **kwargs):
         return HttpResponse(status=403)
+
+    def get_success_url(self):
+        return reverse_lazy('users:user-books', kwargs={'pk': self.request.user.id})

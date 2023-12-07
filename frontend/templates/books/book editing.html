@@ -25,7 +25,9 @@
             {% if type == 'publicate' %}
                 {% url 'books:book-publication' %}
             {% else %}
-                {% url 'books:book-editing' bookId %}
+                {% if book %}
+            	    {% url 'books:book-editing' book.id %}
+                {% endif %}
             {% endif %}">
         {% csrf_token %}
         <div class="cover-input">
@@ -35,18 +37,18 @@
                 <img src="{% static 'image/cover.png' %}" alt="cover input">
             </label>
             <p id="cover-status">Обложка</p>
-            <img class="cover-image {% if bookCover.url %}show-cover-image{% endif %}" src="{{ bookCover.url }}"
+            <img class="cover-image {% if type == 'edit' %}show-cover-image{% endif %}" src="{{ book.cover.url }}"
                  alt="book cover" id="cover-image">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
             <input type="text" class="textbox dark-textbox" name="bookName" placeholder="Название вашей книги"
-                   value="{{ bookNameValue }}" required>
+                   value="{{ book.name }}" required>
             <textarea class="textbox dark-textbox" name="bookDesciption" placeholder="Описание вашей книги"
-                      required>{{ bookDescriptionValue }}</textarea>
+                      required>{{ book.description }}</textarea>
             <div class="in-line-file-input">
                 <input type="number" class="textbox dark-textbox" name="bookPagesNumber"
-                       placeholder="Количество страниц книги" min="1" value="{{ bookPagesNumberValue }}" required>
+                       placeholder="Количество страниц книги" min="1" value="{{ book.pages_number }}" required>
                 <div class="button-box file-input-box">
                     <label class="input-file-button button">
                         <input type="file" name="bookFile" accept="application/pdf"
@@ -57,13 +59,15 @@
                 </div>
             </div>
             <div class="filters">
-                {% for category in bookCategories %}
-                    <div class="checkbox-box">
-                        <input type="checkbox" class="checkbox" name="checkbox-{{ category.id }}"
-                               id="{{ category.id }}" checked>
-                        <label for="{{ category.id }}">{{ category.name }}</label>
-                    </div>
-                {% endfor %}
+                {% if type == 'edit' %}
+                    {% for category in book.categories.all %}
+                        <div class="checkbox-box">
+                            <input type="checkbox" class="checkbox" name="checkbox-{{ category.id }}"
+                                   id="{{ category.id }}" checked>
+                            <label for="{{ category.id }}">{{ category.name }}</label>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 {% for category in categories %}
                     <div class="checkbox-box">
                         <input type="checkbox" class="checkbox" name="checkbox-{{ category.id }}"

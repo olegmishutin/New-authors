@@ -9,20 +9,13 @@ from books.models import Book
 def changeUserInfo(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            def setNewInfo(oldInfo, newInfo):
-                return newInfo if newInfo else oldInfo
-
             user = User.objects.get(id=request.user.id)
 
-            photo = request.FILES.get('photo')
-            fullName = ' '.join(request.POST.get('fullName').split())
-            shortDescription = request.POST.get('shortDescription')
-
-            user.photo = setNewInfo(user.photo, photo)
-            user.full_name = setNewInfo(user.full_name, fullName)
-            user.short_description = shortDescription
-
+            user.setPhoto(request.FILES.get('photo'))
+            user.setFullName(' '.join(request.POST.get('fullName').split()))
+            user.short_description = request.POST.get('shortDescription')
             user.save(update_fields=['full_name', 'photo', 'short_description'])
+
             return redirect(request.META.get('HTTP_REFERER'))
     return redirect('menu')
 

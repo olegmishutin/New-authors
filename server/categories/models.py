@@ -12,8 +12,15 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
+    def setIcon(self, icon):
+        if icon:
+            if os.path.isfile(self.icon.path):
+                os.remove(self.icon.path)
+            self.icon = icon
+
     def delete(self, using=None, keep_parents=False):
-        os.remove(self.icon.path)
+        if os.path.isfile(self.icon.path):
+            os.remove(self.icon.path)
         return super(Category, self).delete()
 
     def __str__(self):

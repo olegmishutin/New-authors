@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.db.models import Avg, Count
 from django.contrib.auth.models import AbstractUser
@@ -29,5 +30,20 @@ class User(AbstractUser):
     def getReviewsCount(self):
         return self.book_set.all().aggregate(reviewsCount=Count('review')).get('reviewsCount')
 
+    def setPhoto(self, photo):
+        if photo:
+            if os.path.isfile(self.photo.path):
+                os.remove(self.photo.path)
+            self.photo = photo
+
+    def setFullName(self, fullName):
+        if fullName:
+            self.full_name = fullName
+
     def get_full_name(self):
         return self.full_name
+
+    def delete(self, using=None, keep_parents=False):
+        if os.path.isfile(self.photo.path):
+            os.remove(self.photo.path)
+        return super(User, self).delete()

@@ -20,14 +20,16 @@ class Book(models.Model):
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
 
-    def changeCover(self, newCover):
+    def setCover(self, newCover):
         if newCover:
-            os.remove(self.cover.path)
+            if os.path.isfile(self.cover.path):
+                os.remove(self.cover.path)
             self.cover = newCover
 
-    def changeFile(self, newFile):
+    def setFile(self, newFile):
         if newFile:
-            os.remove(self.file.path)
+            if os.path.isfile(self.file.path):
+                os.remove(self.file.path)
             self.file = newFile
 
     def getAllWithStatistics(self, **kwargs):
@@ -41,8 +43,11 @@ class Book(models.Model):
         return self.review_set.all().count()
 
     def delete(self, using=None, keep_parents=False):
-        os.remove(self.cover.path)
-        os.remove(self.file.path)
+        if os.path.isfile(self.cover.path):
+            os.remove(self.cover.path)
+
+        if os.path.isfile(self.file.path):
+            os.remove(self.file.path)
         return super(Book, self).delete()
 
     def __str__(self):
