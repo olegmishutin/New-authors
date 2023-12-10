@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="button-box">
-                <a href="" class="button">Скачать книгу</a>
+                <a href="{% url 'books:download-book' book.id %}" class="button">Скачать книгу</a>
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
         {% endif %}
         <div class="review" id="all-reviews">
             <h1>Рецензии на книгу</h1>
-            <form class="showing-filters filters" method="GET" action="{% url 'books:book-filtered-reviews' book.id %}#all-reviews">
+            <form class="no-adaptive-filters" method="GET" action="{% url 'books:book' book.id %}#all-reviews">
                 <div class="checkbox-box">
                     <input type="checkbox" class="checkbox" id="new-reviews" name="newReviews" {{ newReviews }}>
                     <label for="new-reviews">Новые</label>

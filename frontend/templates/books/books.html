@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tags %}
 {% block title %}Все книги{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
@@ -42,33 +43,44 @@
                 </div>
                 <div class="info">
                     <h1>Количество книг:</h1>
-                    <span>1337</span>
+                    <span>{{ booksNumber }}</span>
                 </div>
             </div>
         </div>
     {% endif %}
-    <form method="get" class="filtering">
+    <form method="get" class="filtering"
+          action="{% if isAdmin %}{% url 'books:books-admin' %}{% else %}{% url 'books:books' %}{% endif %}">
         <div class="filters">
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox" id="new-books">
+                <input type="checkbox" class="checkbox pc-checkbox" id="new-books" name="newBooks" {{ newBooks }}>
                 <label for="new-books">Новые</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox" id="old-books">
+                <input type="checkbox" class="checkbox pc-checkbox" id="old-books" name="oldBooks" {{ oldBooks }}>
                 <label for="old-books">Старые</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox" id="popular-books">
+                <input type="checkbox" class="checkbox pc-checkbox" id="popular-books"
+                       name="popularBooks" {{ popularBooks }}>
                 <label for="popular-books">Популярные</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox" id="start-with-hight-rating-books">
+                <input type="checkbox" class="checkbox pc-checkbox" id="start-with-hight-rating-books"
+                       name="hightRatingBooks" {{ hightRatingBooks }}>
                 <label for="start-with-hight-rating-books">Сначала с высокой оценкой</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox" id="start-with-low-rating-books">
+                <input type="checkbox" class="checkbox pc-checkbox" id="start-with-low-rating-books"
+                       name="lowRatingBooks" {{ lowRatingBooks }}>
                 <label for="start-with-low-rating-books">Сначала с низкой оценкой</label>
             </div>
+            {% for category in categories %}
+                <div class="checkbox-box">
+                    <input type="checkbox" class="checkbox pc-checkbox" id="category-{{ category.id }}"
+                           name="category-{{ category.id }}" {% if category in checkedCategories %}checked{% endif %}>
+                    <label for="category-{{ category.id }}">{{ category.name }}</label>
+                </div>
+            {% endfor %}
         </div>
         <div class="button-box submit-filtering-button">
             <button class="button" type="submit">Фильтровать</button>
@@ -80,25 +92,38 @@
             <h1 class="filtering-header">Фильтрация</h1>
             <div class="panel-filters">
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox" id="new-books-panel">
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="new-books-panel"
+                           name="newBooks" {{ newBooks }}>
                     <label for="new-books-panel">Новые</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox" id="old-books-panel">
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="old-books-panel"
+                           name="oldBooks" {{ oldBooks }}>
                     <label for="old-books-panel">Старые</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox" id="popular-books-panel">
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="popular-books-panel"
+                           name="popularBooks" {{ popularBooks }}>
                     <label for="popular-books-panel">Популярные</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-hight-rating-books-panel">
+                    <input type="checkbox" class="checkbox mobile-checkbox"
+                           id="start-with-hight-rating-books-panel" {{ hightRatingBooks }} name="hightRatingBooks">
                     <label for="start-with-hight-rating-books-panel">Сначала с высокой оценкой</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox" id="start-with-low-rating-books-panel">
+                    <input type="checkbox" class="checkbox mobile-checkbox"
+                           id="start-with-low-rating-books-panel" {{ lowRatingBooks }} name="lowRatingBooks">
                     <label for="start-with-low-rating-books-panel">Сначала с низкой оценкой</label>
                 </div>
+                {% for category in categories %}
+                    <div class="checkbox-box dark-checkbox-box">
+                        <input type="checkbox" class="checkbox mobile-checkbox" id="panel-category-{{ category.id }}"
+                               name="category-{{ category.id }}"
+                               {% if category in checkedCategories %}checked{% endif %}>
+                        <label for="panel-category-{{ category.id }}">{{ category.name }}</label>
+                    </div>
+                {% endfor %}
             </div>
             <div class="button-box filter-panel-button">
                 <button class="button dark-button" type="submit">Фильтровать</button>
@@ -109,331 +134,65 @@
         </div>
     </form>
     <div class="wraping-box">
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
+        {% for book in page_obj %}
+            <div class="book-box">
+                <a href="{% url 'books:book' book.id %}" class="book-box">
+                    <div class="book-photo-box">
+                        <img src="{{ book.cover.url }}" alt="book">
                     </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
+                    <p class="book-name">{{ book.name }}</p>
+                    <div class="statistics">
+                        <div class="rating">
+                            <img src="{% static 'image/stars.png' %}" alt="rating">
+                            <span>{{ book.getRating }}</span>
+                        </div>
+                        <div class="rating">
+                            <img src="{% static 'image/comment.png' %}" alt="comment">
+                            <span>{{ book.getReviewsCount }}</span>
+                        </div>
                     </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
+                </a>
+                {% if isAdmin %}
+                    <div class="management-buttons">
+                        <div class="button-box">
+                            <button class="button call-modal-window" data="{% url 'books:delete-book' book.id %}">
+                                Удалить
+                            </button>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/pic.jpg' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/pic.jpg' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/pic.jpg' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/pic.jpg' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="book-box">
-            <a href="" class="book-box">
-                <div class="book-photo-box">
-                    <img src="{% static 'image/book2.png' %}" alt="book">
-                </div>
-                <p class="book-name">Дебютная постановка том 2</p>
-                <div class="statistics">
-                    <div class="rating">
-                        <img src="{% static 'image/stars.png' %}" alt="rating">
-                        <span>4.5</span>
-                    </div>
-                    <div class="rating">
-                        <img src="{% static 'image/comment.png' %}" alt="comment">
-                        <span>100</span>
-                    </div>
-                </div>
-            </a>
-            {% if isAdmin %}
-                <div class="management-buttons">
-                    <div class="button-box">
-                        <button class="button call-modal-window">Удалить</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
+                {% endif %}
+            </div>
+        {% endfor %}
     </div>
     <div class="paginator-box">
         <div class="paginator">
-            <a class="page-selector" href="">
-                <img src="{% static 'image/previous page.png' %}" alt="previous page">
-            </a>
-            <span>1</span>
-            <a class="page-selector" href="">
-                <img src="{% static 'image/next page.png' %}" alt="next page">
-            </a>
+            {% if page_obj.has_previous %}
+                <a class="page-selector" href="?{% param_replace page=page_obj.previous_page_number %}#all-reviews">
+                    <img src="{% static 'image/previous page.png' %}" alt="previous page">
+                </a>
+            {% endif %}
+            <span>{{ page_obj.number }}</span>
+            {% if page_obj.has_next %}
+                <a class="page-selector" href="?{% param_replace page=page_obj.next_page_number %}#all-reviews">
+                    <img src="{% static 'image/next page.png' %}" alt="next page">
+                </a>
+            {% endif %}
         </div>
     </div>
     {% if isAdmin %}
         <div class="modal-window-box content-padding" id="modal-window-box">
-            <div class="modal-window" id="model-window">
-                <p>Вы уверены, что хотите удалить комментарий?</p>
+            <form method="post" class="modal-window" id="modal-window-form">
+                {% csrf_token %}
+                <p>Вы уверены, что хотите удалить книгу?</p>
                 <div class="modal-window-buttons">
                     <div class="button-box">
-                        <a class="button" href="">Да</a>
+                        <input type="submit" class="button" value="Да">
                     </div>
                     <div class="button-box" id="close-model-window">
-                        <button class="button">Отмена</button>
+                        <button type="button" class="button">Отмена</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <script src="{% static 'js/modal window.js' %}"></script>
     {% endif %}

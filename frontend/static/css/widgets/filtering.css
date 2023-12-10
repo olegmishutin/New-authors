@@ -16,6 +16,7 @@
 }
 
 .filters,
+.no-adaptive-filters,
 .panel-filters {
     display: flex;
     flex-wrap: wrap;
@@ -49,10 +50,6 @@
 
     .filters {
         display: none;
-    }
-
-    .showing-filters {
-        display: flex;
     }
 
     .submit-filtering-button {

@@ -1,20 +1,72 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.views import generic
 from django.core.paginator import Paginator
+from django.db.models import Avg
 from .models import Book, Review
 from categories.models import Category
 
 
-def books(request):
-    return render(request, 'books/books.html', {'isAdmin': False})
+class Books(generic.ListView):
+    model = Book
+    template_name = 'books/books.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        self.context = super().get_context_data(**kwargs)
+        self.context['isAdmin'] = False
+
+        self.context['categories'] = Category.objects.all()
+        self.context['checkedCategories'] = []
+
+        filters = []
+        categories = []
+
+        for category in self.context['categories']:
+            if self.request.GET.get(f'category-{category.id}'):
+                categories.append(int(category.id))
+                self.context['checkedCategories'].append(category)
+
+        books = Book.getAllWithStatistics(Book)
+        if categories:
+            books = Book.getAllWithStatistics(Book, categories__id__in=categories)
+
+        if self.request.GET.get('newBooks'):
+            filters.append('-publication_date')
+            self.context['newBooks'] = 'checked'
+
+        if self.request.GET.get('oldBooks'):
+            filters.append('publication_date')
+            self.context['oldBooks'] = 'checked'
+
+        if self.request.GET.get('popularBooks'):
+            filters.append('-reviewsCount')
+            self.context['popularBooks'] = 'checked'
+
+        if self.request.GET.get('hightRatingBooks'):
+            filters.append('-rating')
+            self.context['hightRatingBooks'] = 'checked'
+
+        if self.request.GET.get('lowRatingBooks'):
+            filters.append('rating')
+            self.context['lowRatingBooks'] = 'checked'
+
+        books = books.order_by(*filters)
+        self.context['page_obj'] = Paginator(books, 3).get_page(self.request.GET.get('page'))
+        return self.context
 
 
-def booksAdmin(request):
-    if request.user.is_superuser:
-        return render(request, 'books/books.html', {'isAdmin': True})
-    return HttpResponse(status=403)
+class BooksAdmin(Books):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super().get(request, *args, **kwargs)
+        return HttpResponse(status=403)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        super().get_context_data(**kwargs)
+        self.context['isAdmin'] = True
+        self.context['booksNumber'] = Book.objects.all().count()
+        return self.context
 
 
 class BookPage(generic.DetailView):
@@ -23,15 +75,8 @@ class BookPage(generic.DetailView):
 
     def createPagination(self, querySet):
         paginator = Paginator(querySet, 30)
-        return paginator.get_page(self.request.GET.get("page"))
+        return paginator.get_page(self.request.GET.get('page'))
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_obj'] = self.createPagination(kwargs.get('object').review_set.all())
-        return context
-
-
-class FilteredReviewsBookPage(BookPage):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         reviews = kwargs.get('object').review_set.all()
@@ -58,6 +103,11 @@ class FilteredReviewsBookPage(BookPage):
 
         context['page_obj'] = self.createPagination(reviews)
         return context
+
+
+def downloadBookFile(request, pk):
+    book = Book.objects.get(pk=pk)
+    return FileResponse(open(book.file.path, 'rb'), as_attachment=True)
 
 
 def addReview(request, bookId):
@@ -184,4 +234,4 @@ class DeleteBook(generic.DeleteView):
         return HttpResponse(status=404)
 
     def get_success_url(self):
-        return reverse_lazy('users:user-books', kwargs={'pk': self.request.user.id})
+        return self.request.META.get('HTTP_REFERER')

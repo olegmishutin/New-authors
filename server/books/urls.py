@@ -3,10 +3,10 @@ from . import views
 
 app_name = 'books'
 urlpatterns = [
-    path('books/', views.books, name='books'),
-    path('books-admin/', views.booksAdmin, name='books-admin'),
+    path('books/', views.Books.as_view(), name='books'),
+    path('books-admin/', views.BooksAdmin.as_view(), name='books-admin'),
     path('book/<int:pk>/', views.BookPage.as_view(), name='book'),
-    path('book/<int:pk>/reviews-filtered/', views.FilteredReviewsBookPage.as_view(), name='book-filtered-reviews'),
+    path('book/download/<int:pk>/', views.downloadBookFile, name='download-book'),
     path('book/<int:bookId>/add-review', views.addReview, name='add-review'),
     path('delete-review/<int:pk>/', views.DeleteReview.as_view(), name='delete-review'),
     path('book-publication/', views.publicateBook, name='book-publication'),

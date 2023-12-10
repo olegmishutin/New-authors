@@ -111,10 +111,6 @@ main {
     align-items: center;
 }
 
-.filters {
-    justify-content: flex-start;
-}
-
 .wraping-box {
     margin-top: 39px;
     justify-content: flex-start;

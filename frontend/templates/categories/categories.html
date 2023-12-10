@@ -50,7 +50,8 @@
     <div class="wraping-box">
         {% for category in page_obj %}
             <div class="category">
-                <a class="category-box" href="">
+                <a class="category-box"
+                   href="{% if isAdmin %}{% url 'books:books-admin' %}{% else %}{% url 'books:books' %}{% endif %}?category-{{ category.id }}=on">
                     <div class="category-icon-box">
                         <img src="{{ category.icon.url }}" alt="category icon">
                     </div>

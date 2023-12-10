@@ -9,10 +9,9 @@ class Categories(generic.ListView):
     model = Category
     template_name = 'categories/categories.html'
     paginate_by = 12
-    context = {}
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        self.context.update(super().get_context_data(**kwargs))
+        self.context = super().get_context_data(**kwargs)
         self.context['isAdmin'] = False
         return self.context
 

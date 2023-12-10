@@ -27,12 +27,12 @@
             <ul>
                 <li>
                     {% block newBookHref %}
-                        <a href="">Новые</a>
+                        <a href="{% url 'books:books' %}?newBooks=on">Новые</a>
                     {% endblock %}
                 </li>
                 <li>
                     {% block popularHref %}
-                        <a href="">Популярные</a>
+                        <a href="{% url 'books:books' %}?popularBooks=on">Популярные</a>
                     {% endblock %}
                 </li>
                 <li>
@@ -78,12 +78,12 @@
             <ul>
                 <li>
                     {% block newBookHrefSideNav %}
-                        <a href="">Новые</a>
+                        <a href="{% url 'books:books' %}?newBooks=on">Новые</a>
                     {% endblock %}
                 </li>
                 <li>
                     {% block popularHrefSideNav %}
-                        <a href="">Популярные</a>
+                        <a href="{% url 'books:books' %}?popularBooks=on">Популярные</a>
                     {% endblock %}
                 </li>
                 <li>
@@ -98,7 +98,7 @@
                 </li>
                 <li>
                     {% block authorsHrefSideNav %}
-                        <a href="">Авторы</a>
+                        <a href="{% url 'authors:authors' %}">Авторы</a>
                     {% endblock %}
                 </li>
             </ul>
