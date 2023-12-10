@@ -52,7 +52,7 @@ class Books(generic.ListView):
             self.context['lowRatingBooks'] = 'checked'
 
         books = books.order_by(*filters)
-        self.context['page_obj'] = Paginator(books, 3).get_page(self.request.GET.get('page'))
+        self.context['page_obj'] = Paginator(books, 21).get_page(self.request.GET.get('page'))
         return self.context
 
 

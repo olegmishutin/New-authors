@@ -20,243 +20,58 @@
             </div>
             <div class="info">
                 <h1>Количество пользователей:</h1>
-                <span>1337</span>
+                <span>{{ user_list.count }}</span>
             </div>
         </div>
     </div>
     <div class="wraping-box">
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
+        {% for user in page_obj %}
+            <div class="user-box">
+                <a href="{% url 'users:user-comments' user.id %}" class="user-box">
+                    <div class="user-photo-box">
+                        {% if user.photo %}
+                            <img src="{{ user.photo.url }}" alt="author">
+                        {% endif %}
+                    </div>
+                    <p class="username">{{ user.full_name }}</p>
+                </a>
+                <div class="management-buttons">
+                    <div class="button-box">
+                        <button class="button call-modal-window" data="{% url 'users:delete-user' user.id %}">Удалить
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
-        <div class="user-box">
-            <a href="" class="user-box">
-                <div class="user-photo-box">
-                    <img src="{% static 'image/men.png' %}" alt="author">
-                </div>
-                <p class="username">Jum Root</p>
-            </a>
-            <div class="management-buttons">
-                <div class="button-box">
-                    <button class="button call-modal-window">Удалить</button>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="paginator-box">
         <div class="paginator">
-            <a class="page-selector" href="">
-                <img src="{% static 'image/previous page.png' %}" alt="previous page">
-            </a>
-            <span>1</span>
-            <a class="page-selector" href="">
-                <img src="{% static 'image/next page.png' %}" alt="next page">
-            </a>
+            {% if page_obj.has_previous %}
+                <a class="page-selector" href="?page={{ page_obj.previous_page_number }}">
+                    <img src="{% static 'image/previous page.png' %}" alt="previous page">
+                </a>
+            {% endif %}
+            <span>{{ page_obj.number }}</span>
+            {% if page_obj.has_next %}
+                <a class="page-selector" href="?page={{ page_obj.next_page_number }}">
+                    <img src="{% static 'image/next page.png' %}" alt="next page">
+                </a>
+            {% endif %}
         </div>
     </div>
     <div class="modal-window-box content-padding" id="modal-window-box">
-        <div class="modal-window" id="model-window">
-            <p>Вы уверены, что хотите удалить комментарий?</p>
+        <form method="post" class="modal-window" id="modal-window-form">
+            {% csrf_token %}
+            <p>Вы уверены, что хотите удалить пользователя?</p>
             <div class="modal-window-buttons">
                 <div class="button-box">
-                    <a class="button" href="">Да</a>
+                    <input type="submit" class="button" value="Да">
                 </div>
                 <div class="button-box" id="close-model-window">
-                    <button class="button">Отмена</button>
+                    <button type="button" class="button">Отмена</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <script src="{% static 'js/modal window.js' %}"></script>
 {% endblock %}

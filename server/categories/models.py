@@ -14,12 +14,12 @@ class Category(models.Model):
 
     def setIcon(self, icon):
         if icon:
-            if os.path.isfile(self.icon.path):
+            if self.icon and os.path.isfile(self.icon.path):
                 os.remove(self.icon.path)
             self.icon = icon
 
     def delete(self, using=None, keep_parents=False):
-        if os.path.isfile(self.icon.path):
+        if self.icon and os.path.isfile(self.icon.path):
             os.remove(self.icon.path)
         return super(Category, self).delete()
 

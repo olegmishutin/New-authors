@@ -57,7 +57,25 @@ class UserReviews(UserBooks):
         return context
 
 
-def usersAdmin(request):
-    if request.user.is_superuser:
-        return render(request, 'users admin.html')
-    return HttpResponse(status=403)
+class UsersAdmin(generic.ListView):
+    model = User
+    template_name = 'users admin.html'
+    paginate_by = 24
+
+    def get_queryset(self):
+        return User.objects.exclude(is_author=True)
+
+
+class DeleteUser(generic.DeleteView):
+    model = User
+
+    def post(self, request, *args, **kwargs):
+        if self.request.user.is_superuser:
+            return super().post(request, *args, **kwargs)
+        return HttpResponse(status=403)
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(status=404)
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER')

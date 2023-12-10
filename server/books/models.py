@@ -22,13 +22,13 @@ class Book(models.Model):
 
     def setCover(self, newCover):
         if newCover:
-            if os.path.isfile(self.cover.path):
+            if self.cover and os.path.isfile(self.cover.path):
                 os.remove(self.cover.path)
             self.cover = newCover
 
     def setFile(self, newFile):
         if newFile:
-            if os.path.isfile(self.file.path):
+            if self.file and os.path.isfile(self.file.path):
                 os.remove(self.file.path)
             self.file = newFile
 
@@ -43,10 +43,10 @@ class Book(models.Model):
         return self.review_set.all().count()
 
     def delete(self, using=None, keep_parents=False):
-        if os.path.isfile(self.cover.path):
+        if self.cover and os.path.isfile(self.cover.path):
             os.remove(self.cover.path)
 
-        if os.path.isfile(self.file.path):
+        if self.file and os.path.isfile(self.file.path):
             os.remove(self.file.path)
         return super(Book, self).delete()
 

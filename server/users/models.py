@@ -37,7 +37,7 @@ class User(AbstractUser):
 
     def setPhoto(self, photo):
         if photo:
-            if os.path.isfile(self.photo.path):
+            if self.photo and os.path.isfile(self.photo.path):
                 os.remove(self.photo.path)
             self.photo = photo
 
@@ -49,6 +49,6 @@ class User(AbstractUser):
         return self.full_name
 
     def delete(self, using=None, keep_parents=False):
-        if os.path.isfile(self.photo.path):
+        if self.photo and os.path.isfile(self.photo.path):
             os.remove(self.photo.path)
         return super(User, self).delete()

@@ -16,6 +16,8 @@
     border-radius: 50%;
     overflow: hidden;
     transition-duration: 0.3s;
+    border: 3px solid var(--intermediate-color);
+    box-sizing: border-box;
     background-color: var(--front-color);
 }
 
