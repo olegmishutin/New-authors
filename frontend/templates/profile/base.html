@@ -50,8 +50,9 @@
         </div>
         {% if profileUser.is_author %}
             <div class="switch">
-                <a href="{% url 'users:user-comments' 2 %}" class="switcher {% block swithcer1State %}{% endblock %}">Комментарии</a>
-                <a href="{% url 'users:user-books' 2 %}"
+                <a href="{% url 'users:user-comments' profileUser.id %}"
+                   class="switcher {% block swithcer1State %}{% endblock %}">Комментарии</a>
+                <a href="{% url 'users:user-books' profileUser.id %}"
                    class="switcher {% block swithcer2State %}{% endblock %}">Книги</a>
             </div>
         {% endif %}

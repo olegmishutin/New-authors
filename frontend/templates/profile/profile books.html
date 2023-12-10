@@ -40,9 +40,11 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="description">
-                    <p>{{ book.description }}</p>
-                </div>
+                {% if book.description %}
+                    <div class="description">
+                        <p>{{ book.description }}</p>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

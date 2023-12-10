@@ -78,6 +78,13 @@ def addReview(request, bookId):
 class DeleteReview(generic.DeleteView):
     model = Review
 
+    def post(self, request, *args, **kwargs):
+        review = Review.objects.get(pk=kwargs.get('pk'))
+
+        if request.user == review.user:
+            return super().post(request)
+        return HttpResponse(status=403)
+
     def get(self, request, *args, **kwargs):
         return HttpResponse(status=404)
 
@@ -87,8 +94,7 @@ class DeleteReview(generic.DeleteView):
 
 def getBookInfo(request, anotherContent):
     book = Book(author=request.user, cover=request.FILES.get('bookCover'),
-                name=' '.join(request.POST.get('bookName').split()),
-                description=' '.join(request.POST.get('bookDesciption').split()),
+                name=' '.join(request.POST.get('bookName').split()), description=request.POST.get('bookDesciption'),
                 pages_number=request.POST.get('bookPagesNumber'), file=request.FILES.get('bookFile'))
 
     errorRender = None
@@ -98,7 +104,7 @@ def getBookInfo(request, anotherContent):
         if request.POST.get(f'checkbox-{category.id}') == 'on':
             bookCategories.append(category)
 
-    if not book.name or not book.description or not bookCategories:
+    if not book.name or not bookCategories:
         oldBook = anotherContent.get('oldBook')
         if oldBook:
             book.id = oldBook.id
@@ -131,8 +137,9 @@ def publicateBook(request):
 
 
 def editBook(request, pk):
-    if request.user.is_author:
-        book = Book.objects.get(pk=pk)
+    book = Book.objects.get(pk=pk)
+
+    if request.user.is_author and book.author == request.user:
         bookCategories = list(book.categories.all())
         categories = list(Category.objects.all())
 
@@ -169,7 +176,7 @@ class DeleteBook(generic.DeleteView):
     model = Book
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser or request.user.is_author:
+        if request.user.is_superuser or (request.user == Book.objects.get(pk=kwargs.get('pk')).author):
             return super().post(request)
         return HttpResponse(status=403)
 

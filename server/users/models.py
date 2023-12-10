@@ -25,7 +25,12 @@ class User(AbstractUser):
                                                             reviewsCount=Count('book__review'))
 
     def getRating(self):
-        return round(self.book_set.all().aggregate(rating=Avg('review__rating', default=0)).get('rating'), 2)
+        booksRatingSum = 0
+        booksWithRating = self.book_set.all().annotate(rating=Avg('review__rating', default=0))
+
+        for book in booksWithRating:
+            booksRatingSum += book.rating
+        return round(booksRatingSum / len(booksWithRating), 2) if len(booksWithRating) > 0 else 0
 
     def getReviewsCount(self):
         return self.book_set.all().aggregate(reviewsCount=Count('review')).get('reviewsCount')
