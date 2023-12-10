@@ -6,7 +6,8 @@
     margin-bottom: 63px;
 }
 
-.horizontal-content-box h1 {
+.horizontal-content-box h1,
+.horizontal-content-box h1 a{
     color: var(--intermediate-color);
     font-size: var(--biggest-text);
 }
