@@ -21,6 +21,9 @@ class Category(models.Model):
     def delete(self, using=None, keep_parents=False):
         if self.icon and os.path.isfile(self.icon.path):
             os.remove(self.icon.path)
+
+        for book in self.book_set.all():
+            book.delete()
         return super(Category, self).delete()
 
     def __str__(self):

@@ -8,97 +8,106 @@
 {% endblock %}
 {% block content %}
     <div class="horizontal-content-box">
-        <h1>Популярные авторы</h1>
-        <div class="horizontal-content horizontal-content-authors horizontal-scroll-bar">
-            {% for author in popularAuthor %}
-                <a href="{% url 'users:user-books' author.id %}" class="user-box">
-                    <div class="user-photo-box">
-                        {% if author.photo %}
-                            <img src="{{ author.photo.url }}" alt="author">
-                        {% endif %}
-                    </div>
-                    <p class="username">{{ author.full_name }}</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>{{ author.getRating }}</span>
+        {% if popularAuthor %}
+            <h1>Популярные авторы</h1>
+            <div class="horizontal-content horizontal-content-authors horizontal-scroll-bar">
+                {% for author in popularAuthor %}
+                    <a href="{% url 'users:user-books' author.id %}" class="user-box">
+                        <div class="user-photo-box">
+                            {% if author.photo %}
+                                <img src="{{ author.photo.url }}" alt="author">
+                            {% endif %}
                         </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>{{ author.getReviewsCount }}</span>
+                        <p class="username">{{ author.full_name }}</p>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>{{ author.getRating }}</span>
+                            </div>
+                            <div class="rating">
+                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <span>{{ author.getReviewsCount }}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
     <div class="horizontal-content-box">
-        <h1>Новые книги</h1>
-        <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
-            {% for book in newBooks %}
-                <a href="{% url 'books:book' book.id %}" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{{ book.cover.url }}" alt="book">
-                    </div>
-                    <p class="book-name">{{ book.name }}</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>{{ book.getRating }}</span>
+        {% if newBooks %}
+            <h1>Новые книги</h1>
+            <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
+                {% for book in newBooks %}
+                    <a href="{% url 'books:book' book.id %}" class="book-box">
+                        <div class="book-photo-box">
+                            <img src="{{ book.cover.url }}" alt="book">
                         </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>{{ book.getReviewsCount }}</span>
+                        <p class="book-name">{{ book.name }}</p>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>{{ book.getRating }}</span>
+                            </div>
+                            <div class="rating">
+                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <span>{{ book.getReviewsCount }}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
     <div class="horizontal-content-box">
-        <h1>Популярные книги</h1>
-        <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
-            {% for book in popularBooks %}
-                <a href="{% url 'books:book' book.id %}" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{{ book.cover.url }}" alt="book">
-                    </div>
-                    <p class="book-name">{{ book.name }}</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>{{ book.getRating }}</span>
+        {% if popularBooks %}
+            <h1>Популярные книги</h1>
+            <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
+                {% for book in popularBooks %}
+                    <a href="{% url 'books:book' book.id %}" class="book-box">
+                        <div class="book-photo-box">
+                            <img src="{{ book.cover.url }}" alt="book">
                         </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>{{ book.getReviewsCount }}</span>
+                        <p class="book-name">{{ book.name }}</p>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>{{ book.getRating }}</span>
+                            </div>
+                            <div class="rating">
+                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <span>{{ book.getReviewsCount }}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
     <div class="horizontal-content-box">
-        <h1>Книги категории: <a href="{% url 'books:books' %}?category-{{ category.id }}=on">{{ category.name }}</a></h1>
-        <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
-            {% for book in category.book_set.all %}
-                <a href="{% url 'books:book' book.id %}" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{{ book.cover.url }}" alt="book">
-                    </div>
-                    <p class="book-name">{{ book.name }}</p>
-                    <div class="statistics">
-                        <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>{{ book.getRating }}</span>
+        {% if category.book_set.all %}
+            <h1>Книги категории: <a href="{% url 'books:books' %}?category-{{ category.id }}=on">{{ category.name }}</a>
+            </h1>
+            <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
+                {% for book in category.book_set.all %}
+                    <a href="{% url 'books:book' book.id %}" class="book-box">
+                        <div class="book-photo-box">
+                            <img src="{{ book.cover.url }}" alt="book">
                         </div>
-                        <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>{{ book.getReviewsCount }}</span>
+                        <p class="book-name">{{ book.name }}</p>
+                        <div class="statistics">
+                            <div class="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <span>{{ book.getRating }}</span>
+                            </div>
+                            <div class="rating">
+                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <span>{{ book.getReviewsCount }}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

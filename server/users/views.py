@@ -33,7 +33,7 @@ class UserBooks(generic.DetailView):
         pk = kwargs.get('pk')
         user = User.objects.get(pk=pk)
 
-        if (not request.user.is_author and request.user.id == pk) or not user.is_author:
+        if (request.user.id == pk and not request.user.is_author) or not user.is_author:
             return HttpResponse(status=404)
         return super().get(request, *args, **kwargs)
 
