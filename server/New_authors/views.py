@@ -21,4 +21,4 @@ def menu(request):
 
     return render(request, 'menu.html',
                   {'popularAuthor': popularAuthor, 'newBooks': newBooks, 'popularBooks': popularBooks,
-                   'category': random.choice(categoriesTorandomise) if categories else []})
+                   'category': random.choice(categoriesTorandomise) if categoriesTorandomise else []})
