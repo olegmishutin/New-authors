@@ -20,8 +20,8 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    def getAllWithStatistics(self):
-        return self.objects.filter(is_author=True).annotate(rating=Avg('book__review__rating'),
+    def getAuthors(self):
+        return self.objects.filter(is_author=True).annotate(rating=Avg('book__review__rating', default=0),
                                                             reviewsCount=Count('book__review'))
 
     def getRating(self):
@@ -51,4 +51,7 @@ class User(AbstractUser):
     def delete(self, using=None, keep_parents=False):
         if self.photo and os.path.isfile(self.photo.path):
             os.remove(self.photo.path)
+
+        for book in self.book_set.all():
+            book.delete()
         return super(User, self).delete()

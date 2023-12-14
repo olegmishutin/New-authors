@@ -6,8 +6,8 @@ from categories.models import Category
 
 
 def menu(request):
-    popularAuthor = User.getAllWithStatistics(User).order_by('-reviewsCount')[:12]
-    books = Book.getAllWithStatistics(Book)
+    popularAuthor = User.getAuthors(User).order_by('-reviewsCount', '-rating')[:12]
+    books = Book.getBooks(Book)
 
     newBooks = books.order_by('-publication_date')[:12]
     popularBooks = books.order_by('-reviewsCount')

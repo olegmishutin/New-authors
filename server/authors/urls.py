@@ -3,7 +3,6 @@ from . import views
 
 app_name = 'authors'
 urlpatterns = [
-    path('authors/', views.authors, name='authors'),
-    path('authors-admin/', views.authorsAdmin, name='authors-admin'),
-    path('sending-email/', views.sendingEmail, name='sending-email')
+    path('authors/', views.Authors.as_view(), name='authors'),
+    path('authors-admin/', views.AuthorsAdmin.as_view(), name='authors-admin')
 ]

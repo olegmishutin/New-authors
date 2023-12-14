@@ -27,29 +27,14 @@ class Books(generic.ListView):
                 categories.append(int(category.id))
                 self.context['checkedCategories'].append(category)
 
-        books = Book.getAllWithStatistics(Book)
-        if categories:
-            books = Book.getAllWithStatistics(Book, categories__id__in=categories)
+        books = Book.getBooks(Book, categories__id__in=categories) if categories else Book.getBooks(Book)
+        checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
+                             'hightRatingBooks': '-rating', 'lowRatingBooks': 'rating', 'popularBooks': '-reviewsCount'}
 
-        if self.request.GET.get('newBooks'):
-            filters.append('-publication_date')
-            self.context['newBooks'] = 'checked'
-
-        if self.request.GET.get('oldBooks'):
-            filters.append('publication_date')
-            self.context['oldBooks'] = 'checked'
-
-        if self.request.GET.get('popularBooks'):
-            filters.append('-reviewsCount')
-            self.context['popularBooks'] = 'checked'
-
-        if self.request.GET.get('hightRatingBooks'):
-            filters.append('-rating')
-            self.context['hightRatingBooks'] = 'checked'
-
-        if self.request.GET.get('lowRatingBooks'):
-            filters.append('rating')
-            self.context['lowRatingBooks'] = 'checked'
+        for checkbox, filter in checkboxesFilters.items():
+            if self.request.GET.get(checkbox):
+                filters.append(filter)
+                self.context[checkbox] = 'checked'
 
         books = books.order_by(*filters)
         self.context['page_obj'] = Paginator(books, 21).get_page(self.request.GET.get('page'))
@@ -73,35 +58,21 @@ class BookPage(generic.DetailView):
     model = Book
     template_name = 'books/book.html'
 
-    def createPagination(self, querySet):
-        paginator = Paginator(querySet, 30)
-        return paginator.get_page(self.request.GET.get('page'))
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         reviews = kwargs.get('object').review_set.all()
+
         filters = []
+        checkboxesFilters = {'newReviews': '-date_added', 'oldReviews': 'date_added',
+                             'hightRatingReviews': '-rating', 'lowRatingReviews': 'rating'}
 
-        if self.request.GET.get('newReviews'):
-            filters.append('-date_added')
-            context['newReviews'] = 'checked'
+        for checkbox, filter in checkboxesFilters.items():
+            if self.request.GET.get(checkbox):
+                filters.append(filter)
+                context[checkbox] = 'checked'
 
-        if self.request.GET.get('oldReviews'):
-            filters.append('date_added')
-            context['oldReviews'] = 'checked'
-
-        if self.request.GET.get('hightRatingReviews'):
-            filters.append('-rating')
-            context['hightRatingReviews'] = 'checked'
-
-        if self.request.GET.get('lowRatingReviews'):
-            filters.append('rating')
-            context['lowRatingReviews'] = 'checked'
-
-        if filters:
-            reviews = reviews.order_by(*filters)
-
-        context['page_obj'] = self.createPagination(reviews)
+        reviews = reviews.order_by(*filters)
+        context['page_obj'] = Paginator(reviews, 30).get_page(self.request.GET.get('page'))
         return context
 
 

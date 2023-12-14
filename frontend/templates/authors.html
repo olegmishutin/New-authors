@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load tags %}
-{% block title %}Все книги{% endblock %}
+{% block title %}Авторы{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/widgets/checkbox.css' %}">
-    <link rel="stylesheet" href="{% static 'css/widgets/book.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/paginator.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/filtering.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
@@ -13,25 +12,25 @@
         <link rel="stylesheet" href="{% static 'css/widgets/modal window.css' %}">
     {% endif %}
 {% endblock %}
-{% block allBooksHref %}
+{% block authorsHref %}
     {% if isAdmin %}
-        <a href="{% url 'books:books' %}">Все книги</a>
+        <a href="{% url 'authors:authors' %}">Авторы</a>
     {% else %}
         <a href="{% url 'menu' %}">Главная</a>
     {% endif %}
 {% endblock %}
-{% block allBooksHrefSideNav %}
+{% block authorsHrefSideNav %}
     {% if isAdmin %}
-        <a href="{% url 'books:books' %}">Все книги</a>
+        <a href="{% url 'authors:authors' %}">Авторы</a>
     {% else %}
         <a href="{% url 'menu' %}">Главная</a>
     {% endif %}
 {% endblock %}
-{% block adminBooks %}
+{% block adminAuthors %}
     {% if isAdmin %}
         <a href="{% url 'menu' %}">Главная</a>
     {% else %}
-        <a href="{% url 'books:books-admin' %}">Книги</a>
+        <a href="{% url 'authors:authors-admin' %}">Авторы</a>
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -39,48 +38,37 @@
         <div class="admin-statistic-box">
             <div class="admin-statistic">
                 <div class="admin-statistic-image">
-                    <img src="{% static 'image/book pick.png' %}" alt="books number image">
+                    <img src="{% static 'image/author.png' %}" alt="authors number image">
                 </div>
                 <div class="info">
-                    <h1>Количество книг:</h1>
-                    <span>{{ booksNumber }}</span>
+                    <h1>Количество авторов:</h1>
+                    <span>{{ authorsNumber }}</span>
                 </div>
             </div>
         </div>
     {% endif %}
     <form method="get" class="filtering"
-          action="{% if isAdmin %}{% url 'books:books-admin' %}{% else %}{% url 'books:books' %}{% endif %}">
+          action="{% if isAdmin %}{% url 'authors:authors-admin' %}{% else %}{% url 'authors:authors' %}{% endif %}">
         <div class="filters">
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox pc-checkbox" id="new-books" name="newBooks" {{ newBooks }}>
-                <label for="new-books">Новые</label>
+                <input type="checkbox" class="checkbox pc-checkbox" id="new-authors" name="newAuthors" {{ newAuthors }}>
+                <label for="new-authors">Новые</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox pc-checkbox" id="old-books" name="oldBooks" {{ oldBooks }}>
-                <label for="old-books">Старые</label>
+                <input type="checkbox" class="checkbox pc-checkbox" id="popular-authors"
+                       name="popularAuthors" {{ popularAuthors }}>
+                <label for="popular-authors">Популярные</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox pc-checkbox" id="popular-books"
-                       name="popularBooks" {{ popularBooks }}>
-                <label for="popular-books">Популярные</label>
+                <input type="checkbox" class="checkbox pc-checkbox" id="start-with-hight-rating-authors"
+                       name="hightRatingAuthors" {{ hightRatingAuthors }}>
+                <label for="start-with-hight-rating-authors">Сначала с высокой оценкой</label>
             </div>
             <div class="checkbox-box">
-                <input type="checkbox" class="checkbox pc-checkbox" id="start-with-hight-rating-books"
-                       name="hightRatingBooks" {{ hightRatingBooks }}>
-                <label for="start-with-hight-rating-books">Сначала с высокой оценкой</label>
+                <input type="checkbox" class="checkbox pc-checkbox" id="start-with-low-rating-authors"
+                       name="lowRatingAuthors" {{ lowRatingAuthors }}>
+                <label for="start-with-low-rating-authors">Сначала с низкой оценкой</label>
             </div>
-            <div class="checkbox-box">
-                <input type="checkbox" class="checkbox pc-checkbox" id="start-with-low-rating-books"
-                       name="lowRatingBooks" {{ lowRatingBooks }}>
-                <label for="start-with-low-rating-books">Сначала с низкой оценкой</label>
-            </div>
-            {% for category in categories %}
-                <div class="checkbox-box">
-                    <input type="checkbox" class="checkbox pc-checkbox" id="category-{{ category.id }}"
-                           name="category-{{ category.id }}" {% if category in checkedCategories %}checked{% endif %}>
-                    <label for="category-{{ category.id }}">{{ category.name }}</label>
-                </div>
-            {% endfor %}
         </div>
         <div class="button-box submit-filtering-button">
             <button class="button" type="submit">Фильтровать</button>
@@ -92,38 +80,25 @@
             <h1 class="filtering-header">Фильтрация</h1>
             <div class="panel-filters">
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox mobile-checkbox" id="new-books-panel"
-                           name="newBooks" {{ newBooks }}>
-                    <label for="new-books-panel">Новые</label>
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="new-authors-panel"
+                           name="newAuthors" {{ newAuthors }}>
+                    <label for="new-authors-panel">Новые</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox mobile-checkbox" id="old-books-panel"
-                           name="oldBooks" {{ oldBooks }}>
-                    <label for="old-books-panel">Старые</label>
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="popular-authors-panel"
+                           name="popularAuthors" {{ popularAuthors }}>
+                    <label for="popular-authors-panel">Популярные</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox mobile-checkbox" id="popular-books-panel"
-                           name="popularBooks" {{ popularBooks }}>
-                    <label for="popular-books-panel">Популярные</label>
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="start-with-hight-rating-authors-panel"
+                           name="hightRatingAuthors" {{ hightRatingAuthors }}>
+                    <label for="start-with-hight-rating-authors-panel">Сначала с высокой оценкой</label>
                 </div>
                 <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox mobile-checkbox"
-                           id="start-with-hight-rating-books-panel" {{ hightRatingBooks }} name="hightRatingBooks">
-                    <label for="start-with-hight-rating-books-panel">Сначала с высокой оценкой</label>
+                    <input type="checkbox" class="checkbox mobile-checkbox" id="start-with-low-rating-authors-panel"
+                           name="lowRatingAuthors" {{ lowRatingAuthors }}>
+                    <label for="start-with-low-rating-authors-panel">Сначала с низкой оценкой</label>
                 </div>
-                <div class="checkbox-box dark-checkbox-box">
-                    <input type="checkbox" class="checkbox mobile-checkbox"
-                           id="start-with-low-rating-books-panel" {{ lowRatingBooks }} name="lowRatingBooks">
-                    <label for="start-with-low-rating-books-panel">Сначала с низкой оценкой</label>
-                </div>
-                {% for category in categories %}
-                    <div class="checkbox-box dark-checkbox-box">
-                        <input type="checkbox" class="checkbox mobile-checkbox" id="panel-category-{{ category.id }}"
-                               name="category-{{ category.id }}"
-                               {% if category in checkedCategories %}checked{% endif %}>
-                        <label for="panel-category-{{ category.id }}">{{ category.name }}</label>
-                    </div>
-                {% endfor %}
             </div>
             <div class="button-box filter-panel-button">
                 <button class="button dark-button" type="submit">Фильтровать</button>
@@ -134,28 +109,30 @@
         </div>
     </form>
     <div class="wraping-box">
-        {% for book in page_obj %}
-            <div class="book-box">
-                <a href="{% url 'books:book' book.id %}" class="book-box">
-                    <div class="book-photo-box">
-                        <img src="{{ book.cover.url }}" alt="book">
+        {% for author in page_obj %}
+            <div class="user-box">
+                <a href="{% url 'users:user-books' author.id %}" class="user-box">
+                    <div class="user-photo-box">
+                        {% if author.photo %}
+                            <img src="{{ author.photo.url }}" alt="author">
+                        {% endif %}
                     </div>
-                    <p class="book-name">{{ book.name }}</p>
+                    <p class="username">{{ author.full_name }}</p>
                     <div class="statistics">
                         <div class="rating">
                             <img src="{% static 'image/stars.png' %}" alt="rating">
-                            <span>{{ book.rating }}</span>
+                            <span>{{ author.rating }}</span>
                         </div>
                         <div class="rating">
                             <img src="{% static 'image/comment.png' %}" alt="comment">
-                            <span>{{ book.reviewsCount }}</span>
+                            <span>{{ author.reviewsCount }}</span>
                         </div>
                     </div>
                 </a>
                 {% if isAdmin %}
                     <div class="management-buttons">
                         <div class="button-box">
-                            <button class="button call-modal-window" data="{% url 'books:delete-book' book.id %}">
+                            <button class="button call-modal-window" data="{% url 'users:delete-user' author.id %}">
                                 Удалить
                             </button>
                         </div>
@@ -179,11 +156,12 @@
             {% endif %}
         </div>
     </div>
+    <script src="{% static 'js/filtering panel.js' %}"></script>
     {% if isAdmin %}
         <div class="modal-window-box content-padding" id="modal-window-box">
             <form method="post" class="modal-window" id="modal-window-form">
                 {% csrf_token %}
-                <p>Вы уверены, что хотите удалить книгу?</p>
+                <p>Вы уверены, что хотите удалить автора?</p>
                 <div class="modal-window-buttons">
                     <div class="button-box">
                         <input type="submit" class="button" value="Да">
@@ -196,5 +174,4 @@
         </div>
         <script src="{% static 'js/modal window.js' %}"></script>
     {% endif %}
-    <script src="{% static 'js/filtering panel.js' %}"></script>
 {% endblock %}

@@ -32,7 +32,7 @@ class Book(models.Model):
                 os.remove(self.file.path)
             self.file = newFile
 
-    def getAllWithStatistics(self, **kwargs):
+    def getBooks(self, **kwargs):
         return self.objects.filter(**kwargs).annotate(rating=Avg('review__rating', default=0),
                                                       reviewsCount=Count('review'))
 
