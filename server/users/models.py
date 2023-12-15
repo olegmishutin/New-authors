@@ -20,9 +20,9 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    def getAuthors(self):
-        return self.objects.filter(is_author=True).annotate(rating=Avg('book__review__rating', default=0),
-                                                            reviewsCount=Count('book__review'))
+    def getAuthors(self, **kwargs):
+        return self.objects.filter(is_author=True, **kwargs).annotate(rating=Avg('book__review__rating', default=0),
+                                                                      reviewsCount=Count('book__review'))
 
     def getRating(self):
         booksRatingSum = 0

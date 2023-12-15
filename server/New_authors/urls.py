@@ -22,6 +22,7 @@ from . import views
 
 urlpatterns = [
     path('', views.menu, name='menu'),
+    path('search/', views.search, name='search'),
     path('', include('authentication.urls')),
     path('', include('categories.urls')),
     path('', include('books.urls')),

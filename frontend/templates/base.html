@@ -52,12 +52,12 @@
                 </li>
             </ul>
         </nav>
-        <form method="get" class="search-bar">
+        <form method="get" action="{% url 'search' %}" class="search-bar">
             <button class="search-button no-backround-and-border">
                 <img src="{% static 'image/loup.png' %}" alt="loup">
             </button>
             <input class="navigation-textbox no-backround-and-border" id="search-bar" type="text" placeholder="Поиск"
-                   required>
+                   name="search" value="{{ searchText }}" required>
         </form>
         <div class="user">
             <button class="manage-button no-backround-and-border" id="show-manage-panel-button">
@@ -67,12 +67,12 @@
     </div>
     <div class="panel right-panel" id="navigate-panel" {% if not user.is_superuser %} data="adaptive" {% else %}
          data="no-adaptive" {% endif %}>
-        <form method="get" class="search-bar">
+        <form method="get" action="{% url 'search' %}" class="search-bar">
             <button class="search-button no-backround-and-border">
                 <img src="{% static 'image/loup.png' %}" alt="loup">
             </button>
-            <input class="navigation-textbox no-backround-and-border" id="panel-search-bar" type="text"
-                   placeholder="Поиск" required>
+            <input class="navigation-textbox no-backround-and-border" id="panel-search-bar" type="text" name="search"
+                   placeholder="Поиск" value="{{ searchText }}" required>
         </form>
         <nav class="pages user-side-nav">
             <ul>

@@ -22,3 +22,11 @@ def menu(request):
     return render(request, 'menu.html',
                   {'popularAuthor': popularAuthor, 'newBooks': newBooks, 'popularBooks': popularBooks,
                    'category': random.choice(categoriesTorandomise) if categoriesTorandomise else []})
+
+
+def search(request):
+    searchText = request.GET.get('search')
+    books = Book.getBooks(Book, name__icontains=searchText)
+    authors = User.getAuthors(User, full_name__icontains=searchText)
+    return render(request, 'search.html', {'books': books, 'authors': authors, 'searchText': searchText,
+                                           'isAdmin': True if request.user.is_superuser else False})
