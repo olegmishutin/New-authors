@@ -50,6 +50,7 @@ input[type='submit'] {
     flex-wrap: wrap;
     justify-content: center;
     overflow: hidden;
+    padding-bottom: 65px;
 }
 
 .content-padding {

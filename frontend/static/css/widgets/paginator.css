@@ -1,13 +1,13 @@
 .paginator-box {
     display: flex;
     justify-content: center;
+    margin-bottom: 22px;
 }
 
 .paginator {
     display: flex;
     align-items: center;
     gap: 58px;
-    margin: 65px 0 22px 0;
 }
 
 .paginator span {
