@@ -13,60 +13,67 @@ def errorRender(request, template, errorType, message):
 
 
 def signUp(request):
+    currentTemplate = 'authentication/sign-up.html'
+
     if request.method == 'POST':
         postData = dict(request.POST)
-        currentTemplate = 'authentication/sign-up.html'
 
         for key, value in postData.items():
             postData[key] = value = ' '.join(value[0].split())
             if not value:
                 return errorRender(request, currentTemplate, f'{key}Error', 'Это поле не может быть пустым!')
 
+        fullName = postData.get('fullName')
+        username = postData.get('username')
+        email = postData.get('email')
+        password = postData.get('password')
+        userType = postData.get('userType')
+
         try:
-            email = validate_email(postData.get('email'), check_deliverability=True)
-            postData['email'] = email.normalized
+            email = validate_email(email, check_deliverability=True).normalized
         except EmailNotValidError:
             return errorRender(request, currentTemplate, 'emailError', 'Недействительный адрес почты!')
 
-        if ' ' in postData.get('username'):
+        if ' ' in username:
             return errorRender(request, currentTemplate, 'usernameError',
                                'Имя пользователя не может содержать пробелы!')
 
-        if ' ' in postData.get('password'):
+        if ' ' in password:
             return errorRender(request, currentTemplate, 'passwordError', 'Пароль не может содержать пробелы!')
 
-        if len(postData.get('password')) < 6:
+        if len(password) < 6:
             return errorRender(request, currentTemplate, 'passwordError', 'Пароль должен быть больше 5 символов!')
 
         try:
-            user = User.objects.create_user(username=postData.get('username'), email=postData.get('email'),
-                                            password=postData.get('password'), full_name=postData.get('fullName'),
-                                            is_author=True if postData.get('userType') == 'author' else False)
+            user = User.objects.create_user(username=username, email=email, password=password, full_name=fullName,
+                                            is_author=True if userType == 'author' else False)
         except IntegrityError:
             return errorRender(request, currentTemplate, 'usernameError', 'Такое имя пользователя уже занято!')
         return redirect('authentication:sign-in')
 
     if request.user.is_anonymous:
-        return render(request, 'authentication/sign-up.html')
+        return render(request, currentTemplate)
     return redirect('menu')
 
 
 def signIn(request):
-    if request.method == 'POST':
-        postData = dict(request.POST)
-        currentTemplate = 'authentication/sign-in.html'
+    currentTemplate = 'authentication/sign-in.html'
 
-        if not postData.get('username')[0] or not postData.get('password')[0]:
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if not username or not password:
             return errorRender(request, currentTemplate, f'usernameError', 'Поля не могут быть пустыми!')
 
-        user = authenticate(username=postData.get('username')[0], password=postData.get('password')[0])
+        user = authenticate(username=username, password=password)
         if user:
             login(request, user)
             return redirect('menu')
         return errorRender(request, currentTemplate, 'usernameError', 'Пользователь с таким именем и паролем не найден')
 
     if request.user.is_anonymous:
-        return render(request, 'authentication/sign-in.html')
+        return render(request, currentTemplate)
     return redirect('menu')
 
 

@@ -60,7 +60,7 @@
         <p>{{ book.description }}</p>
     </div>
     <div class="reviews">
-        {% if book.author.id != user.id %}
+        {% if book.author.id != user.id and user.is_authenticated %}
             <div class="review" id="user-review">
                 <h1>Ваша рецензия на книгу</h1>
                 <form method="post" action="{% url 'books:add-review' book.id %}">

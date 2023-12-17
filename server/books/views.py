@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse, FileResponse
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Avg
 from .models import Book, Review
@@ -76,6 +77,7 @@ class BookPage(generic.DetailView):
         return context
 
 
+@login_required(login_url='authentication:sign-in')
 def downloadBookFile(request, pk):
     book = Book.objects.get(pk=pk)
     return FileResponse(open(book.file.path, 'rb'), as_attachment=True)
@@ -197,7 +199,9 @@ class DeleteBook(generic.DeleteView):
     model = Book
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser or (request.user == Book.objects.get(pk=kwargs.get('pk')).author):
+        book = Book.objects.get(pk=kwargs.get('pk'))
+
+        if request.user.is_superuser or (request.user == book.author):
             return super().post(request)
         return HttpResponse(status=403)
 
