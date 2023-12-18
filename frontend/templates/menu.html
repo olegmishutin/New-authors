@@ -89,7 +89,7 @@
             <h1>Книги категории: <a href="{% url 'books:books' %}?category-{{ category.id }}=on">{{ category.name }}</a>
             </h1>
             <div class="horizontal-content horizontal-content-book horizontal-scroll-bar">
-                {% for book in category.book_set.all %}
+                {% for book in category.book_set.all|slice:":12" %}
                     <a href="{% url 'books:book' book.id %}" class="book-box">
                         <div class="book-photo-box">
                             <img src="{{ book.cover.url }}" alt="book">

@@ -10,7 +10,7 @@ def menu(request):
     books = Book.getBooks(Book)
 
     newBooks = books.order_by('-publication_date')[:12]
-    popularBooks = books.order_by('-reviewsCount')
+    popularBooks = books.order_by('-reviewsCount')[:12]
 
     categoriesTorandomise = []
     categories = Category.objects.all()
@@ -28,5 +28,4 @@ def search(request):
     searchText = request.GET.get('search')
     books = Book.getBooks(Book, name__icontains=searchText)
     authors = User.getAuthors(User, full_name__icontains=searchText)
-    return render(request, 'search.html', {'books': books, 'authors': authors, 'searchText': searchText,
-                                           'isAdmin': True if request.user.is_superuser else False})
+    return render(request, 'search.html', {'books': books, 'authors': authors, 'searchText': searchText})

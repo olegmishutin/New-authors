@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static 'css/widgets/book.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/user.css' %}">
     <link rel="stylesheet" href="{% static 'css/widgets/statistics.css' %}">
-    {% if isAdmin %}
+    {% if user.is_superuser %}
         <link rel="stylesheet" href="{% static 'css/widgets/modal window.css' %}">
     {% endif %}
 {% endblock %}
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </a>
-                {% if isAdmin %}
+                {% if user.is_superuser %}
                     <div class="management-buttons">
                         <div class="button-box">
                             <button class="button call-modal-window" data="{% url 'books:delete-book' book.id %}">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </a>
-                {% if isAdmin %}
+                {% if user.is_superuser %}
                     <div class="management-buttons">
                         <div class="button-box">
                             <button class="button call-modal-window" data="{% url 'users:delete-user' author.id %}">
@@ -72,7 +72,7 @@
             </div>
         {% endfor %}
     </div>
-    {% if isAdmin %}
+    {% if user.is_superuser %}
         <div class="modal-window-box content-padding" id="modal-window-box">
             <form method="post" class="modal-window" id="modal-window-form">
                 {% csrf_token %}
