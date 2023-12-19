@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book
+from .models import Book, Review
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -13,4 +13,16 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ('publication_date', 'categories')
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('user', 'book', 'rating')
+    fieldsets = [
+        ('Основная информация', {'fields': ['user', 'book', 'rating', 'date_added']}),
+        ('Второстепенная информация', {'fields': ['text']})
+    ]
+    readonly_fields = ('date_added', 'user', 'book', 'rating', 'text')
+    search_fields = ('text',)
+    list_filter = ('rating', 'date_added')
+
+
 admin.site.register(Book, BookAdmin)
+admin.site.register(Review, ReviewAdmin)

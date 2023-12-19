@@ -55,11 +55,11 @@ class Book(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    text = models.TextField()
-    rating = models.FloatField()
-    date_added = models.DateField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name='Книга')
+    text = models.TextField(verbose_name='Текст')
+    rating = models.FloatField(verbose_name='Рейтинг')
+    date_added = models.DateField(auto_now=True, verbose_name='Дата добавления')
 
     class Meta:
         db_table = 'Review'
