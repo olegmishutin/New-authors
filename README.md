@@ -20,8 +20,8 @@ This project was created for my portfolio.
           'default': {
               'ENGINE': 'django.db.backends.postgresql',
               'NAME': 'your_database_name',
-              'USER': 'your_database_user',
-              'PASSWORD': 'your_database_password',
+              'USER': 'your_user',
+              'PASSWORD': 'your_user_password',
               'HOST': 'localhost',
               'PORT': 'your_postgres_port',
           }
