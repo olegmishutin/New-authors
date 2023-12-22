@@ -22,7 +22,7 @@
                         <div class="statistics">
                             <div class="rating">
                                 <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>{{ author.rating }}</span>
+                                <span>{{ author.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
                                 <img src="{% static 'image/comment.png' %}" alt="comment">
@@ -47,7 +47,7 @@
                         <div class="statistics">
                             <div class="rating">
                                 <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>{{ book.rating }}</span>
+                                <span>{{ book.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
                                 <img src="{% static 'image/comment.png' %}" alt="comment">
@@ -72,7 +72,7 @@
                         <div class="statistics">
                             <div class="rating">
                                 <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>{{ book.rating }}</span>
+                                <span>{{ book.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
                                 <img src="{% static 'image/comment.png' %}" alt="comment">
@@ -98,7 +98,7 @@
                         <div class="statistics">
                             <div class="rating">
                                 <img src="{% static 'image/stars.png' %}" alt="rating">
-                                <span>{{ book.getRating }}</span>
+                                <span>{{ book.getRating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
                                 <img src="{% static 'image/comment.png' %}" alt="comment">

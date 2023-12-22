@@ -30,7 +30,7 @@ class User(AbstractUser):
 
         for book in booksWithRating:
             booksRatingSum += book.rating
-        return round(booksRatingSum / len(booksWithRating), 2) if len(booksWithRating) > 0 else 0
+        return round(booksRatingSum / len(booksWithRating), 1) if len(booksWithRating) > 0 else 0
 
     def getReviewsCount(self):
         return self.book_set.all().aggregate(reviewsCount=Count('review')).get('reviewsCount')
