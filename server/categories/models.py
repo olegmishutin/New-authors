@@ -1,5 +1,6 @@
 import os
 from django.db import models
+from New_authors.otherFunctions.changeModelFile import changeFile
 
 
 class Category(models.Model):
@@ -13,14 +14,10 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
     def setIcon(self, icon):
-        if icon:
-            if self.icon and os.path.isfile(self.icon.path):
-                os.remove(self.icon.path)
-            self.icon = icon
+        self.icon = changeFile(self.icon, icon)
 
     def delete(self, using=None, keep_parents=False):
-        if self.icon and os.path.isfile(self.icon.path):
-            os.remove(self.icon.path)
+        changeFile(self.icon, deleteOnly=True)
 
         for book in self.book_set.all():
             book.delete()

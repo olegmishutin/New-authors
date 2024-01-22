@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Avg, Count
 from users.models import User
 from categories.models import Category
+from New_authors.otherFunctions.changeModelFile import changeFile
 
 
 class Book(models.Model):
@@ -21,20 +22,15 @@ class Book(models.Model):
         verbose_name_plural = 'Книги'
 
     def setCover(self, newCover):
-        if newCover:
-            if self.cover and os.path.isfile(self.cover.path):
-                os.remove(self.cover.path)
-            self.cover = newCover
+        self.cover = changeFile(self.cover, newCover)
 
     def setFile(self, newFile):
-        if newFile:
-            if self.file and os.path.isfile(self.file.path):
-                os.remove(self.file.path)
-            self.file = newFile
+        self.file = changeFile(self.file, newFile)
 
-    def getBooks(self, **kwargs):
-        return self.objects.filter(**kwargs).annotate(rating=Avg('review__rating', default=0),
-                                                      reviewsCount=Count('review'))
+    @classmethod
+    def getBooks(cls, **kwargs):
+        return cls.objects.filter(**kwargs).annotate(rating=Avg('review__rating', default=0),
+                                                     reviewsCount=Count('review'))
 
     def getRating(self):
         return round(self.review_set.all().aggregate(rating=Avg('rating', default=0)).get('rating'), 1)
@@ -43,11 +39,8 @@ class Book(models.Model):
         return self.review_set.all().count()
 
     def delete(self, using=None, keep_parents=False):
-        if self.cover and os.path.isfile(self.cover.path):
-            os.remove(self.cover.path)
-
-        if self.file and os.path.isfile(self.file.path):
-            os.remove(self.file.path)
+        changeFile(self.cover, deleteOnly=True)
+        changeFile(self.file, deleteOnly=True)
         return super(Book, self).delete()
 
     def __str__(self):

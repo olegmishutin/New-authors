@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.db.models import Avg, Count
 from django.contrib.auth.models import AbstractUser
+from New_authors.otherFunctions.changeModelFile import changeFile
 
 
 class User(AbstractUser):
@@ -20,9 +21,10 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    def getAuthors(self, **kwargs):
-        return self.objects.filter(is_author=True, **kwargs).annotate(rating=Avg('book__review__rating', default=0),
-                                                                      reviewsCount=Count('book__review'))
+    @classmethod
+    def getAuthors(cls, **kwargs):
+        return cls.objects.filter(is_author=True, **kwargs).annotate(rating=Avg('book__review__rating', default=0),
+                                                                     reviewsCount=Count('book__review'))
 
     def getRating(self):
         booksRatingSum = 0
@@ -36,10 +38,7 @@ class User(AbstractUser):
         return self.book_set.all().aggregate(reviewsCount=Count('review')).get('reviewsCount')
 
     def setPhoto(self, photo):
-        if photo:
-            if self.photo and os.path.isfile(self.photo.path):
-                os.remove(self.photo.path)
-            self.photo = photo
+        self.photo = changeFile(self.photo, photo)
 
     def setFullName(self, fullName):
         if fullName:
@@ -49,8 +48,7 @@ class User(AbstractUser):
         return self.full_name
 
     def delete(self, using=None, keep_parents=False):
-        if self.photo and os.path.isfile(self.photo.path):
-            os.remove(self.photo.path)
+        changeFile(self.photo, deleteOnly=True)
 
         for book in self.book_set.all():
             book.delete()

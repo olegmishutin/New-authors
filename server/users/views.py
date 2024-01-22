@@ -39,7 +39,7 @@ class UserBooks(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        books = Book.getBooks(Book, author__id=context.get('profileUser').id)
+        books = Book.getBooks(author__id=context.get('profileUser').id)
         context['page_obj'] = self.createPagination(books, 6)
         return context
 

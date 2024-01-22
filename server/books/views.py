@@ -28,7 +28,7 @@ class Books(generic.ListView):
                 categories.append(int(category.id))
                 self.context['checkedCategories'].append(category)
 
-        books = Book.getBooks(Book, categories__id__in=categories) if categories else Book.getBooks(Book)
+        books = Book.getBooks(categories__id__in=categories) if categories else Book.getBooks()
         checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
                              'hightRatingBooks': '-rating', 'lowRatingBooks': 'rating', 'popularBooks': '-reviewsCount'}
 
@@ -77,7 +77,7 @@ class BookPage(generic.DetailView):
         return context
 
 
-@login_required(login_url='authentication:sign-in')
+@login_required()
 def downloadBookFile(request, pk):
     book = Book.objects.get(pk=pk)
     return FileResponse(open(book.file.path, 'rb'), as_attachment=True)

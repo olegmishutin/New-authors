@@ -13,7 +13,7 @@ class Authors(generic.ListView):
         self.context = super().get_context_data(**kwargs)
         self.context['isAdmin'] = False
 
-        authors = User.getAuthors(User)
+        authors = User.getAuthors()
         self.context['authorsNumber'] = authors.count()
 
         filters = []

@@ -6,8 +6,8 @@ from categories.models import Category
 
 
 def menu(request):
-    popularAuthor = User.getAuthors(User).order_by('-reviewsCount', '-rating')[:12]
-    books = Book.getBooks(Book)
+    popularAuthor = User.getAuthors().order_by('-reviewsCount', '-rating')[:12]
+    books = Book.getBooks()
 
     newBooks = books.order_by('-publication_date')[:12]
     popularBooks = books.order_by('-reviewsCount')[:12]
@@ -26,6 +26,6 @@ def menu(request):
 
 def search(request):
     searchText = request.GET.get('search')
-    books = Book.getBooks(Book, name__icontains=searchText)
-    authors = User.getAuthors(User, full_name__icontains=searchText)
+    books = Book.getBooks(name__icontains=searchText)
+    authors = User.getAuthors(full_name__icontains=searchText)
     return render(request, 'search.html', {'books': books, 'authors': authors, 'searchText': searchText})
