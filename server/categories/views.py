@@ -25,7 +25,7 @@ class CategoriesAdmin(Categories):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
-        self.context['categoriesNumber'] = Category.objects.all().count()
+        self.context['categoriesNumber'] = Category.objects.count()
         return self.context
 
 

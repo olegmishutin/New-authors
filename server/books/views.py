@@ -18,20 +18,17 @@ class Books(generic.ListView):
         self.context['isAdmin'] = False
 
         self.context['categories'] = Category.objects.all()
-        self.context['checkedCategories'] = []
-
-        filters = []
-        categories = []
+        self.context['checkedCategories'] = checkedCategories = []
 
         for category in self.context['categories']:
             if self.request.GET.get(f'category-{category.id}'):
-                categories.append(int(category.id))
-                self.context['checkedCategories'].append(category)
+                checkedCategories.append(category)
 
-        books = Book.getBooks(categories__id__in=categories) if categories else Book.getBooks()
+        books = Book.getBooks(categories__in=checkedCategories) if checkedCategories else Book.getBooks()
         checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
                              'hightRatingBooks': '-rating', 'lowRatingBooks': 'rating', 'popularBooks': '-reviewsCount'}
 
+        filters = []
         for checkbox, filter in checkboxesFilters.items():
             if self.request.GET.get(checkbox):
                 filters.append(filter)
@@ -51,7 +48,7 @@ class BooksAdmin(Books):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
-        self.context['booksNumber'] = Book.objects.all().count()
+        self.context['booksNumber'] = Book.objects.count()
         return self.context
 
 
@@ -90,10 +87,8 @@ def addReview(request, bookId):
         reviewText = ' '.join(request.POST.get('reviewText').split())
         reviewRating = request.POST.get('reviewRating')
 
-        if not reviewText or not reviewRating:
-            return redirect(request.META.get('HTTP_REFERER') + '#user-review')
-
-        book.review_set.create(user=request.user, text=reviewText, rating=reviewRating)
+        if reviewText and reviewRating:
+            book.review_set.create(user=request.user, text=reviewText, rating=reviewRating)
         return redirect(request.META.get('HTTP_REFERER') + '#user-review')
     return HttpResponse(status=404)
 
@@ -201,7 +196,7 @@ class DeleteBook(generic.DeleteView):
     def post(self, request, *args, **kwargs):
         book = Book.objects.get(pk=kwargs.get('pk'))
 
-        if request.user.is_superuser or (request.user == book.author):
+        if request.user.is_superuser or request.user == book.author:
             return super().post(request)
         return HttpResponse(status=403)
 

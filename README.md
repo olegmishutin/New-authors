@@ -8,24 +8,20 @@ This project was created for my portfolio.
     - download the source code and unzip it.
     - from the project directory go to the `/server/` folder.
     - open `cmd` from server folder.
+    - write `python -m venv venv`.
+    - after write `venv\Scripts\activate`.
     - run `pip install -r requirements.txt`.
 
 
 2. Change db settings:
-    - from the project directory go to the `/server/New_authors/` folder.
-    - open `settings.py` file.
-    - enter your data into this code and save the file:
+    - edit `database_settings.ini` file by entering your data:
       ```
-      DATABASES = {
-          'default': {
-              'ENGINE': 'django.db.backends.postgresql',
-              'NAME': 'your_database_name',
-              'USER': 'your_user',
-              'PASSWORD': 'your_user_password',
-              'HOST': 'localhost',
-              'PORT': 'your_postgres_port',
-          }
-      }
+      [DATABASE]
+      NAME=
+      USER=postgres
+      PASSWORD=
+      HOST=localhost
+      PORT=5432
       ```
 
 ## Launch

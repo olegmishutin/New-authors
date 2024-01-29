@@ -30,12 +30,11 @@ class UserBooks(generic.DetailView):
         return paginator.get_page(self.request.GET.get("page"))
 
     def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        user = User.objects.get(pk=pk)
+        user = User.objects.get(pk=kwargs.get('pk'))
 
-        if (request.user.id == pk and not request.user.is_author) or not user.is_author:
-            return HttpResponse(status=404)
-        return super().get(request, *args, **kwargs)
+        if user.is_author:
+            return super().get(request, *args, **kwargs)
+        return HttpResponse(status=404)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +44,6 @@ class UserBooks(generic.DetailView):
 
 
 class UserReviews(UserBooks):
-    model = User
     template_name = 'profile/profile comments.html'
 
     def get(self, request, *args, **kwargs):

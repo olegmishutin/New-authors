@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
+import os, configparser
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -81,14 +81,18 @@ WSGI_APPLICATION = 'New_authors.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+config = configparser.ConfigParser()
+config.read(f'{os.path.join(BASE_DIR, "database_settings.ini")}')
+dbConfig = config['DATABASE']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'new_authors',
-        'USER': 'postgres',
-        'PASSWORD': 'dg7897oleg1',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': dbConfig['NAME'],
+        'USER': dbConfig['USER'],
+        'PASSWORD': dbConfig['PASSWORD'],
+        'HOST': dbConfig['HOST'],
+        'PORT': dbConfig['PORT'],
     }
 }
 

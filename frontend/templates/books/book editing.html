@@ -80,11 +80,11 @@
             </div>
         </div>
         <div class="user-box no-hover">
-            {% if user.photo %}
-                <div class="user-photo-box">
+            <div class="user-photo-box">
+                {% if user.photo %}
                     <img src="{{ user.photo.url }}" alt="author">
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
             <h1 class="username">{{ user.full_name }}</h1>
             <div class="short-description">
                 <p>{{ user.short_description }}</p>
