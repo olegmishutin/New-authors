@@ -17,7 +17,7 @@
 {% block content %}
     <div class="page-header">
         <div class="page-header-image">
-            <img src="{% static 'image/book pick.png' %}" alt="book">
+            <img src="{% static 'image/book pick.png' %}" alt="book" loading="lazy">
         </div>
         <h1>{% if type == 'publicate' %}Публикация вашей книги{% else %}Изменение вашей книги{% endif %}</h1>
     </div>
@@ -32,11 +32,11 @@
             <label class="input-file-button cover-file-input">
                 <input type="file" name="bookCover" accept="image/*" id="cover-image-input"
                        {% if type == 'publicate' %}required{% endif %}>
-                <img src="{% static 'image/cover.png' %}" alt="cover input">
+                <img src="{% static 'image/cover.png' %}" alt="cover input" loading="lazy">
             </label>
             <p id="cover-status">Обложка</p>
             <img class="cover-image {% if type == 'edit' %}show-cover-image{% endif %}" src="{{ book.cover.url }}"
-                 alt="book cover" id="cover-image">
+                 alt="book cover" id="cover-image" loading="lazy">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
@@ -51,7 +51,7 @@
                     <label class="input-file-button button">
                         <input type="file" name="bookFile" accept="application/pdf"
                                {% if type == 'publicate' %}required{% endif %}>
-                        <img src="{% static 'image/file.svg' %}" alt="file">
+                        <img src="{% static 'image/file.svg' %}" alt="file" loading="lazy">
                         <span>Файл книги</span>
                     </label>
                 </div>
@@ -82,7 +82,7 @@
         <div class="user-box no-hover">
             <div class="user-photo-box">
                 {% if user.photo %}
-                    <img src="{{ user.photo.url }}" alt="author">
+                    <img src="{{ user.photo.url }}" alt="author" loading="lazy">
                 {% endif %}
             </div>
             <h1 class="username">{{ user.full_name }}</h1>

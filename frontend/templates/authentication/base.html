@@ -19,7 +19,7 @@
             {% csrf_token %}
             <header>
                 <div class="user-image">
-                    <img src="{% static 'image/user.png' %}" alt="user">
+                    <img src="{% static 'image/user.png' %}" alt="user" loading="lazy">
                 </div>
                 <div class="naming">
                     <h1>{% block pageNaming %}{% endblock %}</h1>
@@ -37,7 +37,7 @@
         </form>
     </div>
     <div class="image">
-        <img src="{% block imageUrl %}{% endblock %}" alt="image">
+        <img src="{% block imageUrl %}{% endblock %}" alt="image" loading="lazy">
     </div>
 </div>
 </body>

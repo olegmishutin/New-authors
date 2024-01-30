@@ -14,11 +14,11 @@
                     <a href="{% url 'books:book' review.book.id %}">{{ review.book.name }}</a>
                     <div class="statistics">
                         <div class="rating">
-                            <img src="{% static 'image/stars.png' %}" alt="rating">
+                            <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                             <span>{{ review.book.getRating }}</span>
                         </div>
                         <div class="rating">
-                            <img src="{% static 'image/comment.png' %}" alt="comment">
+                            <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                             <span>{{ review.book.getReviewsCount }}</span>
                         </div>
                     </div>

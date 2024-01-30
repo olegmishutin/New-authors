@@ -15,17 +15,17 @@
                     <a href="{% url 'users:user-books' author.id %}" class="user-box">
                         <div class="user-photo-box">
                             {% if author.photo %}
-                                <img src="{{ author.photo.url }}" alt="author">
+                                <img src="{{ author.photo.url }}" alt="author" loading="lazy">
                             {% endif %}
                         </div>
                         <p class="username">{{ author.full_name }}</p>
                         <div class="statistics">
                             <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                                 <span>{{ author.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
-                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                                 <span>{{ author.reviewsCount }}</span>
                             </div>
                         </div>
@@ -41,16 +41,16 @@
                 {% for book in newBooks %}
                     <a href="{% url 'books:book' book.id %}" class="book-box">
                         <div class="book-photo-box">
-                            <img src="{{ book.cover.url }}" alt="book">
+                            <img src="{{ book.cover.url }}" alt="book" loading="lazy">
                         </div>
                         <p class="book-name">{{ book.name }}</p>
                         <div class="statistics">
                             <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                                 <span>{{ book.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
-                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                                 <span>{{ book.reviewsCount }}</span>
                             </div>
                         </div>
@@ -66,16 +66,16 @@
                 {% for book in popularBooks %}
                     <a href="{% url 'books:book' book.id %}" class="book-box">
                         <div class="book-photo-box">
-                            <img src="{{ book.cover.url }}" alt="book">
+                            <img src="{{ book.cover.url }}" alt="book" loading="lazy">
                         </div>
                         <p class="book-name">{{ book.name }}</p>
                         <div class="statistics">
                             <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                                 <span>{{ book.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
-                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                                 <span>{{ book.reviewsCount }}</span>
                             </div>
                         </div>
@@ -92,16 +92,16 @@
                 {% for book in category.book_set.all|slice:":12" %}
                     <a href="{% url 'books:book' book.id %}" class="book-box">
                         <div class="book-photo-box">
-                            <img src="{{ book.cover.url }}" alt="book">
+                            <img src="{{ book.cover.url }}" alt="book" loading="lazy">
                         </div>
                         <p class="book-name">{{ book.name }}</p>
                         <div class="statistics">
                             <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                                 <span>{{ book.getRating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
-                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                                 <span>{{ book.getReviewsCount }}</span>
                             </div>
                         </div>

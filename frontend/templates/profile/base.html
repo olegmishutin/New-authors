@@ -20,7 +20,7 @@
     <div class="user-box no-hover">
         <div class="user-photo-box">
             {% if profileUser.photo %}
-                <img src="{{ profileUser.photo.url }}" alt="photo">
+                <img src="{{ profileUser.photo.url }}" alt="photo" loading="lazy">
             {% endif %}
         </div>
         <div class="description">
@@ -33,11 +33,11 @@
     {% if profileUser.is_author %}
         <div class="statistics">
             <div class="rating">
-                <img src="{% static 'image/big stars.png' %}" alt="rating">
+                <img src="{% static 'image/big stars.png' %}" alt="rating" loading="lazy">
                 <span>{{ profileUser.getRating }}</span>
             </div>
             <div class="rating">
-                <img src="{% static 'image/big comment.png' %}" alt="comment">
+                <img src="{% static 'image/big comment.png' %}" alt="comment" loading="lazy">
                 <span>{{ profileUser.getReviewsCount }}</span>
             </div>
         </div>
@@ -65,13 +65,13 @@
     <div class="paginator">
         {% if page_obj.has_previous %}
             <a class="page-selector" href="?page={{ page_obj.previous_page_number }}">
-                <img src="{% static 'image/previous page.png' %}" alt="previous page">
+                <img src="{% static 'image/previous page.png' %}" alt="previous page" loading="lazy">
             </a>
         {% endif %}
         <span>{{ page_obj.number }}</span>
         {% if page_obj.has_next %}
             <a class="page-selector" href="?page={{ page_obj.next_page_number }}">
-                <img src="{% static 'image/next page.png' %}" alt="next page">
+                <img src="{% static 'image/next page.png' %}" alt="next page" loading="lazy">
             </a>
         {% endif %}
     </div>

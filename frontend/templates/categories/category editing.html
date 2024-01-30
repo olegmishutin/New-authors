@@ -14,7 +14,7 @@
 {% block content %}
     <div class="page-header">
         <div class="page-header-image">
-            <img src="{% static 'image/categories icon.png' %}" alt="book">
+            <img src="{% static 'image/categories icon.png' %}" alt="book" loading="lazy">
         </div>
         <h1>{% if type == 'create' %}Новая категория{% else %}Изменение категории{% endif %}</h1>
     </div>
@@ -29,11 +29,11 @@
             <label class="input-file-button cover-file-input">
                 <input type="file" name="categoryIcon" accept="image/*" id="cover-image-input"
                        {% if type == 'create' %}required{% endif %}>
-                <img src="{% static 'image/cover.png' %}" alt="cover input">
+                <img src="{% static 'image/cover.png' %}" alt="cover input" loading="lazy">
             </label>
             <p id="cover-status">Иконка</p>
             <img class="cover-image {% if type == 'edit' %}show-cover-image{% endif %}"
-                 src="{{ category.icon.url }}" alt="cover" id="cover-image">
+                 src="{{ category.icon.url }}" alt="cover" id="cover-image" loading="lazy">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">

@@ -23,21 +23,21 @@
 <header class="content-padding header">
     <div class="book-info">
         <div class="book-image">
-            <img src="{{ book.cover.url }}" alt="book">
+            <img src="{{ book.cover.url }}" alt="book" loading="lazy">
         </div>
         <div class="info">
             <h1>{{ book.name }}</h1>
             <div class="statistics">
                 <div class="rating">
-                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                    <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                     <span>{{ book.getRating }}</span>
                 </div>
                 <div class="rating">
-                    <img src="{% static 'image/comment.png' %}" alt="comment">
+                    <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                     <span>{{ book.getReviewsCount }}</span>
                 </div>
                 <div class="rating">
-                    <img src="{% static 'image/pages.png' %}" alt="pages">
+                    <img src="{% static 'image/pages.png' %}" alt="pages" loading="lazy">
                     <span>{{ book.pages_number }}</span>
                 </div>
             </div>
@@ -50,7 +50,7 @@
         <h2 class="username">{{ book.author.full_name }}</h2>
         <div class="user-photo-box">
             {% if book.author.photo %}
-                <img src="{{ book.author.photo.url }}" alt="photo">
+                <img src="{{ book.author.photo.url }}" alt="photo" loading="lazy">
             {% endif %}
         </div>
     </a>
@@ -128,7 +128,7 @@
                             <a href="{% url 'users:user-comments' review.user.id %}">{{ review.user.full_name }}</a>
                             <div class="statistics">
                                 <div class="rating">
-                                    <img src="{% static 'image/stars.png' %}" alt="rating">
+                                    <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                                     <span>{{ review.rating }}</span>
                                 </div>
                                 <div class="data">
@@ -150,13 +150,13 @@
     <div class="paginator">
         {% if page_obj.has_previous %}
             <a class="page-selector" href="?{% param_replace page=page_obj.previous_page_number %}#all-reviews">
-                <img src="{% static 'image/previous page.png' %}" alt="previous page">
+                <img src="{% static 'image/previous page.png' %}" alt="previous page" loading="lazy">
             </a>
         {% endif %}
         <span>{{ page_obj.number }}</span>
         {% if page_obj.has_next %}
             <a class="page-selector" href="?{% param_replace page=page_obj.next_page_number %}#all-reviews">
-                <img src="{% static 'image/next page.png' %}" alt="next page">
+                <img src="{% static 'image/next page.png' %}" alt="next page" loading="lazy">
             </a>
         {% endif %}
     </div>

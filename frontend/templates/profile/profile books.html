@@ -13,16 +13,16 @@
                 <div class="book-box">
                     <a href="{% url 'books:book' book.id %}" class="book-box">
                         <div class="book-photo-box">
-                            <img src="{{ book.cover.url }}" alt="book">
+                            <img src="{{ book.cover.url }}" alt="book" loading="lazy">
                         </div>
                         <p class="book-name">{{ book.name }}</p>
                         <div class="statistics">
                             <div class="rating">
-                                <img src="{% static 'image/stars.png' %}" alt="rating">
+                                <img src="{% static 'image/stars.png' %}" alt="rating" loading="lazy">
                                 <span>{{ book.rating|floatformat:1 }}</span>
                             </div>
                             <div class="rating">
-                                <img src="{% static 'image/comment.png' %}" alt="comment">
+                                <img src="{% static 'image/comment.png' %}" alt="comment" loading="lazy">
                                 <span>{{ book.reviewsCount }}</span>
                             </div>
                         </div>
