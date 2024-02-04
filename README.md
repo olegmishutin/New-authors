@@ -23,9 +23,14 @@ This project was created for my portfolio.
       HOST=localhost
       PORT=5432
       ```
+      
+3. Make migrations:
+   - open `cmd` from server folder.
+   - write `venv\Scripts\activate`.
+   - after write `python manage.py makemigrations`.
+   - finaly write `python manage.py migrate`.
 
 ## Launch
 
-1. from the project directory go to the `/server/` folder.
-2. open server folder in `cmd`.
-3. run the command `python manage.py runserver`.
+1. open server folder in `cmd`.
+2. run the command `python manage.py runserver` with activated venv.
