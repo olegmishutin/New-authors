@@ -12,10 +12,10 @@ def menu(request):
     newBooks = books.order_by('-publication_date')[:12]
     popularBooks = books.order_by('-reviewsCount')[:12]
 
-    categoriesTorandomise = [category for category in Category.objects.all() if category.book_set.count() > 0]
+    categoriesToRandomise = [category for category in Category.objects.all() if category.book_set.count() > 0]
     return render(request, 'menu.html',
                   {'popularAuthor': popularAuthor, 'newBooks': newBooks, 'popularBooks': popularBooks,
-                   'category': random.choice(categoriesTorandomise) if categoriesTorandomise else []})
+                   'category': random.choice(categoriesToRandomise) if categoriesToRandomise else []})
 
 
 def search(request):
