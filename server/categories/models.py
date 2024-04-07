@@ -1,6 +1,6 @@
 import os
 from django.db import models
-from New_authors.otherFunctions.changeModelFile import changeFile
+from New_authors.otherFunctions.functions import changeFile
 
 
 class Category(models.Model):

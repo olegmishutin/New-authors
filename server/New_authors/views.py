@@ -6,16 +6,16 @@ from categories.models import Category
 
 
 def menu(request):
-    popularAuthor = User.getAuthors().order_by('-reviewsCount', '-rating')[:12]
+    context = {}
     books = Book.getBooks()
 
-    newBooks = books.order_by('-publication_date')[:12]
-    popularBooks = books.order_by('-reviewsCount')[:12]
+    context['popularAuthor'] = User.getAuthors().order_by('-reviewsCount', '-rating')[:12]
+    context['newBooks'] = books.order_by('-publication_date')[:12]
+    context['popularBooks'] = books.order_by('-reviewsCount')[:12]
 
     categoriesToRandomise = [category for category in Category.objects.all() if category.book_set.count() > 0]
-    return render(request, 'menu.html',
-                  {'popularAuthor': popularAuthor, 'newBooks': newBooks, 'popularBooks': popularBooks,
-                   'category': random.choice(categoriesToRandomise) if categoriesToRandomise else []})
+    context['category'] = random.choice(categoriesToRandomise) if categoriesToRandomise else []
+    return render(request, 'menu.html', context)
 
 
 def search(request):

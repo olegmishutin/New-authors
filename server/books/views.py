@@ -4,38 +4,37 @@ from django.http import HttpResponse, FileResponse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Avg
 from .models import Book, Review
 from categories.models import Category
+from New_authors.otherFunctions.functions import filterContext
 
 
 class Books(generic.ListView):
     model = Book
     template_name = 'books/books.html'
+    paginate_by = 21
+
+    def get_queryset(self):
+        self.categories = Category.objects.all()
+        self.checkedCategories = []
+
+        for category in self.categories:
+            if self.request.GET.get(f'category-{category.id}'):
+                self.checkedCategories.append(category)
+
+        self.books = Book.getBooks(categories__in=self.checkedCategories) if self.checkedCategories else Book.getBooks()
+        checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
+                             'hightRatingBooks': '-rating', 'lowRatingBooks': 'rating', 'popularBooks': '-reviewsCount'}
+
+        self.filteredContext = filterContext(self.request, checkboxesFilters)
+        return self.books.order_by(*self.filteredContext.get('filters'))
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.context = super().get_context_data(**kwargs)
         self.context['isAdmin'] = False
-
-        self.context['categories'] = Category.objects.all()
-        self.context['checkedCategories'] = checkedCategories = []
-
-        for category in self.context['categories']:
-            if self.request.GET.get(f'category-{category.id}'):
-                checkedCategories.append(category)
-
-        books = Book.getBooks(categories__in=checkedCategories) if checkedCategories else Book.getBooks()
-        checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
-                             'hightRatingBooks': '-rating', 'lowRatingBooks': 'rating', 'popularBooks': '-reviewsCount'}
-
-        filters = []
-        for checkbox, filter in checkboxesFilters.items():
-            if self.request.GET.get(checkbox):
-                filters.append(filter)
-                self.context[checkbox] = 'checked'
-
-        books = books.order_by(*filters)
-        self.context['page_obj'] = Paginator(books, 21).get_page(self.request.GET.get('page'))
+        self.context['categories'] = self.categories
+        self.context['checkedCategories'] = self.checkedCategories
+        self.context.update(self.filteredContext.get('context'))
         return self.context
 
 
@@ -57,21 +56,18 @@ class BookPage(generic.DetailView):
     template_name = 'books/book.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        self.context = super().get_context_data(**kwargs)
         reviews = kwargs.get('object').review_set.all()
 
-        filters = []
         checkboxesFilters = {'newReviews': '-date_added', 'oldReviews': 'date_added',
                              'hightRatingReviews': '-rating', 'lowRatingReviews': 'rating'}
 
-        for checkbox, filter in checkboxesFilters.items():
-            if self.request.GET.get(checkbox):
-                filters.append(filter)
-                context[checkbox] = 'checked'
+        filteredContext = filterContext(self.request, checkboxesFilters)
+        self.context.update(filteredContext.get('context'))
 
-        reviews = reviews.order_by(*filters)
-        context['page_obj'] = Paginator(reviews, 30).get_page(self.request.GET.get('page'))
-        return context
+        reviews = reviews.order_by(*filteredContext.get('filters'))
+        self.context['page_obj'] = Paginator(reviews, 30).get_page(self.request.GET.get('page'))
+        return self.context
 
 
 @login_required()

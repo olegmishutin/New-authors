@@ -1,32 +1,27 @@
 from django.views import generic
 from django.http import HttpResponse
-from django.core.paginator import Paginator
 from users.models import User
+from New_authors.otherFunctions.functions import filterContext
 
 
 class Authors(generic.ListView):
     model = User
     template_name = 'authors.html'
     context_object_name = 'authors'
+    paginate_by = 24
+
+    def get_queryset(self):
+        checkboxesFilters = {'hightRatingAuthors': '-rating', 'lowRatingAuthors': 'rating',
+                             'newAuthors': '-date_joined', 'popularAuthors': '-reviewsCount'}
+
+        self.filteredContext = filterContext(self.request, checkboxesFilters)
+        self.authors = User.getAuthors().order_by(*self.filteredContext.get('filters'))
+        return self.authors
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.context = super().get_context_data(**kwargs)
         self.context['isAdmin'] = False
-
-        authors = User.getAuthors()
-        self.context['authorsNumber'] = authors.count()
-
-        filters = []
-        checkboxesFilters = {'hightRatingAuthors': '-rating', 'lowRatingAuthors': 'rating',
-                             'newAuthors': '-date_joined', 'popularAuthors': '-reviewsCount'}
-
-        for checkbox, filter in checkboxesFilters.items():
-            if self.request.GET.get(checkbox):
-                filters.append(filter)
-                self.context[checkbox] = 'checked'
-
-        authors = authors.order_by(*filters)
-        self.context['page_obj'] = Paginator(authors, 24).get_page(self.request.GET.get('page'))
+        self.context.update(self.filteredContext.get('context'))
         return self.context
 
 
@@ -39,4 +34,5 @@ class AuthorsAdmin(Authors):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
+        self.context['authorsNumber'] = self.authors.count()
         return self.context
