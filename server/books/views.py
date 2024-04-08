@@ -16,11 +16,8 @@ class Books(generic.ListView):
 
     def get_queryset(self):
         self.categories = Category.objects.all()
-        self.checkedCategories = []
-
-        for category in self.categories:
-            if self.request.GET.get(f'category-{category.id}'):
-                self.checkedCategories.append(category)
+        self.checkedCategories = [category for category in self.categories if
+                                  self.request.GET.get(f'category-{category.id}')]
 
         self.books = Book.getBooks(categories__in=self.checkedCategories) if self.checkedCategories else Book.getBooks()
         checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
@@ -57,12 +54,10 @@ class BookPage(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         self.context = super().get_context_data(**kwargs)
-        reviews = kwargs.get('object').review_set.all()
-
         checkboxesFilters = {'newReviews': '-date_added', 'oldReviews': 'date_added',
                              'hightRatingReviews': '-rating', 'lowRatingReviews': 'rating'}
 
-        filteredContext = filterContext(self.request, reviews, checkboxesFilters)
+        filteredContext = filterContext(self.request, kwargs.get('object').review_set.all(), checkboxesFilters)
         self.context.update(filteredContext.get('context'))
 
         reviews = filteredContext.get('queryset')
@@ -124,11 +119,7 @@ def getBookInfoFromRequest(request, categories, book=None):
         bookInfo['file'] = book.file
 
     bookForError = book if book else bookInfo
-    bookCategories = []
-
-    for category in categories:
-        if request.POST.get(f'checkbox-{category.id}') == 'on':
-            bookCategories.append(category)
+    bookCategories = [category for category in categories if request.POST.get(f'checkbox-{category.id}') == 'on']
 
     if not bookCategories:
         return bookForError, None, True
@@ -170,11 +161,8 @@ def editBook(request, pk):
             if error:
                 return render(request, page, {'book': book, 'categories': notBookCategories, 'type': 'edit'})
 
-            for category in book.categories.all():
-                book.categories.remove(category)
-
-            for category in bookCategories:
-                book.categories.add(category)
+            book.categories.remove(*book.categories.all())
+            book.categories.add(*bookCategories)
 
             book.setCover(bookInfo['cover'])
             book.name = bookInfo['name']

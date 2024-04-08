@@ -20,39 +20,36 @@ def changeUserInfo(request):
     return redirect('menu')
 
 
-class UserBooks(generic.DetailView):
+class UserReviews(generic.DetailView):
     model = User
-    template_name = 'profile/profile books.html'
+    template_name = 'profile/profile comments.html'
     context_object_name = 'profileUser'
 
     def createPagination(self, querySet, per_page):
         paginator = Paginator(querySet, per_page)
         return paginator.get_page(self.request.GET.get("page"))
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviews = Review.objects.filter(user__id=context.get('profileUser').id)
+        context['page_obj'] = self.createPagination(reviews, 12)
+        return context
+
+
+class UserBooks(UserReviews):
+    template_name = 'profile/profile books.html'
+
     def get(self, request, *args, **kwargs):
         user = User.objects.get(pk=kwargs.get('pk'))
 
         if user.is_author:
-            return super().get(request, *args, **kwargs)
+            return super(generic.DetailView, self).get(request, *args, **kwargs)
         return HttpResponse(status=404)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         books = Book.getBooks(author__id=context.get('profileUser').id)
         context['page_obj'] = self.createPagination(books, 6)
-        return context
-
-
-class UserReviews(UserBooks):
-    template_name = 'profile/profile comments.html'
-
-    def get(self, request, *args, **kwargs):
-        return super(generic.DetailView, self).get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(user__id=context.get('profileUser').id)
-        context['page_obj'] = self.createPagination(reviews, 12)
         return context
 
 

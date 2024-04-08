@@ -29,54 +29,57 @@ class CategoriesAdmin(Categories):
         return self.context
 
 
-def getCategory(request, anotherContent):
-    errorRender = None
-    category = Category(icon=request.FILES.get('categoryIcon'), name=' '.join(request.POST.get('categoryName').split()),
-                        short_description=' '.join(request.POST.get('categoryShortDescription').split()))
+def getCategoryInfoFromRequest(request, category=None):
+    categoryInfo = {
+        'icon': request.FILES.get('categoryIcon'),
+        'name': ' '.join(request.POST.get('categoryName').split()),
+        'short_description': ' '.join(request.POST.get('categoryShortDescription').split())
+    }
 
-    if not category.name or not category.short_description:
-        oldCategory = anotherContent.get('oldCategory')
-        if oldCategory:
-            category.id = oldCategory.id
-            category.icon = oldCategory.icon
+    if category and not categoryInfo['icon']:
+        categoryInfo['icon'] = category.icon
 
-        content = {'category': category}
-        content.update(anotherContent)
-
-        errorRender = render(request, 'categories/category editing.html', content)
-    return category, errorRender
+    categoryForError = category if category else categoryInfo
+    for key, value in categoryInfo.items():
+        if not value:
+            return categoryForError, True
+    return categoryInfo, False
 
 
 def creatingCategory(request):
     if request.user.is_superuser:
-        if request.method == 'POST':
-            category, errorRender = getCategory(request, {'type': 'create'})
-            if errorRender:
-                return errorRender
+        page = 'categories/category editing.html'
 
-            category.save()
+        if request.method == 'POST':
+            categoryInfo, error = getCategoryInfoFromRequest(request)
+
+            if error:
+                return render(request, page, {'category': categoryInfo, 'type': 'create'})
+            Category.objects.create(**categoryInfo)
+
             return redirect('categories:categories-admin')
-        return render(request, 'categories/category editing.html', {'type': 'create'})
+        return render(request, page, {'type': 'create'})
     return HttpResponse(status=403)
 
 
 def editCategory(request, pk):
     if request.user.is_superuser:
+        page = 'categories/category editing.html'
         category = Category.objects.get(pk=pk)
 
         if request.method == 'POST':
-            newCategory, errorRender = getCategory(request, {'oldCategory': category, 'type': 'edit'})
+            categoryInfo, error = getCategoryInfoFromRequest(request, category)
 
-            if errorRender:
-                return errorRender
+            if error:
+                return render(request, page, {'category': category, 'type': 'edit'})
 
-            category.setIcon(newCategory.icon)
-            category.name = newCategory.name
-            category.short_description = newCategory.short_description
+            category.setIcon(categoryInfo['icon'])
+            category.name = categoryInfo['name']
+            category.short_description = categoryInfo['short_description']
             category.save(update_fields=['icon', 'name', 'short_description'])
 
             return redirect('categories:categories-admin')
-        return render(request, 'categories/category editing.html', {'category': category, 'type': 'edit'})
+        return render(request, page, {'category': category, 'type': 'edit'})
     return HttpResponse(status=403)
 
 
