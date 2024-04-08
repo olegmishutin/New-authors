@@ -14,9 +14,9 @@ class Authors(generic.ListView):
         checkboxesFilters = {'hightRatingAuthors': '-rating', 'lowRatingAuthors': 'rating',
                              'newAuthors': '-date_joined', 'popularAuthors': '-reviewsCount'}
 
-        self.filteredContext = filterContext(self.request, checkboxesFilters)
-        self.authors = User.getAuthors().order_by(*self.filteredContext.get('filters'))
-        return self.authors
+        self.authors = User.getAuthors()
+        self.filteredContext = filterContext(self.request, self.authors, checkboxesFilters)
+        return self.filteredContext.get('queryset')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.context = super().get_context_data(**kwargs)

@@ -5,12 +5,12 @@ def changeFile(oldFile, newFile=None, deleteOnly=False):
     if not newFile and not deleteOnly:
         return oldFile
 
-    if oldFile and os.path.isfile(oldFile.path):
+    if oldFile and os.path.isfile(oldFile.path) and oldFile != newFile:
         os.remove(oldFile.path)
     return newFile
 
 
-def filterContext(request, checkboxesFilters):
+def filterContext(request, queryset, checkboxesFilters):
     filters, context = [], {}
 
     for checkbox, filter in checkboxesFilters.items():
@@ -18,4 +18,4 @@ def filterContext(request, checkboxesFilters):
             filters.append(filter)
             context[checkbox] = 'checked'
 
-    return {'filters': filters, 'context': context}
+    return {'queryset': queryset.order_by(*filters), 'context': context}
