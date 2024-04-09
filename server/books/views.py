@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Book, Review
 from categories.models import Category
-from New_authors.otherFunctions.functions import filterContext
+from New_authors.helpers.functions import filterContext
+from New_authors.helpers.classes import CustomDeleteView, AdminListView
 
 
 class Books(generic.ListView):
@@ -35,12 +36,7 @@ class Books(generic.ListView):
         return self.context
 
 
-class BooksAdmin(Books):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return super().get(request, *args, **kwargs)
-        return HttpResponse(status=403)
-
+class BooksAdmin(Books, AdminListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
@@ -85,7 +81,7 @@ def addReview(request, bookId):
     return HttpResponse(status=404)
 
 
-class DeleteReview(generic.DeleteView):
+class DeleteReview(CustomDeleteView):
     model = Review
 
     def post(self, request, *args, **kwargs):
@@ -94,9 +90,6 @@ class DeleteReview(generic.DeleteView):
         if request.user == review.user:
             return super().post(request)
         return HttpResponse(status=403)
-
-    def get(self, request, *args, **kwargs):
-        return HttpResponse(status=404)
 
     def get_success_url(self):
         return reverse_lazy('users:user-comments', kwargs={'pk': self.request.user.id})
@@ -139,10 +132,9 @@ def publicateBook(request):
             bookInfo, bookCategories, error = getBookInfoFromRequest(request, categories)
             if error:
                 return render(request, page, {'book': bookInfo, 'categories': categories, 'type': 'publicate'})
-            book = Book.objects.create(**bookInfo)
 
-            for bookCategory in bookCategories:
-                book.categories.add(bookCategory)
+            book = Book.objects.create(**bookInfo)
+            book.categories.add(*bookCategories)
 
             return redirect('users:user-books', request.user.id)
         return render(request, page, {'categories': categories, 'type': 'publicate'})
@@ -176,7 +168,7 @@ def editBook(request, pk):
     return HttpResponse(status=403)
 
 
-class DeleteBook(generic.DeleteView):
+class DeleteBook(CustomDeleteView):
     model = Book
 
     def post(self, request, *args, **kwargs):
@@ -185,9 +177,6 @@ class DeleteBook(generic.DeleteView):
         if request.user.is_superuser or request.user == book.author:
             return super().post(request)
         return HttpResponse(status=403)
-
-    def get(self, request, *args, **kwargs):
-        return HttpResponse(status=404)
 
     def get_success_url(self):
         return self.request.META.get('HTTP_REFERER')

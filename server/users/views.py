@@ -4,6 +4,7 @@ from django.views import generic
 from django.core.paginator import Paginator
 from .models import User
 from books.models import Book, Review
+from New_authors.helpers.classes import CustomDeleteView, AdminListView
 
 
 def changeUserInfo(request):
@@ -53,7 +54,7 @@ class UserBooks(UserReviews):
         return context
 
 
-class UsersAdmin(generic.ListView):
+class UsersAdmin(AdminListView):
     model = User
     template_name = 'users admin.html'
     paginate_by = 24
@@ -62,16 +63,13 @@ class UsersAdmin(generic.ListView):
         return User.objects.exclude(is_author=True)
 
 
-class DeleteUser(generic.DeleteView):
+class DeleteUser(CustomDeleteView):
     model = User
 
     def post(self, request, *args, **kwargs):
         if self.request.user.is_superuser:
             return super().post(request, *args, **kwargs)
         return HttpResponse(status=403)
-
-    def get(self, request, *args, **kwargs):
-        return HttpResponse(status=404)
 
     def get_success_url(self):
         return self.request.META.get('HTTP_REFERER')

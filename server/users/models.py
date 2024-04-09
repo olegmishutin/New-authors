@@ -2,7 +2,7 @@ import os
 from django.db import models
 from django.db.models import Avg, Count
 from django.contrib.auth.models import AbstractUser
-from New_authors.otherFunctions.functions import changeFile
+from New_authors.helpers.functions import changeFile
 
 
 class User(AbstractUser):

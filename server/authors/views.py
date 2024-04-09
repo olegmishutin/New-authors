@@ -1,7 +1,8 @@
 from django.views import generic
 from django.http import HttpResponse
 from users.models import User
-from New_authors.otherFunctions.functions import filterContext
+from New_authors.helpers.functions import filterContext
+from New_authors.helpers.classes import AdminListView
 
 
 class Authors(generic.ListView):
@@ -25,12 +26,7 @@ class Authors(generic.ListView):
         return self.context
 
 
-class AuthorsAdmin(Authors):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return super().get(request, *args, **kwargs)
-        return HttpResponse(status=403)
-
+class AuthorsAdmin(Authors, AdminListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True

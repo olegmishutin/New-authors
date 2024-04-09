@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import Avg, Count
 from users.models import User
 from categories.models import Category
-from New_authors.otherFunctions.functions import changeFile
+from New_authors.helpers.functions import changeFile
 
 
 class Book(models.Model):

@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 from .models import Category
+from New_authors.helpers.classes import CustomDeleteView, AdminListView
 
 
 class Categories(generic.ListView):
@@ -16,12 +17,7 @@ class Categories(generic.ListView):
         return self.context
 
 
-class CategoriesAdmin(Categories):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return super().get(request, *args, **kwargs)
-        return HttpResponse(status=403)
-
+class CategoriesAdmin(Categories, AdminListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
@@ -83,14 +79,11 @@ def editCategory(request, pk):
     return HttpResponse(status=403)
 
 
-class DeleteCategory(generic.DeleteView):
+class DeleteCategory(CustomDeleteView):
     model = Category
     success_url = reverse_lazy('categories:categories-admin')
 
     def post(self, request, *args, **kwargs):
         if request.user.is_superuser:
             return super().post(request)
-        return HttpResponse(status=403)
-
-    def get(self, request, *args, **kwargs):
         return HttpResponse(status=403)
