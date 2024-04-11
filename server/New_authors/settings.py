@@ -1,8 +1,8 @@
-import os, configparser
+import configparser
 from pathlib import Path
 
 SERVER_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = SERVER_DIR.parent
 
 SECRET_KEY = 'django-insecure-lpd5qoif5r&!a=1qglwrl$3vqmut-$2_*8i5qm@@fj)xv^q@#!'
 
@@ -43,7 +43,7 @@ ROOT_URLCONF = 'New_authors.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'templates')],
+        'DIRS': [BASE_DIR / 'frontend/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,7 +59,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'New_authors.wsgi.application'
 
 config = configparser.ConfigParser()
-config.read(f'{os.path.join(BASE_DIR, "database_settings.ini")}')
+config.read(BASE_DIR / "database_settings.ini")
 dbConfig = config['DATABASE']
 
 DATABASES = {
@@ -98,10 +98,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend', 'static'),
+    BASE_DIR / 'frontend/static',
 ]
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(SERVER_DIR, 'media/')
+MEDIA_ROOT = SERVER_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
