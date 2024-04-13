@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponse, FileResponse
 from django.views import generic
@@ -63,14 +63,14 @@ class BookPage(generic.DetailView):
 
 @login_required()
 def downloadBookFile(request, pk):
-    book = Book.objects.get(pk=pk)
+    book = get_object_or_404(Book, pk=pk)
     return FileResponse(open(book.file.path, 'rb'), as_attachment=True)
 
 
 @login_required()
 def addReview(request, bookId):
     if request.method == 'POST':
-        book = Book.objects.get(pk=bookId)
+        book = get_object_or_404(Book, pk=bookId)
 
         reviewText = ' '.join(request.POST.get('reviewText').split())
         reviewRating = request.POST.get('reviewRating')
@@ -85,7 +85,7 @@ class DeleteReview(CustomDeleteView):
     model = Review
 
     def post(self, request, *args, **kwargs):
-        review = Review.objects.get(pk=kwargs.get('pk'))
+        review = get_object_or_404(Review, pk=kwargs.get('pk'))
 
         if request.user == review.user:
             return super().post(request)
@@ -143,7 +143,7 @@ def publicateBook(request):
 
 def editBook(request, pk):
     page = 'books/book editing.html'
-    book = Book.objects.get(pk=pk)
+    book = get_object_or_404(Book, pk=pk)
 
     if request.user.is_author and book.author == request.user:
         notBookCategories = Category.objects.exclude(id__in=book.categories.all())
@@ -172,7 +172,7 @@ class DeleteBook(CustomDeleteView):
     model = Book
 
     def post(self, request, *args, **kwargs):
-        book = Book.objects.get(pk=kwargs.get('pk'))
+        book = get_object_or_404(Book, pk=kwargs.get('pk'))
 
         if request.user.is_superuser or request.user == book.author:
             return super().post(request)

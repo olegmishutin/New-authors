@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
@@ -61,7 +61,7 @@ def creatingCategory(request):
 def editCategory(request, pk):
     if request.user.is_superuser:
         page = 'categories/category editing.html'
-        category = Category.objects.get(pk=pk)
+        category = get_object_or_404(Category, pk=pk)
 
         if request.method == 'POST':
             categoryInfo, error = getCategoryInfoFromRequest(request, category)

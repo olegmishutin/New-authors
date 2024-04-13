@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.core.paginator import Paginator
@@ -10,7 +10,7 @@ from New_authors.helpers.classes import CustomDeleteView, AdminListView
 def changeUserInfo(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            user = User.objects.get(id=request.user.id)
+            user = get_object_or_404(User, pk=request.user.id)
 
             user.setPhoto(request.FILES.get('photo'))
             user.setFullName(' '.join(request.POST.get('fullName').split()))
@@ -32,7 +32,7 @@ class UserReviews(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(user__id=context.get('profileUser').id)
+        reviews = Review.objects.filter(user__id=context.get('profileUser').id).select_related('book')
         context['page_obj'] = self.createPagination(reviews, 12)
         return context
 
@@ -41,7 +41,7 @@ class UserBooks(UserReviews):
     template_name = 'profile/profile books.html'
 
     def get(self, request, *args, **kwargs):
-        user = User.objects.get(pk=kwargs.get('pk'))
+        user = get_object_or_404(User, pk=kwargs.get('pk'))
 
         if user.is_author:
             return super(generic.DetailView, self).get(request, *args, **kwargs)
