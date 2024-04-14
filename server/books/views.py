@@ -126,7 +126,7 @@ def getBookInfoFromRequest(request, categories, book=None):
 def publicateBook(request):
     if request.user.is_author:
         page = 'books/book editing.html'
-        categories = Category.objects.all()
+        categories = Category.objects.all().only('name')
 
         if request.method == 'POST':
             bookInfo, bookCategories, error = getBookInfoFromRequest(request, categories)
@@ -143,10 +143,13 @@ def publicateBook(request):
 
 def editBook(request, pk):
     page = 'books/book editing.html'
-    book = get_object_or_404(Book, pk=pk)
+
+    book = get_object_or_404(Book.objects.all().select_related('author').only(
+        'name', 'cover', 'pages_number', 'description', 'file', 'author__photo', 'author__full_name',
+        'author__short_description'), pk=pk)
 
     if request.user.is_author and book.author == request.user:
-        notBookCategories = Category.objects.exclude(id__in=book.categories.all())
+        notBookCategories = Category.objects.exclude(id__in=book.categories.all()).only('name')
 
         if request.method == 'POST':
             bookInfo, bookCategories, error = getBookInfoFromRequest(request, Category.objects.all(), book)

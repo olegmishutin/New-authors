@@ -29,8 +29,8 @@ class Book(models.Model):
 
     @classmethod
     def getBooks(cls, **kwargs):
-        return cls.objects.filter(**kwargs).annotate(rating=Avg('review__rating', default=0),
-                                                     reviewsCount=Count('review'))
+        return cls.objects.filter(**kwargs).only('id', 'name', 'cover').annotate(
+            rating=Avg('review__rating', default=0), reviewsCount=Count('review'))
 
     def getRating(self):
         return round(self.review_set.all().aggregate(rating=Avg('rating', default=0)).get('rating'), 1)

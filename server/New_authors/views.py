@@ -8,12 +8,13 @@ from categories.models import Category
 def menu(request):
     context = {}
     books = Book.getBooks()
+    categories = Category.objects.all().prefetch_related('book_set').only('name')
 
     context['popularAuthor'] = User.getAuthors().order_by('-reviewsCount', '-rating')[:12]
     context['newBooks'] = books.order_by('-publication_date')[:12]
     context['popularBooks'] = books.order_by('-reviewsCount')[:12]
 
-    categoriesToRandomise = [category for category in Category.objects.all() if category.book_set.count() > 0]
+    categoriesToRandomise = [category for category in categories if category.book_set.count() > 0]
     context['category'] = random.choice(categoriesToRandomise) if categoriesToRandomise else []
     return render(request, 'menu.html', context)
 

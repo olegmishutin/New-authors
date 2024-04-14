@@ -8,6 +8,7 @@ from New_authors.helpers.classes import CustomDeleteView, AdminListView
 
 class Categories(generic.ListView):
     model = Category
+    queryset = Category.objects.all().prefetch_related('book_set')
     template_name = 'categories/categories.html'
     paginate_by = 12
 
@@ -21,7 +22,7 @@ class CategoriesAdmin(Categories, AdminListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
-        self.context['categoriesNumber'] = Category.objects.count()
+        self.context['categoriesNumber'] = self.queryset.count()
         return self.context
 
 

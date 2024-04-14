@@ -23,8 +23,8 @@ class User(AbstractUser):
 
     @classmethod
     def getAuthors(cls, **kwargs):
-        return cls.objects.filter(is_author=True, **kwargs).annotate(rating=Avg('book__review__rating', default=0),
-                                                                     reviewsCount=Count('book__review'))
+        return cls.objects.filter(is_author=True, **kwargs).only('full_name', 'photo').annotate(
+            rating=Avg('book__review__rating', default=0), reviewsCount=Count('book__review'))
 
     def getRating(self):
         booksRatingSum = 0

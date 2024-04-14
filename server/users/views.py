@@ -10,7 +10,8 @@ from New_authors.helpers.classes import CustomDeleteView, AdminListView
 def changeUserInfo(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            user = get_object_or_404(User, pk=request.user.id)
+            user = get_object_or_404(User.objects.all().only('full_name', 'photo', 'short_description'),
+                                     pk=request.user.id)
 
             user.setPhoto(request.FILES.get('photo'))
             user.setFullName(' '.join(request.POST.get('fullName').split()))
@@ -32,7 +33,9 @@ class UserReviews(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(user__id=context.get('profileUser').id).select_related('book')
+        reviews = Review.objects.filter(user__id=context.get('profileUser').id).select_related('book').only(
+            'text', 'rating', 'book__id', 'book__name')
+
         context['page_obj'] = self.createPagination(reviews, 12)
         return context
 
@@ -56,11 +59,9 @@ class UserBooks(UserReviews):
 
 class UsersAdmin(AdminListView):
     model = User
+    queryset = User.objects.exclude(is_author=True).only('full_name', 'photo')
     template_name = 'users admin.html'
     paginate_by = 24
-
-    def get_queryset(self):
-        return User.objects.exclude(is_author=True)
 
 
 class DeleteUser(CustomDeleteView):
