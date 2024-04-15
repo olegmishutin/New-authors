@@ -156,8 +156,10 @@
                 {% if user.is_authenticated %}
                     {% if user.is_author %}
                         <li><a href="{% url 'books:book-publication' %}">Опублиовать книгу</a></li>
+                        <li><a href="{% url 'users:user-books' user.id %}">Мой профиль</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:user-comments' user.id %}">Мой профиль</a></li>
                     {% endif %}
-                    <li><a href="{% url 'users:user-comments' user.id %}">Мой профиль</a></li>
                     <li><a id="open-user-settings-button">Изменить профиль</a></li>
                     <li><a href="{% url 'authentication:logout' %}">Выйти из аккаунта</a></li>
                 {% else %}

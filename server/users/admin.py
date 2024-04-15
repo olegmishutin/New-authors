@@ -14,6 +14,10 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('is_staff', 'is_active', 'is_author')
     readonly_fields = ('username', 'photo', 'short_description', 'full_name', 'email', 'date_joined')
 
+    def delete_queryset(self, request, queryset):
+        for user in queryset:
+            user.delete()
+
 
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)

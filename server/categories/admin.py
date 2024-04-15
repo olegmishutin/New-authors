@@ -9,5 +9,9 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     search_fields = ('name',)
 
+    def delete_queryset(self, request, queryset):
+        for category in queryset:
+            category.delete()
+
 
 admin.site.register(Category, CategoryAdmin)

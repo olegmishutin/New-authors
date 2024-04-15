@@ -18,9 +18,6 @@ class Category(models.Model):
 
     def delete(self, using=None, keep_parents=False):
         changeFile(self.icon, deleteOnly=True)
-
-        for book in self.book_set.all():
-            book.delete()
         return super(Category, self).delete()
 
     def __str__(self):

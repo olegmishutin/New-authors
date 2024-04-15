@@ -12,6 +12,10 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('publication_date', 'categories')
 
+    def delete_queryset(self, request, queryset):
+        for book in queryset:
+            book.delete()
+
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('user', 'book', 'rating')

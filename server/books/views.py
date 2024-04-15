@@ -114,9 +114,6 @@ def getBookInfoFromRequest(request, categories, book=None):
     bookForError = book if book else bookInfo
     bookCategories = [category for category in categories if request.POST.get(f'checkbox-{category.id}') == 'on']
 
-    if not bookCategories:
-        return bookForError, None, True
-
     for key, value in bookInfo.items():
         if not value:
             return bookForError, None, True
