@@ -33,8 +33,8 @@ class UserReviews(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(user__id=context.get('profileUser').id).select_related('book').only(
-            'text', 'rating', 'book__id', 'book__name')
+        reviews = Review.objects.filter(user__id=context.get('profileUser').id).select_related(
+            'book').prefetch_related('book__review_set').only('text', 'rating', 'book__id', 'book__name')
 
         context['page_obj'] = self.createPagination(reviews, 12)
         return context

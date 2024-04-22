@@ -8,7 +8,7 @@ from categories.models import Category
 def menu(request):
     context = {}
     books = Book.getBooks()
-    categories = Category.objects.all().prefetch_related('book_set').only('name')
+    categories = Category.objects.all().prefetch_related('book_set', 'book_set__review_set').only('name')
 
     context['popularAuthor'] = User.getAuthors().order_by('-reviewsCount', '-rating')[:12]
     context['newBooks'] = books.order_by('-publication_date')[:12]

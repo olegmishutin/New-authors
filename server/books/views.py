@@ -53,7 +53,8 @@ class BookPage(generic.DetailView):
         checkboxesFilters = {'newReviews': '-date_added', 'oldReviews': 'date_added',
                              'hightRatingReviews': '-rating', 'lowRatingReviews': 'rating'}
 
-        filteredContext = filterContext(self.request, kwargs.get('object').review_set.all(), checkboxesFilters)
+        reviews = kwargs.get('object').review_set.all().select_related('user')
+        filteredContext = filterContext(self.request, reviews, checkboxesFilters)
         self.context.update(filteredContext.get('context'))
 
         reviews = filteredContext.get('queryset')
