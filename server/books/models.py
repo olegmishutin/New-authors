@@ -15,6 +15,7 @@ class Book(models.Model):
     description = models.TextField(verbose_name='Описание')
     publication_date = models.DateField(auto_now=True, verbose_name='Дата создания')
     file = models.FileField(upload_to='books_files', verbose_name='Файл')
+    reviews = models.ManyToManyField(User, related_name='books_reviews', through='Review')
 
     class Meta:
         db_table = 'Book'
@@ -58,6 +59,7 @@ class Review(models.Model):
         db_table = 'Review'
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+        unique_together = ['user', 'book']
 
     def __str__(self):
         return self.text[:20]

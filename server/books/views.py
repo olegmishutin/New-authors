@@ -53,7 +53,12 @@ class BookPage(generic.DetailView):
         checkboxesFilters = {'newReviews': '-date_added', 'oldReviews': 'date_added',
                              'hightRatingReviews': '-rating', 'lowRatingReviews': 'rating'}
 
-        reviews = kwargs.get('object').review_set.all().select_related('user')
+        book = kwargs.get('object')
+        reviews = book.review_set.all().select_related('user')
+
+        if self.request.user.is_authenticated:
+            self.context['canComment'] = not book.review_set.filter(user=self.request.user).exists()
+
         filteredContext = filterContext(self.request, reviews, checkboxesFilters)
         self.context.update(filteredContext.get('context'))
 
@@ -77,7 +82,9 @@ def addReview(request, bookId):
         reviewRating = request.POST.get('reviewRating')
 
         if reviewText and reviewRating:
-            book.review_set.create(user=request.user, text=reviewText, rating=reviewRating)
+            review, created = book.review_set.get_or_create(user=request.user, defaults={
+                'text': reviewText, 'rating': reviewRating
+            })
         return redirect(request.META.get('HTTP_REFERER') + '#user-review')
     return HttpResponse(status=404)
 
