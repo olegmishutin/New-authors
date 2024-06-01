@@ -59,7 +59,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'New_authors.wsgi.application'
 
 config = configparser.ConfigParser()
-config.read(BASE_DIR / "database_settings.ini")
+config.read(SERVER_DIR / "database_settings.ini")
 dbConfig = config['DATABASE']
 
 DATABASES = {

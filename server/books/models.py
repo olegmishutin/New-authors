@@ -13,9 +13,9 @@ class Book(models.Model):
     cover = models.ImageField(upload_to='books_images', verbose_name='Обложка')
     pages_number = models.IntegerField(verbose_name='Количесвто страниц')
     description = models.TextField(verbose_name='Описание')
-    publication_date = models.DateField(auto_now=True, verbose_name='Дата создания')
+    publication_date = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     file = models.FileField(upload_to='books_files', verbose_name='Файл')
-    reviews = models.ManyToManyField(User, related_name='books_reviews', through='Review')
+    reviews = models.ManyToManyField(User, related_name='books_reviews', through='Review', verbose_name='Отзывы')
 
     class Meta:
         db_table = 'Book'
@@ -53,7 +53,7 @@ class Review(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name='Книга')
     text = models.TextField(verbose_name='Текст')
     rating = models.FloatField(verbose_name='Рейтинг')
-    date_added = models.DateField(auto_now=True, verbose_name='Дата добавления')
+    date_added = models.DateField(auto_now_add=True, verbose_name='Дата добавления')
 
     class Meta:
         db_table = 'Review'
