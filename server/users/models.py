@@ -12,7 +12,8 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=250, verbose_name='Полное имя (ФИО)')
     is_author = models.BooleanField(default=False, verbose_name='Является автором')
     photo = models.ImageField(upload_to='profiles_photo', verbose_name='Фото', null=True, blank=True)
-    short_description = models.CharField(max_length=450, verbose_name='Краткое описание', null=True, blank=True)
+    short_description = models.CharField(max_length=450, verbose_name='Краткое описание', default='', null=True,
+                                         blank=True)
 
     REQUIRED_FIELDS = ['email', 'full_name']
 
