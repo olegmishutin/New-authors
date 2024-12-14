@@ -1,0 +1,31 @@
+services:
+  pgdb:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_DB: 'new_authors'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '123456'
+    container_name: pgdb
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+    ports:
+      - '5432:5432'
+  backend:
+    build: .
+    command: >
+      sh -c "cd server && 
+              python manage.py makemigrations &&
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - .:/usr/src/app/server
+    hostname: 'localhost'
+    container_name: 'backend'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - pgdb
+
+volumes:
+  pgdbdata: {}
