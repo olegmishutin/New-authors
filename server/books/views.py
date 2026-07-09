@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse, FileResponse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Book, Review
+from .forms import BookModelForm
 from categories.models import Category
+from authors.mixins import IsAuthMixin
 from New_authors.helpers.functions import filterContext
 from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
@@ -126,113 +128,77 @@ class DeleteReview(CustomDeleteView):
         return reverse_lazy("users:user-comments", kwargs={"pk": self.request.user.id})
 
 
-def getBookInfoFromRequest(request, categories, book=None):
-    bookInfo = {
-        "author": request.user,
-        "cover": request.FILES.get("bookCover"),
-        "name": " ".join(request.POST.get("bookName").split()),
-        "description": request.POST.get("bookDesciption"),
-        "pages_number": request.POST.get("bookPagesNumber"),
-        "file": request.FILES.get("bookFile"),
-    }
+class BookManipulationAbstractView(IsAuthMixin):
+    model = Book
+    form_class = BookModelForm
+    template_name = "books/book editing.html"
 
-    if book and not bookInfo["cover"]:
-        bookInfo["cover"] = book.cover
+    def dispatch(self, request, *args, **kwargs):
+        res = super().dispatch(request, *args, **kwargs)
 
-    if book and not bookInfo["file"]:
-        bookInfo["file"] = book.file
+        if self.context_type == "edit":
+            if request.user.is_author and self.get_object().author == request.user:
+                return res
+            return self.handle_no_permission()
+        return res
 
-    bookForError = book if book else bookInfo
-    bookCategories = [
-        category
-        for category in categories
-        if request.POST.get(f"checkbox-{category.id}") == "on"
-    ]
+    def get_success_url(self):
+        return reverse("users:user-books", kwargs={"pk": self.object.pk})
 
-    for key, value in bookInfo.items():
-        if not value:
-            return bookForError, None, True
-    return bookInfo, bookCategories, False
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["context_type"] = self.context_type
+        kwargs["request"] = self.request
+        return kwargs
 
 
-def publicateBook(request):
-    if request.user.is_author:
-        page = "books/book editing.html"
-        categories = Category.objects.all().only("name")
+class PublicateBookView(BookManipulationAbstractView, generic.CreateView):
+    context_type = "create"
 
-        if request.method == "POST":
-            bookInfo, bookCategories, error = getBookInfoFromRequest(
-                request, categories
-            )
-            if error:
-                return render(
-                    request,
-                    page,
-                    {"book": bookInfo, "categories": categories, "type": "publicate"},
-                )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all().only("id", "name")
+        context["type"] = "publicate"
+        return context
 
-            book = Book.objects.create(**bookInfo)
-            book.categories.add(*bookCategories)
-
-            return redirect("users:user-books", request.user.id)
-        return render(request, page, {"categories": categories, "type": "publicate"})
-    return HttpResponse(status=403)
-
-
-def editBook(request, pk):
-    page = "books/book editing.html"
-
-    book = get_object_or_404(
-        Book.objects.all()
-        .select_related("author")
-        .only(
-            "name",
-            "cover",
-            "pages_number",
-            "description",
-            "file",
-            "author__photo",
-            "author__full_name",
-            "author__short_description",
-        ),
-        pk=pk,
-    )
-
-    if request.user.is_author and book.author == request.user:
-        notBookCategories = Category.objects.exclude(id__in=book.categories.all()).only(
-            "name"
+    def form_valid(self, form):
+        htt_resp = super().form_valid(form)
+        self.object.categories.add(
+            *[
+                category.id
+                for category in Category.objects.all().only("id")
+                if self.request.POST.get(f"checkbox-{category.id}") == "on"
+            ]
         )
+        return htt_resp
 
-        if request.method == "POST":
-            bookInfo, bookCategories, error = getBookInfoFromRequest(
-                request, Category.objects.all(), book
-            )
-            if error:
-                return render(
-                    request,
-                    page,
-                    {"book": book, "categories": notBookCategories, "type": "edit"},
-                )
 
-            book.categories.remove(*book.categories.all())
-            book.categories.add(*bookCategories)
+class EditBookView(BookManipulationAbstractView, generic.UpdateView):
+    context_type = "edit"
 
-            book.setCover(bookInfo["cover"])
-            book.name = bookInfo["name"]
-            book.description = bookInfo["description"]
-            book.pages_number = bookInfo["pages_number"]
-            book.setFile(bookInfo["file"])
-            book.save(
-                update_fields=["cover", "name", "description", "pages_number", "file"]
-            )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-            return redirect("users:user-books", request.user.id)
-        return render(
-            request,
-            page,
-            {"book": book, "categories": notBookCategories, "type": "edit"},
+        context["categories"] = Category.objects.exclude(
+            id__in=self.object.categories.all()
+        ).only("id", "name")
+
+        context["type"] = "edit"
+        return context
+
+    def form_valid(self, form):
+        htt_resp = super().form_valid(form)
+        self.object.categories.remove(*self.object.categories.all())
+        self.object.categories.add(
+            *[
+                category.id
+                for category in Category.objects.exclude(
+                    id__in=self.object.categories.all()
+                ).only("id")
+                if self.request.POST.get(f"checkbox-{category.id}") == "on"
+            ]
         )
-    return HttpResponse(status=403)
+        return htt_resp
 
 
 class DeleteBook(CustomDeleteView):

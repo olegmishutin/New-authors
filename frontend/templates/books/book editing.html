@@ -30,30 +30,40 @@
         {% csrf_token %}
         <div class="cover-input">
             <label class="input-file-button cover-file-input">
-                <input type="file" name="bookCover" accept="image/*" id="cover-image-input"
+                <input type="file" name="cover" accept="image/*" id="cover-image-input"
                        {% if type == 'publicate' %}required{% endif %}>
                 <img src="{% static 'image/cover.png' %}" alt="cover input" loading="lazy">
             </label>
             <p id="cover-status">Обложка</p>
+            {{ form.cover.errors }}
             <img class="cover-image {% if type == 'edit' %}show-cover-image{% endif %}" src="{{ book.cover.url }}"
                  alt="book cover" id="cover-image" loading="lazy">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
-            <input type="text" class="textbox dark-textbox" name="bookName" placeholder="Название вашей книги"
-                   value="{{ book.name }}" required>
-            <textarea class="textbox dark-textbox" name="bookDesciption"
-                      placeholder="Описание вашей книги">{{ book.description }}</textarea>
-            <div class="in-line-file-input">
-                <input type="number" class="textbox dark-textbox" name="bookPagesNumber"
-                       placeholder="Количество страниц книги" min="1" value="{{ book.pages_number }}" required>
-                <div class="button-box file-input-box">
-                    <label class="input-file-button button">
-                        <input type="file" name="bookFile" accept="application/pdf"
-                               {% if type == 'publicate' %}required{% endif %}>
-                        <img src="{% static 'image/file.svg' %}" alt="file" loading="lazy">
-                        <span>Файл книги</span>
-                    </label>
+            <div class="info-input__block">
+                <p>{{ form.name.errors }}</p>
+                <input type="text" class="textbox dark-textbox" name="name" placeholder="Название вашей книги"
+                    value="{{ book.name }}" required>
+            </div>
+            <div class="info-input__block">
+                <p>{{ form.description.errors }}</p>
+                <textarea class="textbox dark-textbox" name="description"
+                        placeholder="Описание вашей книги">{{ book.description }}</textarea>
+            </div>
+            <div class="info-input__block">
+                {{ form.pages_number.errors }}
+                <div class="in-line-file-input">
+                    <input type="number" class="textbox dark-textbox" name="pages_number"
+                        placeholder="Количество страниц книги" min="1" value="{{ book.pages_number }}" required>
+                    <div class="button-box file-input-box">
+                        <label class="input-file-button button">
+                            <input type="file" name="file" accept="application/pdf"
+                                {% if type == 'publicate' %}required{% endif %}>
+                            <img src="{% static 'image/file.svg' %}" alt="file" loading="lazy">
+                            <span>Файл книги</span>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="filters">
@@ -87,7 +97,9 @@
             </div>
             <h1 class="username">{{ user.full_name }}</h1>
             <div class="short-description">
-                <p>{{ user.short_description }}</p>
+                {% if user.short_description %}
+                    <p>{{ user.short_description }}</p>
+                {% endif %}
             </div>
         </div>
     </form>

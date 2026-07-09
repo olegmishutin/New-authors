@@ -9,7 +9,7 @@ urlpatterns = [
     path("book/download/<int:pk>/", views.downloadBookFile, name="download-book"),
     path("book/<int:bookId>/add-review", views.addReview, name="add-review"),
     path("delete-review/<int:pk>/", views.DeleteReview.as_view(), name="delete-review"),
-    path("book-publication/", views.publicateBook, name="book-publication"),
-    path("book/<int:pk>/editing/", views.editBook, name="book-editing"),
+    path("book-publication/", views.PublicateBookView.as_view(), name="book-publication"),
+    path("book/<int:pk>/editing/", views.EditBookView.as_view(), name="book-editing"),
     path("delete-book/<int:pk>/", views.DeleteBook.as_view(), name="delete-book"),
 ]
