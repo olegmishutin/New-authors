@@ -1,7 +1,7 @@
 from django.views import generic
 from users.models import User
 from New_authors.helpers.functions import filterContext
-from New_authors.helpers.classes import AdminListView
+from New_authors.helpers.classes import UserIsAdminMixin
 
 
 class Authors(generic.ListView):
@@ -25,7 +25,7 @@ class Authors(generic.ListView):
         return self.context
 
 
-class AuthorsAdmin(Authors, AdminListView):
+class AuthorsAdmin(UserIsAdminMixin, Authors):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True

@@ -1,14 +1,15 @@
 from django.views.generic import DeleteView, ListView
+from django.contrib.auth.mixins import AccessMixin
 from django.http import HttpResponse
 
 
 class CustomDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         return HttpResponse(status=404)
+    
 
-
-class AdminListView(ListView):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return super().get(request, *args, **kwargs)
-        return HttpResponse(status=403)
+class UserIsAdminMixin(AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)

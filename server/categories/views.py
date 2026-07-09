@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 from .models import Category
-from New_authors.helpers.classes import CustomDeleteView, AdminListView
+from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
 
 class Categories(generic.ListView):
@@ -18,7 +18,7 @@ class Categories(generic.ListView):
         return self.context
 
 
-class CategoriesAdmin(Categories, AdminListView):
+class CategoriesAdmin(UserIsAdminMixin, Categories):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True

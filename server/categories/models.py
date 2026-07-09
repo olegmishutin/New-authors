@@ -1,4 +1,3 @@
-import os
 from django.db import models
 from New_authors.helpers.functions import changeFile
 

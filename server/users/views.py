@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.core.paginator import Paginator
 from .models import User
 from books.models import Book, Review
-from New_authors.helpers.classes import CustomDeleteView, AdminListView
+from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
 
 def changeUserInfo(request):
@@ -57,7 +57,7 @@ class UserBooks(UserReviews):
         return context
 
 
-class UsersAdmin(AdminListView):
+class UsersAdmin(UserIsAdminMixin, generic.ListView):
     model = User
     queryset = User.objects.exclude(is_author=True).only('full_name', 'photo')
     template_name = 'users admin.html'

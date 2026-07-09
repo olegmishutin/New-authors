@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from .models import Book, Review
 from categories.models import Category
 from New_authors.helpers.functions import filterContext
-from New_authors.helpers.classes import CustomDeleteView, AdminListView
+from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
 
 class Books(generic.ListView):
@@ -36,7 +36,7 @@ class Books(generic.ListView):
         return self.context
 
 
-class BooksAdmin(Books, AdminListView):
+class BooksAdmin(UserIsAdminMixin, Books):
     def get_context_data(self, *, object_list=None, **kwargs):
         super().get_context_data(**kwargs)
         self.context['isAdmin'] = True
