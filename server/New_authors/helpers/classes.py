@@ -1,4 +1,4 @@
-from django.views.generic import DeleteView, ListView
+from django.views.generic import DeleteView
 from django.contrib.auth.mixins import AccessMixin
 from django.http import HttpResponse
 

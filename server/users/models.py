@@ -41,10 +41,6 @@ class User(AbstractUser):
     def setPhoto(self, photo):
         self.photo = changeFile(self.photo, photo)
 
-    def setFullName(self, fullName):
-        if fullName:
-            self.full_name = fullName
-
     def get_full_name(self):
         return self.full_name
 

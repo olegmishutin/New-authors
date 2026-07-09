@@ -3,29 +3,27 @@ from django.http import HttpResponse
 from django.views import generic
 from django.core.paginator import Paginator
 from .models import User
+from .forms import UserInfoForm
 from books.models import Book, Review
 from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
 
 def changeUserInfo(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            user = get_object_or_404(User.objects.all().only('full_name', 'photo', 'short_description'),
-                                     pk=request.user.id)
+    if request.method == "POST":
+        change_info_form = UserInfoForm(
+            request.POST, request.FILES, instance=request.user
+        )
 
-            user.setPhoto(request.FILES.get('photo'))
-            user.setFullName(' '.join(request.POST.get('fullName').split()))
-            user.short_description = request.POST.get('shortDescription')
-            user.save(update_fields=['full_name', 'photo', 'short_description'])
+        if change_info_form.is_valid():
+            change_info_form.save()
 
-            return redirect(request.META.get('HTTP_REFERER'))
-    return redirect('menu')
+        return redirect(request.META.get("HTTP_REFERER"))
 
 
 class UserReviews(generic.DetailView):
     model = User
-    template_name = 'profile/profile comments.html'
-    context_object_name = 'profileUser'
+    template_name = "profile/profile comments.html"
+    context_object_name = "profileUser"
 
     def createPagination(self, querySet, per_page):
         paginator = Paginator(querySet, per_page)
@@ -33,18 +31,22 @@ class UserReviews(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(user__id=context.get('profileUser').id).select_related(
-            'book').prefetch_related('book__review_set').only('text', 'rating', 'book__id', 'book__name')
+        reviews = (
+            Review.objects.filter(user__id=context.get("profileUser").id)
+            .select_related("book")
+            .prefetch_related("book__review_set")
+            .only("text", "rating", "book__id", "book__name")
+        )
 
-        context['page_obj'] = self.createPagination(reviews, 12)
+        context["page_obj"] = self.createPagination(reviews, 12)
         return context
 
 
 class UserBooks(UserReviews):
-    template_name = 'profile/profile books.html'
+    template_name = "profile/profile books.html"
 
     def get(self, request, *args, **kwargs):
-        user = get_object_or_404(User, pk=kwargs.get('pk'))
+        user = get_object_or_404(User, pk=kwargs.get("pk"))
 
         if user.is_author:
             return super(generic.DetailView, self).get(request, *args, **kwargs)
@@ -52,15 +54,15 @@ class UserBooks(UserReviews):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        books = Book.getBooks(author__id=context.get('profileUser').id)
-        context['page_obj'] = self.createPagination(books, 6)
+        books = Book.getBooks(author__id=context.get("profileUser").id)
+        context["page_obj"] = self.createPagination(books, 6)
         return context
 
 
 class UsersAdmin(UserIsAdminMixin, generic.ListView):
     model = User
-    queryset = User.objects.exclude(is_author=True).only('full_name', 'photo')
-    template_name = 'users admin.html'
+    queryset = User.objects.exclude(is_author=True).only("full_name", "photo")
+    template_name = "users admin.html"
     paginate_by = 24
 
 
@@ -73,4 +75,4 @@ class DeleteUser(CustomDeleteView):
         return HttpResponse(status=403)
 
     def get_success_url(self):
-        return self.request.META.get('HTTP_REFERER')
+        return self.request.META.get("HTTP_REFERER")
