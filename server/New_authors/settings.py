@@ -1,5 +1,8 @@
-import configparser
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+load_dotenv()
 
 SERVER_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = SERVER_DIR.parent
@@ -58,18 +61,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'New_authors.wsgi.application'
 
-config = configparser.ConfigParser()
-config.read(SERVER_DIR / "database_settings.ini")
-dbConfig = config['DATABASE']
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': dbConfig['NAME'],
-        'USER': dbConfig['USER'],
-        'PASSWORD': dbConfig['PASSWORD'],
-        'HOST': dbConfig['HOST'],
-        'PORT': dbConfig['PORT'],
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
