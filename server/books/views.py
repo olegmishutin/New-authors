@@ -2,10 +2,11 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse, FileResponse
 from django.views import generic
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Book, Review
-from .forms import BookModelForm
+from .forms import BookModelForm, ReviewModelForm
 from categories.models import Category
 from authors.mixins import IsAuthMixin
 from New_authors.helpers.functions import filterContext
@@ -99,19 +100,15 @@ def downloadBookFile(request, pk):
 
 
 @login_required()
+@require_POST
 def addReview(request, bookId):
-    if request.method == "POST":
-        book = get_object_or_404(Book, pk=bookId)
+    form = ReviewModelForm(
+        request.POST, request=request, book_instance=get_object_or_404(Book, pk=bookId)
+    )
+    if form.is_valid():
+        form.save()
 
-        reviewText = " ".join(request.POST.get("reviewText").split())
-        reviewRating = request.POST.get("reviewRating")
-
-        if reviewText and reviewRating:
-            review, created = book.review_set.get_or_create(
-                user=request.user, defaults={"text": reviewText, "rating": reviewRating}
-            )
-        return redirect(request.META.get("HTTP_REFERER") + "#user-review")
-    return HttpResponse(status=404)
+    return redirect(request.META.get("HTTP_REFERER") + "#user-review")
 
 
 class DeleteReview(CustomDeleteView):
