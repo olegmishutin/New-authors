@@ -15,12 +15,17 @@
     box-sizing: border-box;
 }
 
-.cover-input p {
+.cover-input p,
+.cover-input .errorlist{
     font-size: var(--medium-text);
     color: var(--front-color);
     font-weight: 600;
     z-index: 2;
     text-align: center;
+}
+
+.cover-input .errorlist{
+    font-size: 15px;
 }
 
 .cover-file-input {

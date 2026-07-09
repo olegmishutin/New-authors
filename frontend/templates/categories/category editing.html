@@ -27,20 +27,27 @@
         {% csrf_token %}
         <div class="cover-input">
             <label class="input-file-button cover-file-input">
-                <input type="file" name="categoryIcon" accept="image/*" id="cover-image-input"
+                <input type="file" name="icon" accept="image/*" id="cover-image-input"
                        {% if type == 'create' %}required{% endif %}>
                 <img src="{% static 'image/cover.png' %}" alt="cover input" loading="lazy">
             </label>
             <p id="cover-status">Иконка</p>
+            {{ form.icon.errors }}
             <img class="cover-image {% if type == 'edit' %}show-cover-image{% endif %}"
                  src="{{ category.icon.url }}" alt="cover" id="cover-image" loading="lazy">
             <script src="{% static 'js/cover input.js' %}"></script>
         </div>
         <div class="info-input">
-            <input type="text" name="categoryName" class="textbox dark-textbox" placeholder="Название категории"
-                   value="{{ category.name }}" required>
-            <textarea name="categoryShortDescription" class="textbox dark-textbox"
-                      placeholder="Краткое описание категории" required>{{ category.short_description }}</textarea>
+            <div class="info-input__block">
+                <span>{{ form.name.errors }}</span>
+                <input type="text" name="name" class="textbox dark-textbox" placeholder="Название категории"
+                    value="{{ category.name }}" required>
+            </div>
+            <div class="info-input__block">
+                <span>{{ form.short_description.errors }}</span>
+                <textarea name="short_description" class="textbox dark-textbox"
+                        placeholder="Краткое описание категории" required>{{ category.short_description }}</textarea>
+            </div>
             <div class="button-box">
                 <input type="submit" class="button"
                        value="{% if type == 'create' %}Создать{% else %}Изменить{% endif %} категорию">

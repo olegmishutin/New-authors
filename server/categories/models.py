@@ -4,7 +4,7 @@ from New_authors.helpers.functions import changeFile
 
 class Category(models.Model):
     icon = models.ImageField(upload_to='categories_icons', verbose_name='Иконка')
-    name = models.CharField(max_length=250, verbose_name='Название')
+    name = models.CharField(max_length=250, verbose_name='Название', unique=True)
     short_description = models.CharField(max_length=400, verbose_name='Краткое описание')
 
     class Meta:

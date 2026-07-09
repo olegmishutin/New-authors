@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 from .models import Category
+from .mixins import AdminCategoryUseCaseMixin
 from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
 
@@ -24,60 +24,14 @@ class CategoriesAdmin(UserIsAdminMixin, Categories):
         self.context['isAdmin'] = True
         self.context['categoriesNumber'] = self.queryset.count()
         return self.context
+    
 
+class CreateCategoryView(AdminCategoryUseCaseMixin, generic.CreateView):
+    context_type = 'create'
+    
 
-def getCategoryInfoFromRequest(request, category=None):
-    categoryInfo = {
-        'icon': request.FILES.get('categoryIcon'),
-        'name': ' '.join(request.POST.get('categoryName').split()),
-        'short_description': ' '.join(request.POST.get('categoryShortDescription').split())
-    }
-
-    if category and not categoryInfo['icon']:
-        categoryInfo['icon'] = category.icon
-
-    categoryForError = category if category else categoryInfo
-    for key, value in categoryInfo.items():
-        if not value:
-            return categoryForError, True
-    return categoryInfo, False
-
-
-def creatingCategory(request):
-    if request.user.is_superuser:
-        page = 'categories/category editing.html'
-
-        if request.method == 'POST':
-            categoryInfo, error = getCategoryInfoFromRequest(request)
-
-            if error:
-                return render(request, page, {'category': categoryInfo, 'type': 'create'})
-            Category.objects.create(**categoryInfo)
-
-            return redirect('categories:categories-admin')
-        return render(request, page, {'type': 'create'})
-    return HttpResponse(status=403)
-
-
-def editCategory(request, pk):
-    if request.user.is_superuser:
-        page = 'categories/category editing.html'
-        category = get_object_or_404(Category, pk=pk)
-
-        if request.method == 'POST':
-            categoryInfo, error = getCategoryInfoFromRequest(request, category)
-
-            if error:
-                return render(request, page, {'category': category, 'type': 'edit'})
-
-            category.setIcon(categoryInfo['icon'])
-            category.name = categoryInfo['name']
-            category.short_description = categoryInfo['short_description']
-            category.save(update_fields=['icon', 'name', 'short_description'])
-
-            return redirect('categories:categories-admin')
-        return render(request, page, {'category': category, 'type': 'edit'})
-    return HttpResponse(status=403)
+class EditCategoryView(AdminCategoryUseCaseMixin, generic.UpdateView):
+    context_type = 'edit'
 
 
 class DeleteCategory(CustomDeleteView):
