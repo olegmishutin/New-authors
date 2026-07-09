@@ -6,7 +6,7 @@ from django.http import HttpResponse
 class CustomDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         return HttpResponse(status=404)
-    
+
 
 class UserIsAdminMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):

@@ -10,8 +10,8 @@ class UserModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
-        self.fields['password'].validators = [MinLengthValidator(6)]
+
+        self.fields["password"].validators = [MinLengthValidator(6)]
 
     def save(self, commit=...):
         return User.objects.create_user(**self.cleaned_data)

@@ -16,6 +16,6 @@ def filterContext(request, queryset, checkboxesFilters):
     for checkbox, filter in checkboxesFilters.items():
         if request.GET.get(checkbox):
             filters.append(filter)
-            context[checkbox] = 'checked'
+            context[checkbox] = "checked"
 
     return queryset.order_by(*filters), context
