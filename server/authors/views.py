@@ -1,5 +1,4 @@
 from django.views import generic
-from django.http import HttpResponse
 from users.models import User
 from New_authors.helpers.functions import filterContext
 from New_authors.helpers.classes import AdminListView
@@ -16,13 +15,13 @@ class Authors(generic.ListView):
                              'newAuthors': '-date_joined', 'popularAuthors': '-reviewsCount'}
 
         self.authors = User.getAuthors()
-        self.filteredContext = filterContext(self.request, self.authors, checkboxesFilters)
-        return self.filteredContext.get('queryset')
+        queryset, self.filters_context = filterContext(self.request, self.authors, checkboxesFilters)
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.context = super().get_context_data(**kwargs)
         self.context['isAdmin'] = False
-        self.context.update(self.filteredContext.get('context'))
+        self.context.update(self.filters_context)
         return self.context
 
 

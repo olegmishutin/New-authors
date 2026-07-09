@@ -24,15 +24,15 @@ class Books(generic.ListView):
         checkboxesFilters = {'newBooks': '-publication_date', 'oldBooks': 'publication_date',
                              'hightRatingBooks': '-rating', 'lowRatingBooks': 'rating', 'popularBooks': '-reviewsCount'}
 
-        self.filteredContext = filterContext(self.request, self.books, checkboxesFilters)
-        return self.filteredContext.get('queryset')
+        queryset, self.filters_context = filterContext(self.request, self.books, checkboxesFilters)
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.context = super().get_context_data(**kwargs)
         self.context['isAdmin'] = False
         self.context['categories'] = self.categories
         self.context['checkedCategories'] = self.checkedCategories
-        self.context.update(self.filteredContext.get('context'))
+        self.context.update(self.filters_context)
         return self.context
 
 
@@ -59,10 +59,9 @@ class BookPage(generic.DetailView):
         if self.request.user.is_authenticated:
             self.context['canComment'] = not book.review_set.filter(user=self.request.user).exists()
 
-        filteredContext = filterContext(self.request, reviews, checkboxesFilters)
-        self.context.update(filteredContext.get('context'))
+        reviews, filters_context = filterContext(self.request, reviews, checkboxesFilters)
+        self.context.update(filters_context)
 
-        reviews = filteredContext.get('queryset')
         self.context['page_obj'] = Paginator(reviews, 30).get_page(self.request.GET.get('page'))
         return self.context
 

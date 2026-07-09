@@ -18,4 +18,4 @@ def filterContext(request, queryset, checkboxesFilters):
             filters.append(filter)
             context[checkbox] = 'checked'
 
-    return {'queryset': queryset.order_by(*filters), 'context': context}
+    return queryset.order_by(*filters), context

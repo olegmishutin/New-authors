@@ -2,3 +2,4 @@ venv
 .vscode
 /server/.env
 *__pycache__
+server/media
