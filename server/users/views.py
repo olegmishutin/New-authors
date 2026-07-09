@@ -2,12 +2,14 @@ from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from .models import User
 from .forms import UserInfoForm
 from books.models import Book, Review
 from New_authors.helpers.classes import CustomDeleteView, UserIsAdminMixin
 
 
+@login_required
 def changeUserInfo(request):
     if request.method == "POST":
         change_info_form = UserInfoForm(
