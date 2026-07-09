@@ -68,13 +68,8 @@ class UsersAdmin(UserIsAdminMixin, generic.ListView):
     paginate_by = 24
 
 
-class DeleteUser(CustomDeleteView):
+class DeleteUser(UserIsAdminMixin, CustomDeleteView):
     model = User
-
-    def post(self, request, *args, **kwargs):
-        if self.request.user.is_superuser:
-            return super().post(request, *args, **kwargs)
-        return HttpResponse(status=403)
 
     def get_success_url(self):
         return self.request.META.get("HTTP_REFERER")
