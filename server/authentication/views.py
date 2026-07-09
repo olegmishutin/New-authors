@@ -1,82 +1,25 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
-from email_validator import validate_email, EmailNotValidError
+from django.shortcuts import redirect
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 from users.models import User
+from .forms import UserModelForm
 
 
-def errorRender(request, template, errorType, message):
-    return render(request, template, {f'{errorType}Error': message, 'fullNameValue': request.POST.get('fullName'),
-                                      'usernameValue': request.POST.get('username'),
-                                      'emailValue': request.POST.get('email'),
-                                      'passwordValue': request.POST.get('password')})
+class RegisterView(CreateView):
+    model = User
+    form_class = UserModelForm
+    template_name = "authentication/sign-up.html"
+    success_url = reverse_lazy("menu")
 
 
-def signUp(request):
-    currentTemplate = 'authentication/sign-up.html'
-
-    if request.method == 'POST':
-        postData = dict(request.POST)
-
-        for key, value in postData.items():
-            postData[key] = value = ' '.join(value[0].split())
-            if not value:
-                return errorRender(request, currentTemplate, key, 'Это поле не может быть пустым!')
-
-        fullName = postData.get('fullName')
-        username = postData.get('username')
-        email = postData.get('email')
-        password = postData.get('password')
-        userType = postData.get('userType')
-
-        try:
-            email = validate_email(email, check_deliverability=True).normalized
-        except EmailNotValidError:
-            return errorRender(request, currentTemplate, 'email', 'Недействительный адрес почты!')
-
-        if ' ' in username:
-            return errorRender(request, currentTemplate, 'username', 'Имя пользователя не может содержать пробелы!')
-
-        if ' ' in password:
-            return errorRender(request, currentTemplate, 'password', 'Пароль не может содержать пробелы!')
-
-        if len(password) < 6:
-            return errorRender(request, currentTemplate, 'password', 'Пароль должен быть больше 5 символов!')
-
-        try:
-            user = User.objects.create_user(username=username, email=email, password=password, full_name=fullName,
-                                            is_author=True if userType == 'author' else False)
-        except IntegrityError:
-            return errorRender(request, currentTemplate, 'username', 'Такое имя пользователя уже занято!')
-        return redirect('authentication:sign-in')
-
-    if request.user.is_anonymous:
-        return render(request, currentTemplate)
-    return redirect('menu')
+class SignInView(LoginView):
+    template_name = "authentication/sign-in.html"
 
 
-def signIn(request):
-    currentTemplate = 'authentication/sign-in.html'
-
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        if not username or not password:
-            return errorRender(request, currentTemplate, f'username', 'Поля не могут быть пустыми!')
-
-        user = authenticate(username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('menu')
-        return errorRender(request, currentTemplate, 'username', 'Пользователь с таким именем и паролем не найден')
-
-    if request.user.is_anonymous:
-        return render(request, currentTemplate)
-    return redirect('menu')
-
-
+@login_required()
 def logoutUser(request):
-    if request.user.is_authenticated:
-        logout(request)
-    return redirect('authentication:sign-in')
+    logout(request)
+    return redirect("authentication:sign-in")

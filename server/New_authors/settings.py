@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = 'authentication:sign-in'
+LOGIN_REDIRECT_URL = 'menu'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'Ru-ru'
 
-TIME_ZONE = 'W-SU'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
