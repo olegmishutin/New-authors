@@ -1,12 +1,12 @@
 services:
   pgdb:
-    image: postgres:17
+    image: postgres:17.2
     restart: always
+    container_name: 'pgdb'
     environment:
-      POSTGRES_DB: 'new_authors'
+      POSTGRES_DB: 'active_scope'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '123456'
-    container_name: pgdb
     volumes:
       - pgdbdata:/var/lib/postgresql/data/
     ports:
@@ -20,8 +20,13 @@ services:
               python manage.py runserver 0.0.0.0:8080"
     volumes:
       - .:/usr/src/app/server
-    hostname: 'localhost'
     container_name: 'backend'
+    environment:
+      DB_NAME: 'new_authors'
+      DB_USER: 'postgres'
+      DB_PASSWORD: '123456'
+      DB_HOST: 'pgdb'
+      DB_PORT: '5432'
     ports:
       - '8080:8080'
     depends_on:
